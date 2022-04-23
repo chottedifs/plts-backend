@@ -16,6 +16,15 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        $roles = array_alice(func_get_args(), 2);
+
+        foreach ($roles as $role) {
+            $user = \Auth::user()->role();
+            if($user == $role){
+                return $next($request);
+            }
+        }
+
+        return redirect('/');
     }
 }
