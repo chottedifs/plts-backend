@@ -19,7 +19,16 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'email_verified_at' => date('Y-m-d H:i:s', time()),
             'password' => \bcrypt('admin123'),
-            'roles' => 'admin',
+            'roles' => true,
+            'is_active' => true
+        ]);
+
+        User::create([
+            'name' => 'Admin 2',
+            'email' => 'admin2@gmail.com',
+            'email_verified_at' => date('Y-m-d H:i:s', time()),
+            'password' => \bcrypt('admin123'),
+            'roles' => true,
             'is_active' => true
         ]);
     }

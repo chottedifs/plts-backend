@@ -12,6 +12,8 @@
 <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+{{-- Datatable Style --}}
+<link rel="stylesheet" href="{{ asset('assets/template/assets/css/lib/datatable/dataTables.bootstrap.min.css')}}">
 <style>
     #weatherWidget .currentDesc {
         color: #ffffff!important;

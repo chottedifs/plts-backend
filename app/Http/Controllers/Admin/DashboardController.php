@@ -9,6 +9,8 @@ use Auth;
 class DashboardController extends Controller
 {
     public function index(){
-        return view('pages.dashboard.admin.dashboard');
+        return view('pages.dashboard.admin.dashboard',[
+            "title" => "Dashboard"
+        ]);
     }
 }

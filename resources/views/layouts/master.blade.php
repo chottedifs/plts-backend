@@ -6,9 +6,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Dashboard</title>
+    <title>Dashboard | {{ $title }}</title>
     <meta name="description" content="ShaynaAdmin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
     @include('components.dashboard.style')
 
@@ -21,6 +22,7 @@
 
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
+        @include('sweetalert::alert')
         <!-- Navbar Header-->
         @include('components.dashboard.navbar')
         <!-- /#Navbar Header -->
