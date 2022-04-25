@@ -16,14 +16,14 @@
                             <h4 class="box-title">{{ $title }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="/admin/dashboard/rate/{{ $rate->id }}">
+                            <form method="post" action="{{ route('rate.update', $rate->id) }}">
                                 @method('put')
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="type" class="form-label">Type Rate</label>
+                                        <label for="type" class="form-label">Tipe Kios</label>
                                         <input type="text" name="type" class="form-control @error('type') is-invalid @enderror" id="type" autofocus value="{{ old('type', $rate->type) }}">
-                                        @error('type') 
+                                        @error('type')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -32,9 +32,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="price" class="form-label">Price</label>
+                                        <label for="price" class="form-label">Tarif Dasar Kios</label>
                                         <input type="text" name="price" class="form-control @error('price') is-invalid @enderror" id="price" autofocus value="{{ old('price', $rate->price) }}">
-                                        @error('price') 
+                                        @error('price')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

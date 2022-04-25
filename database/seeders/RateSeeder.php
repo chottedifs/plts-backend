@@ -15,12 +15,12 @@ class RateSeeder extends Seeder
     public function run()
     {
         Rate::create([
-            "type" => "contoh 1",
+            "type" => "Premium",
             "price" => 500000
         ]);
 
         Rate::create([
-            "type" => "contoh 2",
+            "type" => "Silver",
             "price" => 600000
         ]);
     }

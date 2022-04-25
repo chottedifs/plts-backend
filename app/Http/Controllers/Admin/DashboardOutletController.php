@@ -21,9 +21,9 @@ class DashboardOutletController extends Controller
     public function index()
     {
         return view('pages.dashboard.admin.outlets.index', [
-            "title" => "Data Outlet",
+            "title" => "Data Kios",
             "outlets" => Outlet::all(),
-            "users" => User::all(),
+            // "users" => User::all(),
             "rates" => Rate::all()
         ]);
     }
@@ -37,7 +37,7 @@ class DashboardOutletController extends Controller
     {
         return view('pages.dashboard.admin.outlets.createOutlet', [
             "title" => "Create New Outlet",
-            "users" => User::all(),
+            // "users" => User::all(),
             "rates" => Rate::all()
         ]);
     }
@@ -51,14 +51,15 @@ class DashboardOutletController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            "name_outlet" => "required|max:255",
-            "id_user" => "required",
+            // "id_user" => "required",
             "id_rate" => "required",
+            "name_kios" => "required|max:255",
+            "luas_kios" => "required"
         ]);
 
         Outlet::create($validatedData);
         Alert::toast('Outlet berhasil ditambahkan!','success');
-        return redirect('/admin/dashboard/outlet');
+        return redirect('dashboard/outlet');
     }
 
     /**
@@ -83,7 +84,7 @@ class DashboardOutletController extends Controller
         return view('pages.dashboard.admin.outlets.editOutlet', [
             "title" => "Edit Outlet",
             "outlet" => $outlet,
-            "users" => User::all(),
+            // "users" => User::all(),
             "rates" => Rate::all()
         ]);
     }
@@ -97,16 +98,18 @@ class DashboardOutletController extends Controller
      */
     public function update(Request $request,Outlet $outlet)
     {
-        $validatedData = $request->validate([
-            "name_outlet" => "required|max:255",
-            "id_user" => "required",
-            "id_rate" => "required",
-        ]);
+        // $validatedData = $request->validate([
+        //     "id_user" => "required",
+        //     "id_rate" => "required",
+        //     "name_outlet" => "required|max:255",
+        //     "luas_kios" => "required",
+        //     "status_kios" => "required"
+        // ]);
 
-        Outlet::where('id', $outlet->id)->update($validatedData);
+        // Outlet::where('id', $outlet->id)->update($validatedData);
 
-        Alert::toast('Outlet berhasil di update!','success');
-        return redirect('/admin/dashboard/outlet')->with('success', 'Outlet has been Updated!');
+        // Alert::toast('Outlet berhasil di update!','success');
+        // return redirect('/admin/dashboard/outlet')->with('success', 'Outlet has been Updated!');
     }
 
     /**
@@ -117,9 +120,26 @@ class DashboardOutletController extends Controller
      */
     public function destroy($id)
     {
-        Outlet::destroy($id);
+        // Outlet::destroy($id);
+        // Alert::toast('Outlet telah dihapus!','warning');
+        // return redirect('/admin/dashboard/outlet')->with('success', 'Outlet has been deleted!');
+    }
 
-        Alert::toast('Outlet telah dihapus!','warning');
-        return redirect('/admin/dashboard/outlet')->with('success', 'Outlet has been deleted!');
+    public function setStatusAvailable(Request $request,Outlet $outlet)
+    {
+        $outlet->status_kios = true;
+        $outlet->save();
+
+        Alert::toast('Status kios berhasil di update!','success');
+        return redirect('dashboard/outlet');
+    }
+
+    public function setStatusNotAvailable(Request $request,Outlet $outlet)
+    {
+        $outlet->status_kios = false;
+        $outlet->save();
+
+        Alert::toast('Status kios berhasil di update!','success');
+        return redirect('dashboard/outlet');
     }
 }

@@ -15,9 +15,11 @@ class CreateOutletsTable extends Migration
     {
         Schema::create('outlets', function (Blueprint $table) {
             $table->id();
-            $table->string('name_outlet');
-            $table->foreignId('id_user');
+            // $table->foreignId('id_user');
             $table->foreignId('id_rate');
+            $table->string('name_kios');
+            $table->string('luas_kios');
+            $table->boolean('status_kios')->default(true);
             $table->timestamps();
         });
     }

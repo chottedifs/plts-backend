@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rate;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\User;
+use App\Models\Outlet;
+use App\Models\Tagihan;
 
-class RateController extends Controller
+class TagihanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,11 @@ class RateController extends Controller
      */
     public function index()
     {
-        return View('pages.dashboard.admin.rates.index', [
-            "title" => "Tarif Kios",
-            "rates" => Rate::all()
+        return view('pages.dashboard.admin.tagihan.index',[
+            'title' => 'Tagihan Kios',
+            'users' => User::all(),
+            'outlets' => Outlet::all(),
+            'transactions' => Tagihan::all(),
         ]);
     }
 
@@ -30,9 +32,7 @@ class RateController extends Controller
      */
     public function create()
     {
-        return View('pages.dashboard.admin.rates.createRate', [
-            "title" => "Create Rate"
-        ]);
+        //
     }
 
     /**
@@ -43,15 +43,7 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            "type" => "required|max:255",
-            "price" => "required|numeric",
-        ]);
-
-        Rate::create($validatedData);
-
-        Alert::toast('Rate berhasil di Tambah!','success');
-        return redirect('dashboard/rate');
+        //
     }
 
     /**
@@ -71,12 +63,9 @@ class RateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rate $rate)
+    public function edit($id)
     {
-        return view('pages.dashboard.admin.rates.editRate', [
-            "title" => "Edit Rate",
-            "rate" => $rate
-        ]);
+        //
     }
 
     /**
@@ -86,16 +75,9 @@ class RateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Rate $rate)
+    public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            "type" => "required|max:255",
-            "price" => "required|numeric",
-        ]);
-        Rate::where('id', $rate->id)->update($validatedData);
-
-        Alert::toast('Rate berhasil di update!','success');
-        return redirect('dashboard/rate');
+        //
     }
 
     /**
@@ -106,9 +88,6 @@ class RateController extends Controller
      */
     public function destroy($id)
     {
-        Rate::destroy($id);
-
-        Alert::toast('Rate berhasil di Hapus!','success');
-        return redirect('dashboard/rate');
+        //
     }
 }

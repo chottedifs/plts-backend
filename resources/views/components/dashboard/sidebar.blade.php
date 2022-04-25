@@ -3,19 +3,22 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href=""><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                    <a href="{{ route('admin-dashboard') }}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                 </li>
-                <li class="menu-title">Outlet</li><!-- /.menu-title -->
+                <li class="menu-title">Kios</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="/admin/dashboard/outlet"> <i class="menu-icon fa fa-list"></i>Data Outlet</a>
+                    <a href="#"> <i class="menu-icon fa fa-list"></i>Data Penyewa Kios</a>
                 </li>
                 <li class="">
-                    <a href="/admin/dashboard/rate"> <i class="menu-icon fa fa-plus"></i>Type Outlet</a>
+                    <a href="{{ route('outlet.index') }}"> <i class="menu-icon fa fa-list"></i>Data Kios</a>
+                </li>
+                <li class="">
+                    <a href="{{ route('rate.index')}}"> <i class="menu-icon fa fa-plus"></i>Tarif Kios</a>
                 </li>
 
                 <li class="menu-title">Keuangan</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="#"> <i class="menu-icon fa fa-list"></i>Tagihan Outlet</a>
+                    <a href="{{ route('tagihan.index') }}"> <i class="menu-icon fa fa-list"></i>Tagihan Outlet</a>
                 </li>
                 <li class="">
                     <a href="#"> <i class="menu-icon fa fa-plus"></i>Konfirmasi Tagihan</a>

@@ -46,8 +46,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function outlet()
+    // public function outlet()
+    // {
+    //     return $this->HasOne(Outlet::class);
+    // }
+
+    /**
+     * Get the user that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tagihan(): BelongsTo
     {
-        return $this->HasOne(Outlet::class);
+        return $this->belongsTo(Tagihan::class, 'id_tagihan');
     }
 }

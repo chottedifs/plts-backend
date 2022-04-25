@@ -15,15 +15,20 @@ class OutletSeeder extends Seeder
     public function run()
     {
         Outlet::create([
-            'name_outlet' => 'Toko 1',
-            'id_user' => 1,
-            'id_rate' => 1
+            // 'id_user' => 1,
+            'id_rate' => 1,
+            'name_kios' => 'KIOS 001',
+            'luas_kios' => '3 x 4',
+            'status_kios' => true
         ]);
 
         Outlet::create([
-            'name_outlet' => 'Toko 2',
-            'id_user' => 2,
-            'id_rate' => 2
+            // 'id_user' => 2,
+            'id_rate' => 2,
+            'name_kios' => 'KIOS 002',
+            'luas_kios' => '4 x 4',
+            'status_kios' => true
         ]);
+
     }
 }

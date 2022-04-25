@@ -32,34 +32,23 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('rate.create') }}" class="btn btn-primary">Tambah Tarif Kios</a>
+                        <a href="{{ route('tagihan.create') }}" class="btn btn-primary">Tambah {{ $title }}</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nama Tipe Tarif</th>
-                                    <th>Tarif Dasar Kios</th>
-                                    <th>Action</th>
+                                    <th>Nama Kios</th>
+                                    <th>Kwh Awal</th>
+                                    <th>Kwh Akhir</th>
+                                    <th>Pemakaian Kwh</th>
+                                    <th>Jumlah Tagihan</th>
+                                    <th>Periode</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($rates as $rate)
-                                <tr>
-                                    <td class="serial">{{ $loop->iteration }}</td>
-                                    <td>{{ $rate->type }}</td>
-                                    <td>{{ $rate->price }}</td>
-                                    <td>
-                                        <a href="{{route('rate.edit', $rate->id)}}" class="btn-sm badge-warning"><i class="fa fa-edit mr-2"></i>Edit Tarif</a>
-                                        {{-- <form action="/admin/dashboard/rate/{{ $rate->id }}" method="post" class="d-inline">
-                                            @method('delete')
-                                            @csrf
-                                            <button class="btn-sm bg-danger text-white border-0" onclick="return confirm('Are You Sure!')"><i class="fa fa-trash-o"></i></button>
-                                        </form> --}}
-                                    </td>
-                                </tr>
-                                @endforeach
+
                             </tbody>
                         </table>
                     </div>

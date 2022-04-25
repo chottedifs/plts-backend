@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController as AdminController;
 use App\Http\Controllers\Admin\DashboardOutletController;
 use App\Http\Controllers\Admin\RateController;
+use App\Http\Controllers\Admin\TagihanController;
 use App\Http\Controllers\Operator\DashboardController as OperatorController;
 use App\Http\Controllers\User\DashboardController as UserController;
 
@@ -28,23 +29,17 @@ Route::get('/', function () {
 Route::middleware(['auth'])->group(function () {
     // Dashboard Routes
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-    
-    // Admin Dashboard
-    Route::prefix('admin/dashboard')->namespace('Admin')->name('admin.')->middleware('checkRole:admin')->group(function(){
-        Route::get('/', [AdminController::class, 'index'])->name('dashboard');
-        // Route::resource('outlet', 'DashboardOutletController');
-        // Route::get('outlet', [OutletController::class, 'index'])->name('outlet');
-        // Route::get('outlet', [DashboardOutletController::class, 'index'])->name('outlet');
+
+    Route::middleware(['checkRole:admin'])->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('admin-dashboard');
+        Route::resource('dashboard/outlet', DashboardOutletController::class);
+        Route::resource('dashboard/rate', RateController::class);
+        Route::resource('dashboard/tagihan', TagihanController::class);
+        // Action Status Kios
+        Route::post('status-available/{outlet}', [DashboardOutletController::class, 'setStatusAvailable'])->name('status-available');
+        Route::post('status-notAvailable/{outlet}', [DashboardOutletController::class, 'setStatusNotAvailable'])->name('status-notAvailable');
     });
 
-    // Operator Dashboard
-    Route::prefix('operator/dashboard')->namespace('Operator')->name('operator.')->middleware('checkRole:operator')->group(function(){
-        Route::get('/', [OperatorController::class, 'index'])->name('dashboard');
-        
-    });
-
-    Route::resource('/admin/dashboard/outlet', DashboardOutletController::class);
-    Route::resource('/admin/dashboard/rate', RateController::class);
 });
 
 
