@@ -19,7 +19,7 @@ class CreateOutletsTable extends Migration
             $table->foreignId('id_rate');
             $table->string('name_kios');
             $table->string('luas_kios');
-            $table->boolean('status_kios')->default(true);
+            $table->boolean('status_kios')->default(false);
             $table->timestamps();
         });
     }

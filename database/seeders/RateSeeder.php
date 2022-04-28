@@ -16,12 +16,17 @@ class RateSeeder extends Seeder
     {
         Rate::create([
             "type" => "Premium",
+            "price" => 600000
+        ]);
+
+        Rate::create([
+            "type" => "Gold",
             "price" => 500000
         ]);
 
         Rate::create([
             "type" => "Silver",
-            "price" => 600000
+            "price" => 400000
         ]);
     }
 }

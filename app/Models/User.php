@@ -18,13 +18,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'phone_number',
-        'roles',
-        'is_active'
+    protected $guarded = [
+        'id'
     ];
 
     /**
@@ -56,6 +51,12 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+
+    public function outlet()
+    {
+        return $this->belongsTo(Outlet::class, 'id_outlet');
+    }
+    
     public function tagihan(): BelongsTo
     {
         return $this->belongsTo(Tagihan::class, 'id_tagihan');

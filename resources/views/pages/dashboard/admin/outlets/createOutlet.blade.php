@@ -17,20 +17,10 @@
                         <div class="card-body">
                             <form method="post" action="{{ route('outlet.store') }}">
                                 @csrf
-                                {{-- <div class="row">
-                                    <div class="mb-3 col-lg-12">
-                                        <label for="id_user" class="form-label">Nama Penyewa Kios</label>
-                                        <select name="id_user" id="id_user" class="form-control">
-                                            @foreach($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div> --}}
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="name_kios" class="form-label">Nama Kios</label>
-                                        <input type="text" name="name_kios" class="form-control @error('name_kios') is-invalid @enderror" id="name_kios" autofocus>
+                                        <input type="text" name="name_kios" class="form-control @error('name_kios') is-invalid @enderror" id="name_kios" autofocus value="{{ old("name_kios") }}">
                                         @error('name_kios')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -43,7 +33,11 @@
                                         <label for="id_rate" class="form-label">Type Outlet</label>
                                         <select name="id_rate" id="id_rate" class="form-control">
                                             @foreach($rates as $rate)
+                                            @if(old("id_rate") == $rate->id)
                                             <option value="{{ $rate->id }}">{{ $rate->type }}</option>
+                                            @else
+                                            <option value="{{ $rate->id }}">{{ $rate->type }}</option>
+                                            @endif
                                             @endforeach
                                         </select>
                                     </div>

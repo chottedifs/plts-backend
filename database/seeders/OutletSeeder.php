@@ -30,5 +30,19 @@ class OutletSeeder extends Seeder
             'status_kios' => true
         ]);
 
+        Outlet::create([
+            // 'id_user' => 2,
+            'id_rate' => 3,
+            'name_kios' => 'KIOS 003',
+            'luas_kios' => '4 x 5',
+        ]);
+
+        Outlet::create([
+            // 'id_user' => 2,
+            'id_rate' => 2,
+            'name_kios' => 'KIOS 004',
+            'luas_kios' => '5 x 5',
+        ]);
+
     }
 }

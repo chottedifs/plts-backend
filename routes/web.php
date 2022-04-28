@@ -6,8 +6,8 @@ use App\Http\Controllers\Admin\DashboardController as AdminController;
 use App\Http\Controllers\Admin\DashboardOutletController;
 use App\Http\Controllers\Admin\RateController;
 use App\Http\Controllers\Admin\TagihanController;
-use App\Http\Controllers\Operator\DashboardController as OperatorController;
-use App\Http\Controllers\User\DashboardController as UserController;
+// use App\Http\Controllers\Operator\DashboardController as OperatorController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('dashboard/outlet', DashboardOutletController::class);
         Route::resource('dashboard/rate', RateController::class);
         Route::resource('dashboard/tagihan', TagihanController::class);
+        Route::resource('dashboard/user', UserController::class);
         // Action Status Kios
         Route::post('status-available/{outlet}', [DashboardOutletController::class, 'setStatusAvailable'])->name('status-available');
         Route::post('status-notAvailable/{outlet}', [DashboardOutletController::class, 'setStatusNotAvailable'])->name('status-notAvailable');
