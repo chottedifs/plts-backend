@@ -110,12 +110,12 @@
                 <h5 class="text-center fw-bold" id="largeModalLabel">Detail User {{ $user->name }}</h5>
             </div>
             <div class="modal-body">
-                <h4>Name : {{ $user->name }}</h4>
-                <h4>Email : {{ $user->email }}</h4>
-                <h4>Outlet : {{ $user->outlet->name_kios }}</h4>
-                <h4>Type : {{ $user->outlet->rate->type }}</h4>
-                <h4>Price : Rp.{{ number_format($user->outlet->rate->price,0,',','.') }}</h4>
-                <h4>Phone Number : {{ $user->phone_number }}</h4>
+                <h4 class="pb-2">Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: {{ $user->name }}</h4>
+                <h4 class="pb-2">Email &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : {{ $user->email }}</h4>
+                <h4 class="pb-2">Outlet&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: {{ $user->outlet->name_kios }}</h4>
+                <h4 class="pb-2">Type  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: {{ $user->outlet->rate->type }}</h4>
+                <h4 class="pb-2">Price  &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: Rp.{{ number_format($user->outlet->rate->price,0,',','.') }}</h4>
+                <h4 class="pb-2">Phone Number : {{ $user->phone_number }}</h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
