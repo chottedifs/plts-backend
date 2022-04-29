@@ -56,12 +56,12 @@
                                     <td>{{ $user->outlet->name_kios }}</td>
                                     <td>{{ $user->outlet->rate->type }}</td>
                                     <td>
-                                        <a href="{{route('user.edit', $user->id)}}" class="badge badge-warning"><i class="fa fa-edit"></i></a>
-                                        <button class="badge badge-success border-0 d-inline" data-toggle="modal" data-target="#largeModal{{ $user->id }}"><i class="fa fa-solid fa-eye"></i></button> 
+                                        <a href="{{route('user.edit', $user->id)}}" class="badge badge-warning mt-2"><i class="fa fa-edit"></i></a>
+                                        <button class="badge badge-success border-0 d-inline mt-2" data-toggle="modal" data-target="#largeModal{{ $user->id }}"><i class="fa fa-solid fa-eye"></i></button> 
                                         <form action="{{route('user.destroy', $user->id)}}" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
-                                            <button class="badge badge-danger border-0" onclick="return confirm('Are You Sure!')"><i class="fa fa-times-circle"></i></button>
+                                            <button class="badge badge-danger border-0 mt-2" onclick="return confirm('Are You Sure!')"><i class="fa fa-times-circle"></i></button>
                                         </form>
                                     </td>
                                     {{-- <td>
@@ -107,15 +107,14 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="largeModalLabel">Large Modal</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="text-center fw-bold" id="largeModalLabel">Detail User {{ $user->name }}</h5>
             </div>
             <div class="modal-body">
                 <h4>Name : {{ $user->name }}</h4>
                 <h4>Email : {{ $user->email }}</h4>
-                <h4>Outlet & type : {{ $user->outlet->name_kios }} & {{ $user->outlet->rate->type }} {{ $user->outlet->rate->price }}</h4>
+                <h4>Outlet : {{ $user->outlet->name_kios }}</h4>
+                <h4>Type : {{ $user->outlet->rate->type }}</h4>
+                <h4>Price : Rp.{{ number_format($user->outlet->rate->price,0,',','.') }}</h4>
                 <h4>Phone Number : {{ $user->phone_number }}</h4>
             </div>
             <div class="modal-footer">

@@ -49,7 +49,7 @@
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
                                     <td>{{ $rate->type }}</td>
-                                    <td>{{ $rate->price }}</td>
+                                    <td>{{ 'Rp.'.number_format($rate->price,0,',','.') }}</td>
                                     <td>
                                         <a href="{{route('rate.edit', $rate->id)}}" class="btn-sm badge-warning"><i class="fa fa-edit mr-2"></i>Edit Tarif</a>
                                         {{-- <form action="/admin/dashboard/rate/{{ $rate->id }}" method="post" class="d-inline">

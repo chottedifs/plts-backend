@@ -115,10 +115,13 @@ class UserController extends Controller
 
         // membuat kios sebelumnya di false
         if($validatedData["id_outlet"] != $user->id_outlet){
+            // ddd($validatedData["id_outlet"] ."|". $user->id_outlet);
             $outletStatus["status_kios"] = false;
             Outlet::where('id', $user->id_outlet)->update($outletStatus);
         }
         User::where('id', $user->id)->update($validatedData);
+        $outletStatus["status_kios"] = true;
+        Outlet::where('id', $validatedData["id_outlet"])->update($outletStatus);
         Alert::toast('User berhasil diUpdate!','success');
         return redirect('dashboard/user');
     }
