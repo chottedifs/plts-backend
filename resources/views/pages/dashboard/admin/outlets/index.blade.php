@@ -45,6 +45,7 @@
                                     <th>Tipe Tarif</th>
                                     <th>Luas Kios</th>
                                     <th>Status Kios</th>
+                                    <th class="text-center">Konfirmasi Kios</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -79,6 +80,9 @@
                                             </button>
                                         </form>
                                         @endif
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ route('outlet.edit', $outlet->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

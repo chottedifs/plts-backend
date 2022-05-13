@@ -16,17 +16,17 @@
                             <h4 class="box-title">{{ $title }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="/admin/dashboard/outlet/{{ $outlet->id }}">
+                            <form method="post" action="{{ route('outlet.update', $kios->id) }}">
                                 @method('put')
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="id_user" class="form-label">Nama penyewa Outlet</label>
-                                        <select name="id_user" id="id_user" class="form-control">
+                                        <label for="user_id" class="form-label">Nama penyewa Outlet</label>
+                                        <select name="user_id" id="user_id" class="form-control">
+                                            <option value="" disabled selected hidden>{{ $kios->User->name }}</option>
+                                            <option value="" disabled>-- Pilih Pengguna Kios --</option>
                                             @foreach($users as $user)
-                                                @if (old('id_user', $outlet->id_user) == $user->id)
-                                                    <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
-                                                @else
+                                                @if ($user->is_active)
                                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                 @endif
                                             @endforeach
@@ -35,9 +35,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="name_outlet" class="form-label">Nama Toko</label>
-                                        <input type="text" name="name_outlet" class="form-control @error('name_outlet') is-invalid @enderror" id="name_outlet" value="{{ $outlet->name_outlet }}" autofocus>
-                                        @error('name_outlet') 
+                                        <label for="name_kios" class="form-label mt-3">Nama Toko</label>
+                                        <input type="text" name="name_kios" class="form-control @error('name_kios') is-invalid @enderror" id="name_kios" value="{{ $kios->name_kios }}">
+                                        @error('name_kios')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -46,19 +46,32 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="id_user" class="form-label">Type Outlet</label>
-                                        <select name="id_rate" id="id_rate" class="form-control">
-                                            @foreach($rates as $rate)
-                                            @if (old('id_rate', $outlet->id_rate) == $rate->id)
-                                                <option value="{{ $rate->id }}" selected>{{ $rate->type }} | Rp {{ $rate->price }} </option>
+                                        <label for="type_rate_id" class="form-label mt-3">Type Outlet</label>
+                                        <select name="type_rate_id" id="type_rate_id" class="form-control">
+                                            <option value="" disabled selected hidden>{{ $kios->Typerate->type }}</option>
+                                            <option value="" disabled>-- Pilih Type Kios --</option>
+                                            @foreach($typerates as $typerate)
+                                            @if (old('type_rate_id', $typerate->id) == $typerate->id)
+                                                <option value="{{ $typerate->id }}">{{ $typerate->type }}</option>
                                             @else
-                                                <option value="{{ $rate->id }}">{{ $rate->type }} | Rp {{ $rate->price }}</option>
+                                                <option value="{{ $typerate->id }}">{{ $typerate->type }}</option>
                                             @endif
                                         @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="luas_kios" class="form-label mt-3">Nama Toko</label>
+                                        <input type="text" name="luas_kios" class="form-control @error('luas_kios') is-invalid @enderror" id="luas_kios" value="{{ $kios->luas_kios }}">
+                                        @error('luas_kios')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
                             </form>
                         </div>
                     </div> <!-- /.card -->

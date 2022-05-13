@@ -13,11 +13,6 @@ use Auth;
 
 class DashboardOutletController extends Controller
 {
-    /**
-     * Display a listing of t{{ he resource. }}
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $outlets = Outlet::with('Typerate','User')->get();
@@ -27,12 +22,6 @@ class DashboardOutletController extends Controller
         ]);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $users = User::all();
@@ -44,12 +33,6 @@ class DashboardOutletController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -62,46 +45,43 @@ class DashboardOutletController extends Controller
         // $validateData['status_kios'] = true;
         Outlet::create($validatedData);
 
-        Alert::toast('Outlet berhasil ditambahkan!','success');
+        Alert::toast('Kios berhasil ditambahkan!','success');
         return redirect(route('outlet.index') );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Outlet $outlet)
+    public function edit($id)
     {
+        $kios = Outlet::findOrFail($id);
+        $users = User::all();
+        $typerate = Typerate::all();
         return view('pages.dashboard.admin.outlets.editOutlet', [
-            "title" => "Edit Outlet",
-            "outlet" => $outlet,
-            "users" => User::all(),
-            "rates" => TypeRate::all()
+            'title' => 'Edit Outlet',
+            'kios' => $kios,
+            'users' => $users,
+            'typerates' => $typerate
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request,Outlet $outlet)
+    public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+                // 'user_id' => 'required',
+                // 'type_rate_id' => 'required',
+                'name_kios' => 'required|max:255',
+                'luas_kios' => 'required',
+        ]);
+        $data = $request->all();
+
+        $users = Outlet::findOrFail($id);
+        $users->update($data);
+
+        Alert::toast('Kios berhasil diupdate!','success');
+        return redirect(route('outlet.index'));
         // $validatedData = $request->validate([
         //     "id_user" => "required",
         //     "id_rate" => "required",
@@ -116,12 +96,6 @@ class DashboardOutletController extends Controller
         // return redirect('/admin/dashboard/outlet')->with('success', 'Outlet has been Updated!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         // Outlet::destroy($id);
