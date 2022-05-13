@@ -48,7 +48,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
+                                {{-- @foreach ($users as $user)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
                                     <td>{{ $user->name }}</td>
@@ -57,39 +57,15 @@
                                     <td>{{ $user->outlet->rate->type }}</td>
                                     <td>
                                         <a href="{{route('user.edit', $user->id)}}" class="badge badge-warning mt-2"><i class="fa fa-edit"></i></a>
-                                        <button class="badge badge-success border-0 d-inline mt-2" data-toggle="modal" data-target="#largeModal{{ $user->id }}"><i class="fa fa-solid fa-eye"></i></button> 
+                                        <button class="badge badge-success border-0 d-inline mt-2" data-toggle="modal" data-target="#largeModal{{ $user->id }}"><i class="fa fa-solid fa-eye"></i></button>
                                         <form action="{{route('user.destroy', $user->id)}}" method="post" class="d-inline">
                                             @method('delete')
                                             @csrf
                                             <button class="badge badge-danger border-0 mt-2" onclick="return confirm('Are You Sure!')"><i class="fa fa-times-circle"></i></button>
                                         </form>
                                     </td>
-                                    {{-- <td>
-                                        @if ($outlet->status_kios)
-                                            <strong class="badge bg-success text-white">Kios ditempati</strong>
-                                        @else
-                                            <strong class="badge bg-danger text-white">Kios tidak ditempati</strong>
-                                        @endif
-                                    </td> --}}
-                                    {{-- <td class="text-center">
-                                        @if (!$user->outlet->status_kios)
-                                        <form action="{{ route('status-available', $user->id) }}" method="post">
-                                            @csrf
-                                            <button class="btn btn-success p-2" style="font-size: 14px; border-radius:10px;" target="_blank">
-                                                Disewakan
-                                            </button>
-                                        </form>
-                                        @else
-                                        <form action="{{ route('status-notAvailable', $user->id) }}" method="post">
-                                            @csrf
-                                            <button class="btn btn-warning p-2" style="font-size: 14px; border-radius:10px;" target="_blank">
-                                                Berhenti Sewa
-                                            </button>
-                                        </form>
-                                        @endif
-                                    </td> --}}
                                 </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>
@@ -121,6 +97,6 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 @endforeach

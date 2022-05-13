@@ -5,40 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tagihan extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id_user',
-        'id_kios',
+        // 'user_id',
+        'outlet_id',
         'nilai_kwh_awal',
         'nilai_kwh_akhir',
         'total_kwh',
+        'jumlah_tagihan',
         'periode',
+        'status_pembayaran'
     ];
 
+    // public function User(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 
-    /**
-     * Get the user associated with the Tagihan
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function user(): HasOne
+    public function Outlet(): BelongsTo
     {
-        return $this->hasOne(User::class, 'id_user');
-    }
-
-
-    /**
-     * Get the user associated with the Tagihan
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function outlet(): HasOne
-    {
-        return $this->hasOne(Outlet::class, 'id_outlet');
+        return $this->belongsTo(Outlet::class);
     }
 }
 

@@ -52,13 +52,13 @@ class User extends Authenticatable
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 
-    public function outlet()
+    public function Outlet()
     {
-        return $this->belongsTo(Outlet::class, 'id_outlet');
+        return $this->hasOne(Outlet::class);
     }
-    
-    public function tagihan(): BelongsTo
+
+    public function Tagihan(): BelongsTo
     {
-        return $this->belongsTo(Tagihan::class, 'id_tagihan');
+        return $this->hasOne(Tagihan::class);
     }
 }

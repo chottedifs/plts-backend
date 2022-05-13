@@ -20,13 +20,13 @@
                             <h4 class="box-title">{{ $title }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('user.update', $user->id) }}">
-                                @method('put')
+                            <form action="{{ route('user-kios.update', $users->id) }}" method="post" enctype="multipart/form-data">
+                                @method('PUT')
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="name" class="form-label">Nama User</label>
-                                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" autofocus value="{{ old("name", $user->name) }}">
+                                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{ $users->name }}">
                                         @error('name')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -37,7 +37,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old("email", $user->email) }}">
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ $users->email }}">
                                         @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -48,7 +48,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="phone_number" class="form-label">No Handphone</label>
-                                        <input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" value="{{ old("phone_number", $user->phone_number) }}">
+                                        <input type="text" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" value="{{ $users->phone_number }}">
                                         @error('phone_number')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -58,16 +58,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="id_outlet" class="form-label">Name Outlet, Type Outlet And Luas kios</label>
-                                        <select name="id_outlet" id="id_outlet" class="form-control">
-                                            @foreach($outlets as $outlet)
-                                            @if(old("id_outlet", $user->id_outlet) == $outlet->id)
-                                            <option value="{{ $outlet->id }}" selected>{{ $outlet->name_kios }} || {{ $outlet->rate->type }} || Luas {{ $outlet->luas_kios }}</option>
-                                            @endif
-                                            @if($outlet->status_kios == 0)
-                                                <option value="{{ $outlet->id }}">{{ $outlet->name_kios }} || {{ $outlet->rate->type }} || Luas {{ $outlet->luas_kios }}</option>
-                                            @endif
-                                            @endforeach
+                                        <label for="roles" class="form-label">Type Outlet</label>
+                                        <select name="roles" id="roles" class="form-control">
+                                                <option value="admin" selected>Administator</option>
+                                                <option value="operator" selected>Operator</option>
+                                                <option value="user" selected>User</option>
                                         </select>
                                     </div>
                                 </div>

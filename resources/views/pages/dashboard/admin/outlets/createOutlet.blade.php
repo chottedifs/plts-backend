@@ -30,14 +30,31 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="id_rate" class="form-label">Type Outlet</label>
-                                        <select name="id_rate" id="id_rate" class="form-control">
+                                        <label for="name" class="form-label">Nama Pengguna</label>
+                                        <select name="name" id="name" class="form-control">
+                                            <option value="">-- Pilih Pengguna Kios --</option>
+                                            @foreach($users as $user)
+                                                @if(old('user_id') == $user->id)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                @else
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                    Pengguna Nonaktif
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="type_rate_id" class="form-label">Tipe Kios</label>
+                                        <select name="type_rate_id" id="type_rate_id" class="form-control">
+                                            <option value="">-- Pilih Tipe Kios --</option>
                                             @foreach($rates as $rate)
-                                            @if(old("id_rate") == $rate->id)
-                                            <option value="{{ $rate->id }}">{{ $rate->type }}</option>
-                                            @else
-                                            <option value="{{ $rate->id }}">{{ $rate->type }}</option>
-                                            @endif
+                                                @if(old('type_rate_id') == $rate->id)
+                                                    <option value="{{ $rate->id }}">{{ $rate->type }}</option>
+                                                @else
+                                                    <option value="{{ $rate->id }}">{{ $rate->type }}</option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Outlet extends Model
 {
@@ -14,30 +15,21 @@ class Outlet extends Model
     // ];
 
     protected $fillable = [
-        // 'id_user',
-        'id_rate',
+        'user_id',
+        'type_rate_id',
         'name_kios',
         'luas_kios',
         'status_kios'
     ];
 
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class, 'id_user');
-    // }
-
-    public function rate()
+    public function Typerate(): BelongsTo
     {
-        return $this->belongsTo(Rate::class, 'id_rate');
+        return $this->belongsTo(TypeRate::class,'type_rate_id');
     }
 
-    /**
-     * Get the user that owns the Outlet
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function tagihan(): BelongsTo
+    public function User(): BelongsTo
     {
-        return $this->belongsTo(Tagihan::class, 'id_tagihan');
+        return $this->belongsTo(User::class);
     }
+
 }

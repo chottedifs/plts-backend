@@ -7,7 +7,7 @@
                 </li>
                 <li class="menu-title">Kios</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="{{ route('user.index') }}"> <i class="menu-icon fa fa-list"></i>Data Penyewa Kios</a>
+                    <a href="{{ route('user-kios.index') }}"> <i class="menu-icon fa fa-list"></i>Data Penyewa Kios</a>
                 </li>
                 <li class="">
                     <a href="{{ route('outlet.index') }}"> <i class="menu-icon fa fa-list"></i>Data Kios</a>
@@ -20,16 +20,13 @@
                 <li class="">
                     <a href="{{ route('tagihan.index') }}"> <i class="menu-icon fa fa-list"></i>Tagihan Outlet</a>
                 </li>
-                <li class="">
-                    <a href="#"> <i class="menu-icon fa fa-plus"></i>Konfirmasi Tagihan</a>
-                </li>
-                <li class="">
-                    <a href="#"> <i class="menu-icon fa fa-plus"></i>Laporan Tagihan</a>
-                </li>
-
                 <li class="menu-title">Transaksi</li><!-- /.menu-title -->
                 <li class="">
                     <a href="#"> <i class="menu-icon fa fa-list"></i>Lihat Transaksi</a>
+                </li>
+                <li class="menu-title">Dan Lainnya</li><!-- /.menu-title -->
+                <li class="">
+                    <a href="#"> <i class="menu-icon fa fa-list"></i>Informasi</a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

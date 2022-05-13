@@ -15,8 +15,9 @@ class CreateOutletsTable extends Migration
     {
         Schema::create('outlets', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('id_user');
-            $table->foreignId('id_rate');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('type_rate_id')->constrained('type_rates');
+            // $table->foreignId('type_rate_id');
             $table->string('name_kios');
             $table->string('luas_kios');
             $table->boolean('status_kios')->default(false);
@@ -33,4 +34,6 @@ class CreateOutletsTable extends Migration
     {
         Schema::dropIfExists('outlets');
     }
+
+
 }

@@ -15,12 +15,14 @@ class CreateTagihansTable extends Migration
     {
         Schema::create('tagihans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user');
-            $table->foreignId('id_kios');
+            // $table->foreignId('user_id')->constrained();
+            $table->foreignId('outlet_id')->constrained();
             $table->integer('nilai_kwh_awal');
             $table->integer('nilai_kwh_akhir');
             $table->integer('total_kwh');
+            $table->integer('jumlah_tagihan');
             $table->date('periode');
+            $table->boolean('status_pembayaran')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

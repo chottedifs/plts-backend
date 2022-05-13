@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Rate;
 use Illuminate\Database\Seeder;
+use App\Models\TypeRate;
 
-class RateSeeder extends Seeder
+class TypeRateSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,17 +14,17 @@ class RateSeeder extends Seeder
      */
     public function run()
     {
-        Rate::create([
+        TypeRate::create([
             "type" => "Premium",
             "price" => 600000
         ]);
 
-        Rate::create([
+        TypeRate::create([
             "type" => "Gold",
             "price" => 500000
         ]);
 
-        Rate::create([
+        TypeRate::create([
             "type" => "Silver",
             "price" => 400000
         ]);

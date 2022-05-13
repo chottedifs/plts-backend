@@ -4,65 +4,56 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use Maatwebsite\Excel\Facades\Excel;
+// use App\Models\User;
 use App\Models\Outlet;
 use App\Models\Tagihan;
+use App\Models\TypeRate;
+use App\Imports\TagihanImport;
 
 class TagihanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $tagihans = Tagihan::with('Outlet')->get();
         return view('pages.dashboard.admin.tagihan.index',[
             'title' => 'Tagihan Kios',
-            'users' => User::all(),
-            'outlets' => Outlet::all(),
-            'transactions' => Tagihan::all(),
+            'tagihans' => $tagihans
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $outlet = Outlet::all();
+        return view('pages.dashboard.admin.tagihan.create',[
+            'title' => 'Tambah Tagihan Kios',
+            'outlets' => $outlet
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $rate = TypeRate::where('id', $request['outlet_id'])->first();
+        $validateData = $request->validate([
+            'outlet_id' => 'required',
+            'nilai_kwh_awal' => 'required|integer',
+            'nilai_kwh_akhir' => 'required|integer',
+            'total_kwh' => 'required|integer',
+            'periode' => 'required|date'
+        ]);
+
+        $validateData['jumlah_tagihan'] = $rate->price*$validateData['total_kwh'];
+        $validateData['status_pembayaran'] = false;
+
+        Tagihan::create($validateData);
+        return redirect( route('tagihan.index') );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
@@ -89,5 +80,10 @@ class TagihanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function import(Request $request){
+        Excel::import(new TagihanImport, $request->file('file')->store('files'));
+        return redirect()->back();
     }
 }

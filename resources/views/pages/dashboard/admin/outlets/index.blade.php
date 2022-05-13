@@ -40,8 +40,8 @@
                             <thead>
                                 <tr>
                                     <th class="serial">#</th>
-                                    {{-- <th>Nama Penyewa</th> --}}
                                     <th>Nama Kios</th>
+                                    <th>Pengguna Kios</th>
                                     <th>Tipe Tarif</th>
                                     <th>Luas Kios</th>
                                     <th>Status Kios</th>
@@ -52,9 +52,9 @@
                                 @foreach ($outlets as $outlet)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
-                                    {{-- <td>{{ $outlet->user->name }}</td> --}}
                                     <td>{{ $outlet->name_kios }}</td>
-                                    <td>{{ $outlet->rate->type }}</td>
+                                    <td>{{ $outlet->User->name }}</td>
+                                    <td>{{ $outlet->Typerate->type }}</td>
                                     <td>{{ $outlet->luas_kios }}</td>
                                     <td>
                                         @if ($outlet->status_kios)

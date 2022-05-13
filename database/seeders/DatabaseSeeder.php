@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
+            TypeRateSeeder::class,
             OutletSeeder::class,
-            RateSeeder::class,
         ]);
     }
 }

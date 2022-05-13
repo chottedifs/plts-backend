@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Outlet;
-use App\Models\Rate;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Auth;
 use Facade\FlareClient\View;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\User;
+use App\Models\TypeRate;
+use App\Models\Outlet;
+use Auth;
 
 class DashboardOutletController extends Controller
 {
@@ -20,13 +20,13 @@ class DashboardOutletController extends Controller
      */
     public function index()
     {
+        $outlets = Outlet::with('Typerate','User')->get();
         return view('pages.dashboard.admin.outlets.index', [
-            "title" => "Data Kios",
-            "outlets" => Outlet::all(),
-            // "users" => User::all(),
-            "rates" => Rate::all()
+            'title' => "Data Kios",
+            'outlets' => $outlets
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -35,10 +35,12 @@ class DashboardOutletController extends Controller
      */
     public function create()
     {
+        $users = User::all();
+        $tipe = TypeRate::all();
         return view('pages.dashboard.admin.outlets.createOutlet', [
-            "title" => "Create New Outlet",
-            // "users" => User::all(),
-            "rates" => Rate::all()
+            'title' => 'Tambah Kios',
+            'users' => $users,
+            'rates' => $tipe
         ]);
     }
 
@@ -51,15 +53,17 @@ class DashboardOutletController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            // "id_user" => "required",
-            "id_rate" => "required",
-            "name_kios" => "required|max:255",
-            "luas_kios" => "required"
+            'user_id' => 'required',
+            'type_rate_id' => 'required',
+            'name_kios' => 'required',
+            'luas_kios' => 'required'
         ]);
 
+        // $validateData['status_kios'] = true;
         Outlet::create($validatedData);
+
         Alert::toast('Outlet berhasil ditambahkan!','success');
-        return redirect('dashboard/outlet');
+        return redirect(route('outlet.index') );
     }
 
     /**
@@ -84,8 +88,8 @@ class DashboardOutletController extends Controller
         return view('pages.dashboard.admin.outlets.editOutlet', [
             "title" => "Edit Outlet",
             "outlet" => $outlet,
-            // "users" => User::all(),
-            "rates" => Rate::all()
+            "users" => User::all(),
+            "rates" => TypeRate::all()
         ]);
     }
 

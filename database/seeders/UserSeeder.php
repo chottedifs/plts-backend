@@ -15,8 +15,6 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'id_outlet' => 1,
-            'id_tagihan' => 2,
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'email_verified_at' => date('Y-m-d H:i:s', time()),
@@ -27,8 +25,6 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'id_outlet' => 2,
-            'id_tagihan' => 1,
             'name' => 'Admin 2',
             'email' => 'admin2@gmail.com',
             'email_verified_at' => date('Y-m-d H:i:s', time()),

@@ -20,7 +20,7 @@
                             <h4 class="box-title">{{ $title }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('user.store') }}">
+                            <form method="post" action="{{ route('user-kios.store') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
@@ -34,6 +34,28 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="email" class="form-label">Alamat Email</label>
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" autofocus value="{{ old("email") }}">
+                                        @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="phone_number" class="form-label">Nomor handphone</label>
+                                        <input type="tel" name="phone_number" class="form-control @error('phone_number') is-invalid @enderror" id="phone_number" autofocus value="{{ old("phone_number") }}">
+                                        @error('phone_number')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{-- <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old("email") }}">
@@ -70,7 +92,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
