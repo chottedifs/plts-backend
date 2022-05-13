@@ -53,7 +53,8 @@
                                     <th>Kwh Awal</th>
                                     <th>Kwh Akhir</th>
                                     <th>Pemakaian Kwh</th>
-                                    <th>Jumlah Tagihan</th>
+                                    <th>Tagihan Listrik</th>
+                                    <th>Total Tagihan</th>
                                     <th>Periode</th>
                                     <th>Status Pembayaran</th>
                                 </tr>

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController as AdminController;
 use App\Http\Controllers\Admin\DashboardOutletController;
 use App\Http\Controllers\Admin\RateController;
+use App\Http\Controllers\Admin\KwhController;
 use App\Http\Controllers\Admin\TagihanController;
 use App\Http\Controllers\Admin\UserKiosController;
 // use App\Http\Controllers\Operator\DashboardController as OperatorController;
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [AdminController::class, 'index'])->name('admin-dashboard');
         Route::resource('dashboard/outlet', DashboardOutletController::class);
         Route::resource('dashboard/rate', RateController::class);
+        Route::resource('dashboard/tarif-kwh', KwhController::class);
         Route::resource('dashboard/tagihan', TagihanController::class);
         Route::resource('dashboard/user-kios', UserKiosController::class);
         // Route::resource('dashboard/user', UserController::class);

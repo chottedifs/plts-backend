@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TypeRate extends Model
+class TypeKwh extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'type',
+        'kode_tarif',
         'price'
     ];
 
-    public function Outlet(): HasMany
-    {
-        return $this->hasMany(Outlet::class,'type_rate_id','id');
-    }
+    // public function Tagihan(): HasMany
+    // {
+    //     return $this->hasMany(Tagihan::class,'type_kwh_id','id');
+    // }
 }

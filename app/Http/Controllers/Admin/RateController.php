@@ -10,24 +10,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class RateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return View('pages.dashboard.admin.rates.index', [
-            'title' => "Tarif Kios",
+            'title' => 'Tarif Kios',
             'rates' => TypeRate::all()
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return View('pages.dashboard.admin.rates.createRate', [
@@ -35,12 +25,6 @@ class RateController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -54,23 +38,12 @@ class RateController extends Controller
         return redirect('dashboard/rate');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(TypeRate $rate)
     {
         return view('pages.dashboard.admin.rates.editRate', [
@@ -79,13 +52,6 @@ class RateController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request,TypeRate $rate)
     {
         $validatedData = $request->validate([

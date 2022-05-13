@@ -22,6 +22,11 @@ class Outlet extends Model
         'status_kios'
     ];
 
+    public function Tagihan(): HasOne
+    {
+        return $this->hasOne(Tagihan::class);
+    }
+
     public function Typerate(): BelongsTo
     {
         return $this->belongsTo(TypeRate::class,'type_rate_id');

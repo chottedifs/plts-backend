@@ -30,8 +30,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="name" class="form-label">Nama Pengguna</label>
-                                        <select name="name" id="name" class="form-control">
+                                        <label for="user_id" class="form-label">Nama Pengguna</label>
+                                        <select name="user_id" id="user_id" class="form-control">
                                             <option value="" disabled selected hidden>-- Pilih Pengguna Kios --</option>
                                             @foreach($users as $user)
                                                 @if(old('user_id') == $user->id)

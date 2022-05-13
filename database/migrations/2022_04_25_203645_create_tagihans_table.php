@@ -17,10 +17,12 @@ class CreateTagihansTable extends Migration
             $table->id();
             // $table->foreignId('user_id')->constrained();
             $table->foreignId('outlet_id')->constrained();
+            // $table->foreignId('type_kwh_id')->constrained('type_kwhs');
             $table->integer('nilai_kwh_awal');
             $table->integer('nilai_kwh_akhir');
             $table->integer('total_kwh');
-            $table->integer('jumlah_tagihan');
+            $table->integer('jumlah_tagihan_kwh');
+            $table->integer('total_tagihan');
             $table->date('periode');
             $table->boolean('status_pembayaran')->default(false);
             $table->timestamps();

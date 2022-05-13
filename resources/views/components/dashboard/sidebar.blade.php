@@ -13,10 +13,10 @@
                     <a href="{{ route('outlet.index') }}"> <i class="menu-icon fa fa-list"></i>Data Kios</a>
                 </li>
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-plus"></i>Tarif Kios</a>
+                    <a href="{{ route('rate.index') }} "> <i class="menu-icon fa fa-plus"></i>Tarif Kios</a>
                 </li>
                 <li class="">
-                    <a href="{{ route('rate.index')}}"> <i class="menu-icon fa fa-plus"></i>Tarif Kwh Listrik</a>
+                    <a href="{{ route('tarif-kwh.index') }}"> <i class="menu-icon fa fa-plus"></i>Tarif Kwh Listrik</a>
                 </li>
 
                 <li class="menu-title">Keuangan</li><!-- /.menu-title -->

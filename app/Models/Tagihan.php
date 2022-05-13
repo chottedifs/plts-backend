@@ -14,22 +14,24 @@ class Tagihan extends Model
     protected $fillable = [
         // 'user_id',
         'outlet_id',
+        // 'type_kwh_id',
         'nilai_kwh_awal',
         'nilai_kwh_akhir',
         'total_kwh',
-        'jumlah_tagihan',
+        'jumlah_tagihan_kwh',
+        'total_tagihan',
         'periode',
         'status_pembayaran'
     ];
-
-    // public function User(): BelongsTo
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
 
     public function Outlet(): BelongsTo
     {
         return $this->belongsTo(Outlet::class);
     }
+
+    // public function TypeKwh(): BelongsTo
+    // {
+    //     return $this->belongsTo(TypeKwh::class, 'type_kwh_id');
+    // }
 }
 
