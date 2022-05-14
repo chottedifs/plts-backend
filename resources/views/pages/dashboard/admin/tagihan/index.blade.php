@@ -67,7 +67,8 @@
                                         <td>{{ $tagihan->nilai_kwh_awal }}</td>
                                         <td>{{ $tagihan->nilai_kwh_akhir }}</td>
                                         <td>{{ $tagihan->total_kwh }}</td>
-                                        <td>{{ 'Rp '.number_format($tagihan->jumlah_tagihan,0,',','.') }}</td>
+                                        <td>{{ 'Rp '.number_format($tagihan->jumlah_tagihan_kwh,0,',','.') }}</td>
+                                        <td>{{ 'Rp '.number_format($tagihan->total_tagihan,0,',','.') }}</td>
                                         <td>{{ $tagihan->periode }}</td>
                                         <td>{{ $tagihan->status_pembayaran }}</td>
                                         {{-- <td>{{ $outlet->User->name }}</td>

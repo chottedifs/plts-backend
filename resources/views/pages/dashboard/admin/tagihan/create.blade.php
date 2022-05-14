@@ -65,6 +65,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
+                                        <label for="tarif_kwh" class="form-label">Nama Kios</label>
+                                        <select name="tarif_kwh" id="tarif_kwh" class="form-control">
+                                            <option value="">-- Pilih Tarif Dasar Kwh --</option>
+                                            @foreach($kwhs as $kwh)
+                                                @if ($kwh->id)
+                                                    <option value="{{ $kwh->price }}">{{ $kwh->kode_tarif }} | {{ $kwh->price }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
                                         <label for="periode" class="form-label">Periode Tagihan</label>
                                         <input type="date" name="periode" class="form-control @error('periode') is-invalid @enderror" id="periode" value="{{ old("periode") }}">
                                         @error('periode')

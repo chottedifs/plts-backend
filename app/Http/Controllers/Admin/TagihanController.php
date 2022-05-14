@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Outlet;
 use App\Models\Tagihan;
 use App\Models\TypeRate;
+use App\Models\TypeKwh;
 use App\Imports\TagihanImport;
 
 class TagihanController extends Controller
@@ -25,9 +26,11 @@ class TagihanController extends Controller
     public function create()
     {
         $outlet = Outlet::all();
+        $kwhs = TypeKwh::all();
         return view('pages.dashboard.admin.tagihan.create',[
             'title' => 'Tambah Tagihan Kios',
-            'outlets' => $outlet
+            'outlets' => $outlet,
+            'kwhs' => $kwhs
         ]);
     }
 
@@ -39,10 +42,12 @@ class TagihanController extends Controller
             'nilai_kwh_awal' => 'required|integer',
             'nilai_kwh_akhir' => 'required|integer',
             'total_kwh' => 'required|integer',
+            'tarif_kwh' => 'required|integer',
             'periode' => 'required|date'
         ]);
 
-        $validateData['jumlah_tagihan'] = $rate->price*$validateData['total_kwh'];
+        $validateData['jumlah_tagihan_kwh'] = $validateData['tarif_kwh']*$validateData['total_kwh'];
+        $validateData['total_tagihan'] = $rate->price+$validateData['jumlah_tagihan_kwh'];
         $validateData['status_pembayaran'] = false;
 
         Tagihan::create($validateData);
