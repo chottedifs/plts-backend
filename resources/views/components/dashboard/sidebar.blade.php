@@ -17,16 +17,16 @@
                     <a href=""> <i class="menu-icon fa fa-plus"></i>DATA USER</a>
                 </li>
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-plus"></i>DATA LOKASI</a>
+                    <a href="{{ route('master-lokasi.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA LOKASI</a>
                 </li>
                 <li class="">
-                    <a href="{{ route('tarifKios.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA TARIF KIOS</a>
+                    <a href="{{ route('master-tarifKios.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA TARIF KIOS</a>
                 </li>
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-plus"></i>DATA TARIF KWH</a>
+                    <a href="{{ route('master-tarifKwh.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA TARIF KWH</a>
                 </li>
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-plus"></i>DATA INFORMASI</a>
+                    <a href="{{ route('master-informasi.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA INFORMASI</a>
                 </li>
 
                 <li class="menu-title">Keuangan</li><!-- /.menu-title -->

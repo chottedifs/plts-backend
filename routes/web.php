@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\KiosController;
 use App\Http\Controllers\Admin\TarifKiosController;
+use App\Http\Controllers\Admin\TarifKwhController;
+use App\Http\Controllers\Admin\LokasiController;
+use App\Http\Controllers\Admin\InformasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +26,7 @@ Route::get('/', function () {
 
 // ADMIN
 Route::resource('dashboard/master-kios', KiosController::class);
-Route::resource('dashboard/tarifKios', TarifKiosController::class);
+Route::resource('dashboard/master-tarifKios', TarifKiosController::class);
+Route::resource('dashboard/master-tarifKwh', TarifKwhController::class);
+Route::resource('dashboard/master-lokasi', LokasiController::class);
+Route::resource('dashboard/master-informasi', InformasiController::class);

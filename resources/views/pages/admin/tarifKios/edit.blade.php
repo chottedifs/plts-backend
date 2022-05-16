@@ -15,13 +15,14 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-tarifKios.store') }}">
+                            <form method="post" action="{{ route('master-tarifKios.update', $tarifKios->id) }}">
+                                @method('put')
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="tipe" class="form-label">Tipe Kios</label>
-                                        <input type="text" name="tipe" class="form-control @error('tipe') is-invalid @enderror" id="tipe" autofocus value="{{ old("tipe") }}">
-                                        @error('tipe')
+                                        <label for="kode_kwh" class="form-label">Kode Kwh</label>
+                                        <input type="text" name="kode_kwh" class="form-control @error('kode_kwh') is-invalid @enderror" id="kode_kwh" autofocus value="{{ old("kode_kwh", $tarifKios->kode_kwh) }}">
+                                        @error('kode_kwh')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -30,8 +31,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="harga" class="form-label">Harga Tarif Kios</label>
-                                        <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga">
+                                        <label for="harga" class="form-label">Tarif Dasar Kwh</label>
+                                        <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga" value="{{ old("harga", $tarifKios->harga) }}">
                                         @error('harga')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -39,7 +40,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div> <!-- /.card -->

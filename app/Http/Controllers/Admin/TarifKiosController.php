@@ -34,7 +34,7 @@ class TarifKiosController extends Controller
         ]);
 
         TarifKios::create($validatedData);
-        return redirect(route('tarifKios.index'));
+        return redirect(route('master-tarifKios.index'));
     }
 
     /**
@@ -48,27 +48,21 @@ class TarifKiosController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $tarifKios = TarifKios::findOrFail($id);
+        return view('pages.admin.tarifKios.edit', [
+            'judul' => 'Edit Master Data Tarif Kios',
+            'tarifKios' => $tarifKios
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $tarifKios = TarifKios::findOrFail($id);
+        $tarifKios->update($data);
+        return redirect(route('master-tarifKios.index'));
     }
 
     /**

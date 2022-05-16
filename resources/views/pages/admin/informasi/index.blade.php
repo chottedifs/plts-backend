@@ -33,26 +33,29 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('master-tarifKios.create') }}" class="btn btn-primary text-right">Tambah kios</a>
+                        <a href="{{ route('master-informasi.create') }}" class="btn btn-primary text-right">Tambah Informasi</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th class="serial">#</th>
-                                    <th>Tipe Kios</th>
-                                    <th>Tarif Sewa Kios</th>
+                                    <th>Judul Informasi</th>
+                                    <th>Deskripsi</th>
+                                    <th>Gambar</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($tarifKios as $tarif)
+                                @foreach ($informasi as $informasi)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
-                                    <td>{{ $tarif->tipe }}</td>
-                                    <td>{{ 'Rp '.number_format($tarif->harga,0,',','.') }}</td>
+                                    <td>{{ $informasi->title }}</td>
+                                    <td>{{ $informasi->deskripsi }}</td>
+                                    <td>{{ $informasi->gambar }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('master-tarifKios.edit', $tarif->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ route('master-informasi.edit', $informasi->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ route('master-informasi.edit', $informasi->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

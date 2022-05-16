@@ -15,13 +15,13 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-tarifKios.store') }}">
+                            <form method="post" action="{{ route('master-informasi.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="tipe" class="form-label">Tipe Kios</label>
-                                        <input type="text" name="tipe" class="form-control @error('tipe') is-invalid @enderror" id="tipe" autofocus value="{{ old("tipe") }}">
-                                        @error('tipe')
+                                        <label for="title" class="form-label">Judul Informasi</label>
+                                        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" autofocus value="{{ old("title") }}">
+                                        @error('title')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -30,13 +30,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="harga" class="form-label">Harga Tarif Kios</label>
-                                        <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga">
-                                        @error('harga')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                        <label for="deskripsi" class=" form-label">Deskripsi</label>
+                                        <textarea name="deskripsi" id="deskripsi" rows="9" placeholder="Deskripsi..." class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="gambar" class=" form-control-label">Upload Gambar</label>
+                                        <input type="file" id="gambar" name="gambar" class="form-control-file">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-3">Submit</button>

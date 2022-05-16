@@ -15,24 +15,13 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-tarifKios.store') }}">
+                            <form method="post" action="{{ route('master-lokasi.store') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="tipe" class="form-label">Tipe Kios</label>
-                                        <input type="text" name="tipe" class="form-control @error('tipe') is-invalid @enderror" id="tipe" autofocus value="{{ old("tipe") }}">
-                                        @error('tipe')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-lg-12">
-                                        <label for="harga" class="form-label">Harga Tarif Kios</label>
-                                        <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga">
-                                        @error('harga')
+                                        <label for="nama_lokasi" class="form-label">Nama Lokasi</label>
+                                        <input type="text" name="nama_lokasi" class="form-control @error('nama_lokasi') is-invalid @enderror" id="nama_lokasi" autofocus value="{{ old("nama_lokasi") }}">
+                                        @error('nama_lokasi')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
