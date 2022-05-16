@@ -14,8 +14,8 @@ class Lokasi extends Model
         'nama_lokasi'
     ];
 
-    public function RelasiKios(): HasOne
+    public function RelasiKios(): HasMany
     {
-        return $this->hasOne(RelasiKios::class, 'lokasi_id', 'id');
+        return $this->hasMany(RelasiKios::class, 'lokasi_id', 'id');
     }
 }

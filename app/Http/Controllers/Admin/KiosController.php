@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Kios;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Kios;
+// use RealRashid\SweetAlert\Facades\Alert;
 
 class KiosController extends Controller
 {
@@ -50,7 +51,7 @@ class KiosController extends Controller
         Kios::create($validatedData);
 
         // Alert::toast('Kios berhasil ditambahkan!','success');
-        return redirect('/admin/kios');
+        return redirect(route('master-kios.index'));
     }
 
     /**
@@ -72,7 +73,11 @@ class KiosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $kios = Kios::findOrFail($id);
+        return view('pages/admin/kios/edit', [
+            'judul' => 'Edit Kios',
+            'kios' => $kios
+        ]);
     }
 
     /**
@@ -84,7 +89,17 @@ class KiosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_kios' => 'required|max:255',
+            'luas_kios' => 'required'
+        ]);
+
+
+
+        Kios::create($validatedData);
+
+        // Alert::toast('Kios berhasil ditambahkan!','success');
+        return redirect(route('master-kios.index'));
     }
 
     /**

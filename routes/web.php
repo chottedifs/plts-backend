@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\KiosController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\KiosController;
+use App\Http\Controllers\Admin\TarifKiosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages.admin.dashboard');
+    return view('pages.admin.dashboard', [
+        'judul' => 'Dashboard'
+    ]);
 });
 
-// ADMINN
-Route::resource('/admin/kios', KiosController::class);
+// ADMIN
+Route::resource('dashboard/master-kios', KiosController::class);
+Route::resource('dashboard/tarifKios', TarifKiosController::class);

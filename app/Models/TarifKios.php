@@ -11,12 +11,12 @@ class TarifKios extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'kode_kwh',
+        'tipe',
         'harga'
     ];
 
-    public function RelasiKios(): HasOne
+    public function RelasiKios(): HasMany
     {
-        return $this->hasOne(RelasiKios::class, 'tarif_kios_id', 'id');
+        return $this->hasMany(RelasiKios::class, 'tarif_kios_id', 'id');
     }
 }

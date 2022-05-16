@@ -8,7 +8,7 @@
                 </li>
                 <li class="menu-title">MASTER DATA</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="/admin/kios"> <i class="menu-icon fa fa-list"></i>DATA KIOS</a>
+                    <a href="{{ route('master-kios.index') }}"> <i class="menu-icon fa fa-list"></i>DATA KIOS</a>
                 </li>
                 <li class="">
                     <a href=""> <i class="menu-icon fa fa-list"></i>DATA PETUGAS</a>
@@ -20,7 +20,7 @@
                     <a href=""> <i class="menu-icon fa fa-plus"></i>DATA LOKASI</a>
                 </li>
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-plus"></i>DATA TARIF KIOS</a>
+                    <a href="{{ route('tarifKios.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA TARIF KIOS</a>
                 </li>
                 <li class="">
                     <a href=""> <i class="menu-icon fa fa-plus"></i>DATA TARIF KWH</a>

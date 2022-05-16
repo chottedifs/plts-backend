@@ -33,26 +33,26 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('master-kios.create') }}" class="btn btn-primary text-right">Tambah kios</a>
+                        <a href="{{ route('tarifKios.create') }}" class="btn btn-primary text-right">Tambah kios</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th class="serial">#</th>
-                                    <th>Nama Kios</th>
-                                    <th>Luas Kios</th>
+                                    <th>Tipe Kios</th>
+                                    <th>Harga Kios</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($banyakKios as $kios)
+                                @foreach ($tarifKios as $tarif)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
-                                    <td>{{ $kios->nama_kios }}</td>
-                                    <td>{{ $kios->luas_kios }}</td>
+                                    <td>{{ $tarif->tipe }}</td>
+                                    <td>{{ $tarif->harga }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('master-kios.edit', $kios->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ route('tarifKios', $tarif->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

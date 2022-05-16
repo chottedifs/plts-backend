@@ -15,13 +15,13 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-kios.store') }}">
+                            <form method="post" action="{{ route('tarifKios.store') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="nama_kios" class="form-label">Nama Kios</label>
-                                        <input type="text" name="nama_kios" class="form-control @error('nama_kios') is-invalid @enderror" id="nama_kios" autofocus value="{{ old("nama_kios") }}">
-                                        @error('nama_kios')
+                                        <label for="tipe" class="form-label">Tipe Kios</label>
+                                        <input type="text" name="tipe" class="form-control @error('tipe') is-invalid @enderror" id="tipe" autofocus value="{{ old("tipe") }}">
+                                        @error('tipe')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -30,16 +30,16 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="luas_kios" class="form-label">Luas Kios</label>
-                                        <input type="text" name="luas_kios" class="form-control @error('luas_kios') is-invalid @enderror" id="luas_kios" {{ old('luas_kios') }}>
-                                        @error('luas_kios')
+                                        <label for="harga" class="form-label">Harga Tarif Kios</label>
+                                        <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga">
+                                        @error('harga')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary mt-3">Submit</button>
                             </form>
                         </div>
                     </div> <!-- /.card -->
