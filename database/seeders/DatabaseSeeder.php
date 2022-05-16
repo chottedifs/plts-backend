@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Kios;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,10 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $this->call([
-            UserSeeder::class,
-            TypeRateSeeder::class,
-            OutletSeeder::class,
+        Kios::create([
+            "nama_kios" => "Kios 001",
+            "luas_kios" => "4 X 3"
         ]);
     }
 }

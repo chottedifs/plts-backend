@@ -12,26 +12,21 @@ class Tagihan extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        // 'user_id',
-        'outlet_id',
-        // 'type_kwh_id',
-        'nilai_kwh_awal',
-        'nilai_kwh_akhir',
+        'sewa_kios_id',
+        'histori_kios_id',
         'total_kwh',
-        'jumlah_tagihan_kwh',
-        'total_tagihan',
-        'periode',
-        'status_pembayaran'
+        'tagihan_kwh',
+        'tagihan_kios',
+        'total_tagihan'
     ];
 
-    public function Outlet(): BelongsTo
+    public function SewaKios(): BelongsTo
     {
-        return $this->belongsTo(Outlet::class);
+        return $this->belongsTo(SewaKios::class);
     }
 
-    // public function TypeKwh(): BelongsTo
-    // {
-    //     return $this->belongsTo(TypeKwh::class, 'type_kwh_id');
-    // }
+    public function HistoriKios(): BelongsTo
+    {
+        return $this->belongsTo(HistoriKios::class);
+    }
 }
-

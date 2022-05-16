@@ -1,15 +1,7 @@
 <?php
 
+use App\Http\Controllers\KiosController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\DashboardController as AdminController;
-use App\Http\Controllers\Admin\DashboardOutletController;
-use App\Http\Controllers\Admin\RateController;
-use App\Http\Controllers\Admin\KwhController;
-use App\Http\Controllers\Admin\TagihanController;
-use App\Http\Controllers\Admin\UserKiosController;
-// use App\Http\Controllers\Operator\DashboardController as OperatorController;
-// use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,31 +15,8 @@ use App\Http\Controllers\Admin\UserKiosController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.admin.dashboard');
 });
 
-
-// Middleware Group
-Route::middleware(['auth'])->group(function () {
-    // Dashboard Routes
-    Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-
-    Route::middleware(['checkRole:admin'])->group(function () {
-        Route::get('/', [AdminController::class, 'index'])->name('admin-dashboard');
-        Route::resource('dashboard/outlet', DashboardOutletController::class);
-        Route::resource('dashboard/rate', RateController::class);
-        Route::resource('dashboard/tarif-kwh', KwhController::class);
-        Route::resource('dashboard/tagihan', TagihanController::class);
-        Route::resource('dashboard/user-kios', UserKiosController::class);
-        // Route::resource('dashboard/user', UserController::class);
-
-        Route::post('dasboard/tagihan', [TagihanController::class, 'import'])->name('import.tagihan');
-        // Action Status Kios
-        Route::post('status-available/{outlet}', [DashboardOutletController::class, 'setStatusAvailable'])->name('status-available');
-        Route::post('status-notAvailable/{outlet}', [DashboardOutletController::class, 'setStatusNotAvailable'])->name('status-notAvailable');
-    });
-
-});
-
-
-require __DIR__.'/auth.php';
+// ADMINN
+Route::resource('/admin/kios', KiosController::class);
