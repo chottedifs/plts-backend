@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Kios;
-// use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Lokasi;
+use App\Models\RelasiKios;
+use App\Models\TarifKios;
+use Illuminate\Http\Request;
 
-class KiosController extends Controller
+class RelasiKiosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +18,10 @@ class KiosController extends Controller
      */
     public function index()
     {
-        $banyakKios = Kios::all();
-        return view('pages.admin.kios.index', [
-            'judul' => 'Kios',
-            'banyakKios' => $banyakKios
+        $relasiDataKios = RelasiKios::all();
+        return view('pages.admin.relasiKios.index', [
+            'judul' => 'Relasi Data Kios',
+            'relasiDataKios' => $relasiDataKios
         ]);
     }
 
@@ -30,8 +32,14 @@ class KiosController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.kios.create', [
-            'judul' => "Tambah Kios"
+        $banyakKios = Kios::all();
+        $banyakTarifKios = TarifKios::all();
+        $banyakLokasi = Lokasi::all();
+        return view('pages.admin.relasiKios.create', [
+            'judul' => 'Menentukan Data Kios',
+            'banyakKios' => $banyakKios,
+            'banyakTarifKios' => $banyakTarifKios,
+            'banyakLokasi' => $banyakLokasi
         ]);
     }
 
@@ -44,14 +52,18 @@ class KiosController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama_kios' => 'required|max:255',
-            'luas_kios' => 'required'
+            'kios_id' => 'required',
+            'tarif_kios_id' => 'required',
+            'lokasi_id' => 'required',
         ]);
-        $validatedData['status_kios'] = false;
-        Kios::create($validatedData);
+        // ddd($validatedData['kios_id']);
+        $updateAktifKios['status_kios'] = true;
+        $validatedData['status_relasi_kios'] = true;
+        Kios::where('id', $validatedData['kios_id'])->update($updateAktifKios);
+        RelasiKios::create($validatedData);
 
         // Alert::toast('Kios berhasil ditambahkan!','success');
-        return redirect(route('master-kios.index'));
+        return redirect(route('master-relasiKios.index'));
     }
 
     /**
@@ -73,11 +85,7 @@ class KiosController extends Controller
      */
     public function edit($id)
     {
-        $kios = Kios::findOrFail($id);
-        return view('pages/admin/kios/edit', [
-            'judul' => 'Edit Kios',
-            'kios' => $kios
-        ]);
+        //
     }
 
     /**
@@ -89,16 +97,7 @@ class KiosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'nama_kios' => 'required|max:255',
-            'luas_kios' => 'required'
-        ]);
-
-        $data = $request->all();
-
-        $kios = Kios::findOrFail($id);
-        $kios->update($data);
-        return redirect(route('master-kios.index'));
+        //
     }
 
     /**
@@ -109,7 +108,6 @@ class KiosController extends Controller
      */
     public function destroy($id)
     {
-        // Kios::destroy($id);
-        // return redirect(route('master-kios.index'));
+        //
     }
 }

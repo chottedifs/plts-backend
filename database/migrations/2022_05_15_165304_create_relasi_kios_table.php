@@ -18,7 +18,7 @@ class CreateRelasiKiosTable extends Migration
             $table->foreignId('kios_id')->constrained();
             $table->foreignId('lokasi_id')->constrained();
             $table->foreignId('tarif_kios_id')->constrained();
-            $table->boolean('status_kios');
+            $table->boolean('status_relasi_kios')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

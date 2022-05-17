@@ -15,7 +15,8 @@ class RelasiKios extends Model
         'kios_id',
         'lokasi_id',
         'tarif_kios_id',
-        'status_kios'
+        'status_kios',
+        'aktif'
     ];
 
     public function SewaKios(): HasOne
@@ -27,12 +28,12 @@ class RelasiKios extends Model
     {
         return $this->belongsTo(Kios::class, 'kios_id');
     }
-    
+
     public function Lokasi(): BelongsTo
     {
         return $this->belongsTo(Lokasi::class, 'lokasi_id');
     }
-    
+
     public function TarifKios(): BelongsTo
     {
         return $this->belongsTo(TarifKios::class, 'tarif_kios_id');

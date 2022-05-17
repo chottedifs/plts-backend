@@ -8,13 +8,13 @@
                 </li>
                 <li class="menu-title">MASTER DATA</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="{{ route('master-kios.index') }}"> <i class="menu-icon fa fa-list"></i>DATA KIOS</a>
-                </li>
-                <li class="">
                     <a href=""> <i class="menu-icon fa fa-list"></i>DATA PETUGAS</a>
                 </li>
                 <li class="">
                     <a href=""> <i class="menu-icon fa fa-plus"></i>DATA USER</a>
+                </li>
+                <li class="">
+                    <a href="{{ route('master-kios.index') }}"> <i class="menu-icon fa fa-list"></i>DATA KIOS</a>
                 </li>
                 <li class="">
                     <a href="{{ route('master-lokasi.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA LOKASI</a>
@@ -24,6 +24,9 @@
                 </li>
                 <li class="">
                     <a href="{{ route('master-tarifKwh.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA TARIF KWH</a>
+                </li>
+                <li class="">
+                    <a href="{{ route('master-relasiKios.index') }}"> <i class="menu-icon fa fa-plus"></i>RELASI DATA KIOS</a>
                 </li>
                 <li class="">
                     <a href="{{ route('master-informasi.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA INFORMASI</a>

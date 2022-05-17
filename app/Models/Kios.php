@@ -12,7 +12,8 @@ class Kios extends Model
 
     protected $fillable = [
         'nama_kios',
-        'luas_kios'
+        'luas_kios',
+        'aktif'
     ];
 
     public function RelasiKios(): HasOne
