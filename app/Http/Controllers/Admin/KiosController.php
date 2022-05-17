@@ -47,7 +47,7 @@ class KiosController extends Controller
             'nama_kios' => 'required|max:255',
             'luas_kios' => 'required'
         ]);
-        $validatedData['status_kios'] = false;
+        $validatedData['status_kios'] = true;
         Kios::create($validatedData);
 
         // Alert::toast('Kios berhasil ditambahkan!','success');

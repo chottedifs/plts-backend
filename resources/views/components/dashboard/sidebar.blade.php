@@ -8,41 +8,45 @@
                 </li>
                 <li class="menu-title">MASTER DATA</li><!-- /.menu-title -->
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-list"></i>DATA PETUGAS</a>
+                    <a href=""> <i class="menu-icon fa fa-list"></i>MASTER PETUGAS</a>
                 </li>
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-plus"></i>DATA USER</a>
+                    <a href=""> <i class="menu-icon fa fa-plus"></i>MASTER USER</a>
                 </li>
                 <li class="">
-                    <a href="{{ route('master-kios.index') }}"> <i class="menu-icon fa fa-list"></i>DATA KIOS</a>
+                    <a href="{{ route('master-kios.index') }}"> <i class="menu-icon fa fa-list"></i>MASTER KIOS</a>
                 </li>
                 <li class="">
-                    <a href="{{ route('master-lokasi.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA LOKASI</a>
+                    <a href="{{ route('master-lokasi.index') }}"> <i class="menu-icon fa fa-plus"></i>MASTER LOKASI</a>
                 </li>
                 <li class="">
-                    <a href="{{ route('master-tarifKios.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA TARIF KIOS</a>
+                    <a href="{{ route('master-tarifKios.index') }}"> <i class="menu-icon fa fa-plus"></i>MASTER TARIF KIOS</a>
                 </li>
                 <li class="">
-                    <a href="{{ route('master-tarifKwh.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA TARIF KWH</a>
-                </li>
-                <li class="">
-                    <a href="{{ route('master-relasiKios.index') }}"> <i class="menu-icon fa fa-plus"></i>RELASI DATA KIOS</a>
-                </li>
-                <li class="">
-                    <a href="{{ route('master-informasi.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA INFORMASI</a>
+                    <a href="{{ route('master-tarifKwh.index') }}"> <i class="menu-icon fa fa-plus"></i>MASTER TARIF KWH</a>
                 </li>
 
-                <li class="menu-title">Keuangan</li><!-- /.menu-title -->
+                <li class="menu-title">MANAGEMENT KIOS</li><!-- /.menu-title -->
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-list"></i>Tagihan Outlet</a>
+                    <a href="{{ route('master-relasiKios.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA KIOS</a>
                 </li>
-                <li class="menu-title">Transaksi</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="#"> <i class="menu-icon fa fa-list"></i>Lihat Transaksi</a>
+                    <a href="{{ route('sewa-kios.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA PENYEWA KIOS</a>
                 </li>
+                <li class="">
+                    <a href="{{ route('master-relasiKios.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA RIWAYAT KIOS</a>
+                </li>
+                <li class="menu-title">KEUANGAN</li><!-- /.menu-title -->
+                <li class="">
+                    <a href="#"> <i class="menu-icon fa fa-list"></i>TAGIHAN KIOS</a>
+                </li>
+                <li class="">
+                    <a href="#"> <i class="menu-icon fa fa-list"></i>HISTORI TAGIHAN</a>
+                </li>
+
                 <li class="menu-title">Dan Lainnya</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="#"> <i class="menu-icon fa fa-list"></i>Informasi</a>
+                    <a href="{{ route('master-informasi.index') }}"> <i class="menu-icon fa fa-plus"></i>MASTER INFORMASI</a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->

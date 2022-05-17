@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RelasiKios extends Model
@@ -15,8 +16,7 @@ class RelasiKios extends Model
         'kios_id',
         'lokasi_id',
         'tarif_kios_id',
-        'status_kios',
-        'aktif'
+        'status_relasi_kios',
     ];
 
     public function SewaKios(): HasOne

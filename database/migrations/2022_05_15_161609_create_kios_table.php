@@ -17,7 +17,7 @@ class CreateKiosTable extends Migration
             $table->id();
             $table->string('nama_kios');
             $table->string('luas_kios');
-            $table->boolean('status_kios')->default(false);
+            $table->boolean('status_kios');
             $table->timestamps();
             $table->softDeletes();
         });

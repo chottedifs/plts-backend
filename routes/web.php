@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\TarifKwhController;
 use App\Http\Controllers\Admin\LokasiController;
 use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\Admin\RelasiKiosController;
+use App\Http\Controllers\Admin\SewaKiosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,4 @@ Route::resource('dashboard/master-tarifKwh', TarifKwhController::class);
 Route::resource('dashboard/master-lokasi', LokasiController::class);
 Route::resource('dashboard/master-informasi', InformasiController::class);
 Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
+Route::resource('dashboard/sewa-kios', SewaKiosController::class);

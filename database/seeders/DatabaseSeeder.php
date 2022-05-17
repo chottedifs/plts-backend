@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        Kios::create([
-            "nama_kios" => "Kios 001",
-            "luas_kios" => "4 X 3"
-        ]);
+        // Kios::create([
+        //     "nama_kios" => "Kios 001",
+        //     "luas_kios" => "4 X 3"
+        // ]);
     }
 }

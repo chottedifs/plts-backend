@@ -20,8 +20,8 @@
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="kode_kwh" class="form-label">Kode Kwh</label>
-                                        <input type="text" name="kode_kwh" class="form-control @error('kode_kwh') is-invalid @enderror" id="kode_kwh" autofocus value="{{ old("kode_kwh", $tarifKios->kode_kwh) }}">
+                                        <label for="tipe" class="form-label">Tipe Kios</label>
+                                        <input type="text" name="tipe" class="form-control @error('tipe') is-invalid @enderror" id="tipe" autofocus value="{{ old("tipe", $tarifKios->tipe) }}">
                                         @error('kode_kwh')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
