@@ -43,7 +43,7 @@
                                         <select name="relasi_kios_id" id="relasi_kios_id" class="form-control @error('relasi_kios_id') is-invalid @enderror">
                                             <option value="" disabled selected hidden>-- Pilih Kios --</option>
                                             @foreach($relasiDataKios as $kios)
-                                                @if ($kios->status_relasi_kios == true)
+                                                @if ($kios->status_relasi_kios == false)
                                                     <option value="{{ $kios->id }}">{{ $kios->Kios->nama_kios }}</option>
                                                 @else
                                                     <option value="" disabled>Semua Kios Telah Disewakan</option>

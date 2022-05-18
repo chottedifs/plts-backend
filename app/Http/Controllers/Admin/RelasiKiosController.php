@@ -35,16 +35,27 @@ class RelasiKiosController extends Controller
 
     public function store(Request $request)
     {
+        
         $validatedData = $request->validate([
             'kios_id' => 'required',
             'tarif_kios_id' => 'required',
             'lokasi_id' => 'required',
         ]);
         // ddd($validatedData['kios_id']);
-        // $validatedData['status_kios'] = true;
         $validatedData['status_relasi_kios'] = false;
-        Kios::where('id', $validatedData['kios_id']);
         RelasiKios::create($validatedData);
+
+        $status = Kios::findOrFail($validatedData['kios_id']);
+        $status['status_kios'] = true;
+        $status->update();
+
+        // $affected = Kios::table('users')
+        //             ->where('id', 1)
+        //             ->update(['votes' => 1]);
+
+        // Update Status Kios
+        // $status = new Kios();
+
 
         // Alert::toast('Kios berhasil ditambahkan!','success');
         return redirect(route('master-relasiKios.index'));
@@ -89,17 +100,30 @@ class RelasiKiosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
+        $dataRelasiKios = RelasiKios::findOrFail($id);
         $validatedData = $request->validate([
             'kios_id' => 'required',
             'tarif_kios_id' => 'required',
             'lokasi_id' => 'required',
         ]);
-        //! membuat kios sebelumnya tidak aktif
-        $validatedData['status_relasi_kios'] = false;
-        Kios::where('id', $validatedData['kios_id']);
-        RelasiKios::create($validatedData);
+        // membuat kios sebelumnya tidak aktif
+        $status = Kios::findOrFail($dataRelasiKios->kios_id);
+        if($validatedData['kios_id'] != $status->id){
+            $status['status_kios'] = false;
+            $status->update();
+            // kios yang baru di pilih
+            $status = Kios::findOrFail($validatedData['kios_id']);
+            $status['status_kios'] = true;
+            $status->update();
+        }
+
+        $validatedData['status_relasi_kios'] = $dataRelasiKios->status_relasi_kios;
+        // $validatedData['status_relasi_kios']->update();
+        $dataRelasiKios->update($validatedData);
+
+        
         return redirect(route('master-relasiKios.index'));
     }
 

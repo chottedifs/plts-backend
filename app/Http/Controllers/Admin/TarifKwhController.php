@@ -19,10 +19,8 @@ class TarifKwhController extends Controller
 
     public function create()
     {
-        $tarifKwh = TarifKwh::all();
         return view('pages.admin.tarifKwh.create', [
-            'judul' => 'Tambah Master Data Tarif Dasar Kwh',
-            'tarifKwh' => $tarifKwh
+            'judul' => 'Tambah Master Data Tarif Dasar Kwh'
         ]);
     }
 

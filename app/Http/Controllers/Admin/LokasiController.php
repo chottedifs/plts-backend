@@ -19,10 +19,8 @@ class LokasiController extends Controller
 
     public function create()
     {
-        $lokasis = Lokasi::all();
         return view('pages.admin.lokasi.create', [
-            'judul' => 'Tambah Master Data Lokasi Kios',
-            'lokasi' => $lokasis
+            'judul' => 'Tambah Master Data Lokasi Kios'
         ]);
     }
 

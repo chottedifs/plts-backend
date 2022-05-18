@@ -29,11 +29,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function DataUser(): HasOne
-    {
-        return $this->hasOne(DataUser::class, 'user_id');
-    }
-
     public function SewaKios(): HasOne
     {
         return $this->hasOne(SewaKios::class, 'user_id', 'id');

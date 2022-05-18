@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\KiosController;
 use App\Http\Controllers\Admin\TarifKiosController;
 use App\Http\Controllers\Admin\TarifKwhController;
 use App\Http\Controllers\Admin\LokasiController;
 use App\Http\Controllers\Admin\InformasiController;
+use App\Http\Controllers\Admin\PetugasController;
 use App\Http\Controllers\Admin\RelasiKiosController;
 use App\Http\Controllers\Admin\SewaKiosController;
 
@@ -27,6 +29,8 @@ Route::get('/', function () {
 });
 
 // ADMIN
+Route::resource('dashboard/master-user', UserController::class);
+Route::resource('dashboard/master-petugas', PetugasController::class);
 Route::resource('dashboard/master-kios', KiosController::class);
 Route::resource('dashboard/master-tarifKios', TarifKiosController::class);
 Route::resource('dashboard/master-tarifKwh', TarifKwhController::class);

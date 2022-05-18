@@ -13,10 +13,10 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="box-title">{{ $judul }}</h4>
-                            <h4>Test comit</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-relasiKios.update', $dataRelasiKios['id']) }}">
+                            <form method="post" action="{{ route('master-relasiKios.update', $dataRelasiKios->id) }}">
+                                {{ $dataRelasiKios->id }}
                                 @method('put')
                                 @csrf
                                 <div class="row">

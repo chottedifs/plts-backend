@@ -8,10 +8,10 @@
                 </li>
                 <li class="menu-title">MASTER DATA</li><!-- /.menu-title -->
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-list"></i>MASTER PETUGAS</a>
+                    <a href="{{ route('master-petugas.index') }}"> <i class="menu-icon fa fa-list"></i>MASTER PETUGAS</a>
                 </li>
                 <li class="">
-                    <a href=""> <i class="menu-icon fa fa-plus"></i>MASTER USER</a>
+                    <a href="{{ route('master-user.index') }}"> <i class="menu-icon fa fa-plus"></i>MASTER USER</a>
                 </li>
                 <li class="">
                     <a href="{{ route('master-kios.index') }}"> <i class="menu-icon fa fa-list"></i>MASTER KIOS</a>

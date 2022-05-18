@@ -19,10 +19,8 @@ class TarifKiosController extends Controller
 
     public function create()
     {
-        $tarifKios = TarifKios::all();
         return view('pages.admin.tarifKios.create', [
-            'judul' => 'Tambah Master Data Tarif Kios',
-            'tarifKios' => $tarifKios
+            'judul' => 'Tambah Master Data Tarif Kios'
         ]);
     }
 

@@ -33,15 +33,15 @@ class sewaKiosController extends Controller
 
     public function store(Request $request)
     {
-        $histori = new HistoriKios();
         $validatedData = $request->validate([
             'user_id' => 'required',
             'relasi_kios_id' => 'required'
         ]);
         $validatedData['status_sewa'] = true;
         SewaKios::create($validatedData);
-
+        
         // Create Histori Kios
+        $histori = new HistoriKios();
         $histori->user_id = $validatedData['user_id'];
         $histori->sewa_kios_id = $validatedData['relasi_kios_id'];
         $histori->tgl_awal_sewa = date('Y-m-d');
