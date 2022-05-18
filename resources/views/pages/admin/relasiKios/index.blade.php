@@ -58,7 +58,7 @@
                                     <td>{{ $dataKios->TarifKios->tipe }}</td>
                                     <td>{{ 'Rp '.number_format($dataKios->TarifKios->harga,0,',','.') }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('master-kios.edit', $dataKios->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ route('master-relasiKios.edit', $dataKios->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

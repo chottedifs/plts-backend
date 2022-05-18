@@ -15,13 +15,13 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-lokasi.update', $lokasis->id) }}">
+                            <form method="post" action="{{ route('master-lokasi.update', $lokasi->id) }}">
                                 @method('put')
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="nama_lokasi" class="form-label">Nama Lokasi</label>
-                                        <input type="text" name="nama_lokasi" class="form-control @error('nama_lokasi') is-invalid @enderror" id="nama_lokasi" autofocus value="{{ old("nama_lokasi", $lokasis->nama_lokasi) }}">
+                                        <input type="text" name="nama_lokasi" class="form-control @error('nama_lokasi') is-invalid @enderror" id="nama_lokasi" autofocus value="{{ old("nama_lokasi", $lokasi->nama_lokasi) }}">
                                         @error('nama_lokasi')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

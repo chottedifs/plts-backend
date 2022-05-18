@@ -15,14 +15,31 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-kios.update', $kios->id) }}">
+                            <form method="post" action="{{ route('master-relasiKios.update', $dataRelasiKios['id']) }}">
                                 @method('put')
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="nama_kios" class="form-label">Nama Kios</label>
-                                        <input type="text" name="nama_kios" class="form-control @error('nama_kios') is-invalid @enderror" id="nama_kios" autofocus value="{{ old("nama_kios", $kios->nama_kios) }}">
-                                        @error('nama_kios')
+                                        <label for="kios_id" class="form-label">Pilih Data Kios</label>
+                                        <select name="kios_id" id="kios_id" class="form-control @error('kios_id') is-invalid @enderror">
+                                            {{-- <option value="" disabled selected hidden>-- Pilih Data Kios --</option> --}}
+                                            @foreach($dataKios as $kios)
+                                            @if($dataRelasiKios['kios_id'] == $kios->id)
+                                                <option value="{{ $kios->id }}" selected>{{ $kios->nama_kios }} || {{ $kios->luas_kios }}</option>
+                                            @endif
+                                            @if($kios->status_kios === 0 )
+                                                <option value="{{ $kios->id }}">{{ $kios->nama_kios }} || {{ $kios->luas_kios }}</option>
+                                            @endif
+                                            {{-- @if($kios->status_kios === 0)
+                                                @if(old('kios_id') == $kios->id)
+                                                    <option value="{{ $kios->id }}">{{ $kios->nama_kios }} || {{ $kios->luas_kios }}</option>
+                                                @else
+                                                    <option value="{{ $kios->id }}">{{ $kios->nama_kios }} || {{ $kios->luas_kios }}</option>
+                                                @endif
+                                            @endif --}}
+                                            @endforeach
+                                        </select>
+                                        @error('kios_id')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -31,9 +48,36 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="luas_kios" class="form-label">Luas Kios</label>
-                                        <input type="text" name="luas_kios" class="form-control @error('luas_kios') is-invalid @enderror" id="luas_kios" value="{{ old("luas_kios", $kios->luas_kios) }}">
-                                        @error('luas_kios')
+                                        <label for="tarif_kios_id" class="form-label">Pilih Tarif Kios</label>
+                                        <select name="tarif_kios_id" id="tarif_kios_id" class="form-control @error('tarif_kios_id') is-invalid @enderror">
+                                            @foreach($dataTarifKios as $tarifKios)
+                                                @if(old('tarif_kios_id', $dataRelasiKios['tarif_kios_id']) == $tarifKios->id)
+                                                    <option value="{{ $tarifKios->id }}" selected>{{ $tarifKios->tipe }} || {{ 'Rp '.number_format($tarifKios->harga,0,',','.') }}</option>
+                                                @else
+                                                    <option value="{{ $tarifKios->id }}">{{ $tarifKios->tipe }} || {{ 'Rp '.number_format($tarifKios->harga,0,',','.') }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('tarif_kios_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="lokasi_id" class="form-label">Pilih Lokasi Kios</label>
+                                        <select name="lokasi_id" id="lokasi_id" class="form-control @error('lokasi_id') is-invalid @enderror">
+                                            @foreach($dataLokasi as $lokasi)
+                                                @if(old('lokasi_id', $dataRelasiKios['lokasi_id']) == $lokasi->id)
+                                                    <option value="{{ $lokasi->id }}" selected>{{ $lokasi->nama_lokasi }}</option>
+                                                @else
+                                                    <option value="{{ $lokasi->id }}">{{ $lokasi->nama_lokasi }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('lokasi_id')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

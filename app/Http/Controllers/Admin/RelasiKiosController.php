@@ -42,7 +42,7 @@ class RelasiKiosController extends Controller
         ]);
         // ddd($validatedData['kios_id']);
         // $validatedData['status_kios'] = true;
-        $validatedData['status_relasi_kios'] = true;
+        $validatedData['status_relasi_kios'] = false;
         Kios::where('id', $validatedData['kios_id']);
         RelasiKios::create($validatedData);
 
@@ -69,7 +69,17 @@ class RelasiKiosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $dataRelasiKios = RelasiKios::findOrFail($id);
+        $dataLokasi = Lokasi::all();
+        $dataTarifKios = TarifKios::all();
+        $dataKios = Kios::all();
+        return view('pages.admin.relasiKios.edit', [
+            'judul' => 'Edit Data Kios',
+            'dataRelasiKios' => $dataRelasiKios,
+            'dataKios' => $dataKios,
+            'dataTarifKios' => $dataTarifKios,
+            'dataLokasi' => $dataLokasi,
+        ]);
     }
 
     /**
@@ -81,7 +91,16 @@ class RelasiKiosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'kios_id' => 'required',
+            'tarif_kios_id' => 'required',
+            'lokasi_id' => 'required',
+        ]);
+        //! membuat kios sebelumnya tidak aktif
+        $validatedData['status_relasi_kios'] = false;
+        Kios::where('id', $validatedData['kios_id']);
+        RelasiKios::create($validatedData);
+        return redirect(route('master-relasiKios.index'));
     }
 
     /**

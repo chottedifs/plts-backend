@@ -33,7 +33,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('master-tarifKwh.create') }}" class="btn btn-primary text-right">Tambah kios</a>
+                        <a href="{{ route('master-tarifKwh.create') }}" class="btn btn-primary text-right">Tambah KWH</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
