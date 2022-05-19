@@ -23,8 +23,8 @@
                                         <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror">
                                             <option value="" disabled selected hidden>-- Pilih Penyewa --</option>
                                             @foreach($users as $user)
-                                                @if ($user->DataUser->status_user == true)
-                                                    <option value="{{ $user->id }}">{{ $user->DataUser->nama_lengkap }}</option>
+                                                @if ($user->status_user == true)
+                                                    <option value="{{ $user->id }}">{{ $user->nama_lengkap }}</option>
                                                 @else
                                                     <option value="" disabled>Tidak ada user tersedia</option>
                                                 @endif
@@ -45,8 +45,6 @@
                                             @foreach($relasiDataKios as $kios)
                                                 @if ($kios->status_relasi_kios == false)
                                                     <option value="{{ $kios->id }}">{{ $kios->Kios->nama_kios }}</option>
-                                                @else
-                                                    <option value="" disabled>Semua Kios Telah Disewakan</option>
                                                 @endif
                                             @endforeach
                                         </select>

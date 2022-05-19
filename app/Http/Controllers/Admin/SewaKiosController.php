@@ -37,8 +37,14 @@ class sewaKiosController extends Controller
             'user_id' => 'required',
             'relasi_kios_id' => 'required'
         ]);
+        $statusRelasiKios = RelasiKios::findOrFail($validatedData['relasi_kios_id']);
+        $statusRelasiKios['status_relasi_kios'] = true;
+        $statusRelasiKios->update();
+
         $validatedData['status_sewa'] = true;
         SewaKios::create($validatedData);
+
+
         
         // Create Histori Kios
         $histori = new HistoriKios();
@@ -65,11 +71,15 @@ class sewaKiosController extends Controller
     {
         $user = User::all();
         $sewaKios = SewaKios::findOrFail($id);
+        $relasiDataKiosBerdasarkan = RelasiKios::findOrFail($sewaKios->relasi_kios_id);
+        $relasiDataKios = RelasiKios::all();
         // $sewaKios = SewaKios::with('RelasiKios','User')->get();
         return view('pages.admin.sewaKios.edit', [
-            'judul' => 'Sewa Kios',
+            'judul' => 'Edit Data Sewa Kios',
             'sewaKios' => $sewaKios,
-            'users' => $user
+            'users' => $user,
+            'relasiDataKios' => $relasiDataKios,
+            'relasiDataKiosBerdasarkan' => $relasiDataKiosBerdasarkan
         ]);
     }
 

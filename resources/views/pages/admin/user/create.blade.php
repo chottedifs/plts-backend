@@ -20,7 +20,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="nik" class="form-label">NIK</label>
-                                        <input type="number" name="nik" class="form-control @error('nik') is-invalid @enderror" id="nik" {{ old('nik') }}>
+                                        <input type="number" name="nik" autofocus class="form-control @error('nik') is-invalid @enderror" id="nik" value="{{ old('nik') }}" >
                                         @error('nik')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -31,8 +31,28 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                                        <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" autofocus value="{{ old("nama_lengkap") }}">
+                                        <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap"  value="{{ old("nama_lengkap") }}">
                                         @error('nama_lengkap')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="lokasi_id" class="form-label">Lokasi</label>
+                                        <select name="lokasi_id" id="lokasi_id" class="form-control @error('lokasi_id') is-invalid @enderror">
+                                            <option value="" disabled selected hidden>-- Berlokasi --</option>
+                                            @foreach ($banyakLokasi as $lokasi)
+                                            @if (old('lokasi_id') == $lokasi->id)
+                                            <option value="{{ $lokasi->id }}" selected>{{ $lokasi->nama_lokasi }}</option>
+                                            @else
+                                            <option value="{{ $lokasi->id }}">{{ $lokasi->nama_lokasi }}</option>
+                                            @endif
+                                            @endforeach
+                                        </select>
+                                        @error('lokasi_id')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -47,12 +67,17 @@
                                             <option value="Laki-laki">Laki-laki</option>
                                             <option value="Perempuan">Perempuan</option>
                                         </select>
+                                        @error('jenis_kelamin')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="email" class="form-label">Alamat Email</label>
-                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" {{ old('email') }}>
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}" >
                                         @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -74,7 +99,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="rekening" class="form-label">No. Rekening</label>
-                                        <input type="number" name="rekening" class="form-control @error('rekening') is-invalid @enderror" id="rekening" {{ old('rekening') }}>
+                                        <input type="number" name="rekening" class="form-control @error('rekening') is-invalid @enderror" id="rekening" value="{{old('rekening') }}">
                                         @error('rekening')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -85,7 +110,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="no_hp" class="form-label">No. Handphone</label>
-                                        <input type="number" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" {{ old('no_hp') }}>
+                                        <input type="number" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" value="{{ old('no_hp') }}" >
                                         @error('no_hp')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

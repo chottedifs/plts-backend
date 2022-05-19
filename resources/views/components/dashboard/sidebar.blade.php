@@ -11,6 +11,9 @@
                     <a href="{{ route('master-petugas.index') }}"> <i class="menu-icon fa fa-list"></i>MASTER PETUGAS</a>
                 </li>
                 <li class="">
+                    <a href="{{ route('master-admin.index') }}"> <i class="menu-icon fa fa-plus"></i>MASTER ADMIN</a>
+                </li>
+                <li class="">
                     <a href="{{ route('master-user.index') }}"> <i class="menu-icon fa fa-plus"></i>MASTER USER</a>
                 </li>
                 <li class="">

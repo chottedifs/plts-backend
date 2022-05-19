@@ -3,33 +3,47 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\DataUser;
-use App\Models\Lokasi;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Lokasi;
 use Illuminate\Http\Request;
-use App\Models\User;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $user = User::with('Lokasi')->get();
-        return view('pages.admin.user.index',[
-            'judul' => 'Biodata User',
-            'users' => $user
+        $banyakAdmin = Admin::with('lokasi')->get();
+        return view('pages.admin.admin.index', [
+            'judul' => 'Data Admin',
+            'banyakAdmin' => $banyakAdmin
         ]);
-
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         $banyakLokasi = Lokasi::all();
-        return view('pages.admin.user.create', [
-            'judul' => 'Tambah User',
+        return view('pages.admin.admin.create', [
+            'judul' => 'Tambah Data Admin',
             'banyakLokasi' => $banyakLokasi
         ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -37,31 +51,17 @@ class UserController extends Controller
             'email' => 'required|email|unique:petugas,email',
             'password' => 'required|min:6',
             'lokasi_id' => 'required',
-            'nik' => 'required|numeric',
-            'rekening' => 'required|numeric',
+            'nip' => 'required|numeric',
             'no_hp' => 'required|numeric',
             'jenis_kelamin' => 'required'
         ]);
         $validatedData["password"] = Hash::make($validatedData["password"]);
-        $validatedData['status_user'] = true;
+        $validatedData['status_admin'] = true;
 
-        User::create($validatedData);
+        Admin::create($validatedData);
 
         // Alert::toast('Kios berhasil ditambahkan!','success');
-        return redirect(route('master-user.index'));
-        
-        // // Create Data User
-        // $dataUser = new DataUser();
-        // $dataUser->user_id = $validatedData['id'];
-        // $dataUser->nama_lengkap = $validatedData['nama_lengkap'];
-        // $dataUser->nik = $validatedData['nik'];
-        // $dataUser->rekening = $validatedData['rekening'];
-        // $dataUser->no_hp = $validatedData['no_hp'];
-        // $dataUser->jenis_kelamin = $validatedData['jenis_kelamin'];
-        // $dataUser->status_user = true;
-        // $dataUser->save();
-
-        // return redirect(route('master-user.index'));
+        return redirect(route('master-admin.index'));
     }
 
     /**
@@ -83,11 +83,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $admin = Admin::findOrFail($id);
         $banyakLokasi = Lokasi::all();
-        return view('pages.admin.user.edit', [
-            'judul' => 'Edit Data User',
-            'user' => $user,
+        return view('pages.admin.admin.edit', [
+            'judul' => 'Edit Data Admin',
+            'admin' => $admin,
             'banyakLokasi' => $banyakLokasi
         ]);
     }
@@ -106,20 +106,19 @@ class UserController extends Controller
             'email' => 'required|email|unique:petugas,email',
             'password' => 'required|min:6',//! apakah sekaligus bisa update password
             'lokasi_id' => 'required',
-            'nik' => 'required|numeric',
-            'rekening' => 'required|numeric',
+            'nip' => 'required|numeric',
             'no_hp' => 'required|numeric',
             'jenis_kelamin' => 'required'
         ]);
         $validatedData["password"] = Hash::make($validatedData["password"]);//! hapus jika tidak ada update password
-        $validatedData['status_user'] = true;
+        $validatedData['status_petugas'] = true;
 
-        $user = User::findOrFail($id);
+        $admin = Admin::findOrFail($id);
 
-        $user->update($validatedData);
+        $admin->update($validatedData);
 
         // Alert::toast('Kios berhasil ditambahkan!','success');
-        return redirect(route('master-user.index'));
+        return redirect(route('master-admin.index'));
     }
 
     /**
@@ -130,7 +129,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        // User::destroy($id);
-        // return redirect(route('master-user.index'));
+        // Admin::destroy($id);
+        // return redirect(route('master-admin.index'));
     }
 }

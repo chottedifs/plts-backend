@@ -15,12 +15,13 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-petugas.store') }}">
+                            <form method="post" action="{{ route('master-admin.update', $admin->id) }}">
+                                @method('put')
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="nip" class="form-label">NIP</label>
-                                        <input type="number" name="nip" autofocus class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip') }}">
+                                        <input type="number" name="nip" autofocus class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip', $admin->nip) }}">
                                         @error('nip')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -31,7 +32,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                                        <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" autofocus value="{{ old("nama_lengkap") }}">
+                                        <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" autofocus value="{{ old("nama_lengkap", $admin->nama_lengkap) }}">
                                         @error('nama_lengkap')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -45,7 +46,7 @@
                                         <select name="lokasi_id" id="lokasi_id" class="form-control @error('lokasi_id') is-invalid @enderror">
                                             <option value="" disabled selected hidden>-- Ditempatkan --</option>
                                             @foreach ($banyakLokasi as $lokasi)
-                                            @if (old('lokasi_id') == $lokasi->id)
+                                            @if (old('lokasi_id', $admin->lokasi_id) == $lokasi->id)
                                             <option value="{{ $lokasi->id }}" selected>{{ $lokasi->nama_lokasi }}</option>
                                             @else
                                             <option value="{{ $lokasi->id }}">{{ $lokasi->nama_lokasi }}</option>
@@ -77,7 +78,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="email" class="form-label">Alamat Email</label>
-                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}">
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $admin->email) }}">
                                         @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -99,7 +100,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="no_hp" class="form-label">No. Handphone</label>
-                                        <input type="number" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" value="{{ old('no_hp') }}">
+                                        <input type="number" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" value="{{ old('no_hp', $admin->no_hp) }}">
                                         @error('no_hp')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

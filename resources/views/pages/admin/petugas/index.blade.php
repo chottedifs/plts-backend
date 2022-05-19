@@ -33,7 +33,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('master-user.create') }}" class="btn btn-primary text-right">Tambah kios</a>
+                        <a href="{{ route('master-petugas.create') }}" class="btn btn-primary text-right">Tambah Data Petugas</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -41,26 +41,37 @@
                                 <tr>
                                     <th class="serial">#</th>
                                     <th>Nama Lengkap</th>
+                                    <th>Jenis Kelamin</th>
                                     <th>Email</th>
                                     <th>NIP</th>
                                     <th>No Handphone</th>
-                                    <th>Rekening</th>
-                                    <th>Status User</th>
                                     <th>Lokasi</th>
+                                    <th>Status User</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($banyakKios as $kios)
+                                @foreach ($banyakPetugas as $petugas)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
-                                    <td>{{ $kios->nama_kios }}</td>
-                                    <td>{{ $kios->luas_kios }}</td>
+                                    <td>{{ $petugas->nama_lengkap }}</td>
+                                    <td>{{ $petugas->jenis_kelamin }}</td>
+                                    <td>{{ $petugas->email }}</td>
+                                    <td>{{ $petugas->nip }}</td>
+                                    <td>{{ $petugas->no_hp }}</td>
+                                    <td>{{ $petugas->Lokasi->nama_lokasi }}</td>
+                                    <td>
+                                        @if ($petugas->status_petugas == 1)
+                                        Aktif
+                                        @else
+                                        Tidak Aktif
+                                        @endif
+                                    </td>
                                     <td class="text-center">
-                                        <a href="{{ route('master-kios.edit', $kios->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ route('master-petugas.edit', $petugas->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

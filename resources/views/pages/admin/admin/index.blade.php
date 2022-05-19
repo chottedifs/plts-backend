@@ -33,38 +33,42 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('sewa-kios.create') }}" class="btn btn-primary text-right">Tambah Sewa kios</a>
+                        <a href="{{ route('master-admin.create') }}" class="btn btn-primary text-right">Tambah Data Admin</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th class="serial">#</th>
-                                    <th>Nama Penyewa</th>
-                                    <th>Nama Kios</th>
-                                    <th>Lokasi Kios</th>
-                                    <th>Tipe Kios</th>
-                                    <th>Status Kios</th>
+                                    <th>Nama Lengkap</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Email</th>
+                                    <th>NIP</th>
+                                    <th>No Handphone</th>
+                                    <th>Lokasi</th>
+                                    <th>Status User</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($sewaKios as $sewa)
+                                @foreach ($banyakAdmin as $admin)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
-                                    <td>{{ $sewa->User->nama_lengkap }}</td>
-                                    <td>{{ $sewa->RelasiKios->Kios->nama_kios }}</td>
-                                    <td>{{ $sewa->RelasiKios->Lokasi->nama_lokasi }}</td>
-                                    <td>{{ $sewa->RelasiKios->TarifKios->tipe }}</td>
+                                    <td>{{ $admin->nama_lengkap }}</td>
+                                    <td>{{ $admin->jenis_kelamin }}</td>
+                                    <td>{{ $admin->email }}</td>
+                                    <td>{{ $admin->nip }}</td>
+                                    <td>{{ $admin->no_hp }}</td>
+                                    <td>{{ $admin->Lokasi->nama_lokasi }}</td>
                                     <td>
-                                        @if ($sewa->status_sewa == true)
-                                            Disewakan
+                                        @if ($admin->status_admin == 1)
+                                        Aktif
                                         @else
-                                            Berhenti Sewa
+                                        Tidak Aktif
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('sewa-kios.edit', $sewa->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ route('master-admin.edit', $admin->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

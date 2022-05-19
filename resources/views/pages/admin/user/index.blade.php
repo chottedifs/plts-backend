@@ -33,7 +33,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('master-user.create') }}" class="btn btn-primary text-right">Tambah kios</a>
+                        <a href="{{ route('master-user.create') }}" class="btn btn-primary text-right">Tambah Data Petugas</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -41,6 +41,8 @@
                                 <tr>
                                     <th class="serial">#</th>
                                     <th>Nama Lengkap</th>
+                                    <th>Lokasi</th>
+                                    <th>Jenis Kelamin</th>
                                     <th>Email</th>
                                     <th>NIK</th>
                                     <th>No Handphone</th>
@@ -50,16 +52,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($banyakKios as $kios)
+                                @foreach ($users as $user)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
-                                    <td>{{ $kios->nama_kios }}</td>
-                                    <td>{{ $kios->luas_kios }}</td>
+                                    <td>{{ $user->nama_lengkap }}</td>
+                                    <td>{{ $user->Lokasi->nama_lokasi }}</td>
+                                    <td>{{ $user->jenis_kelamin }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->nik }}</td>
+                                    <td>{{ $user->no_hp }}</td>
+                                    <td>{{ $user->rekening }}</td>
+                                    <td>
+                                        @if ($user->status_user == 1)
+                                        Aktif
+                                        @else
+                                        Tidak Aktif
+                                        @endif
+                                    </td>
                                     <td class="text-center">
-                                        <a href="{{ route('master-kios.edit', $kios->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ route('master-user.edit', $user->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

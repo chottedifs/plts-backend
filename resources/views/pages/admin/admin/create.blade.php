@@ -15,7 +15,7 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-petugas.store') }}">
+                            <form method="post" action="{{ route('master-admin.store') }}">
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">

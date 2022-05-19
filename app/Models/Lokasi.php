@@ -25,4 +25,14 @@ class Lokasi extends Model
     {
         return $this->hasMany(Petugas::class, 'lokasi_id', 'id');
     }
+    
+    public function User(): HasMany
+    {
+        return $this->hasMany(User::class, 'lokasi_id', 'id');
+    }
+
+    public function Admin(): HasMany
+    {
+        return $this->hasMany(Admin::class, 'lokasi_id', 'id');
+    }
 }
