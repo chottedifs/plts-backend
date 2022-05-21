@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'admin',
         'passwords' => 'users',
     ],
 
@@ -37,6 +37,21 @@ return [
 
     'guards' => [
         'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        'petugas' => [
+            'driver' => 'session',
+            'provider' => 'petugas',
+        ],
+
+        'user' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -65,6 +80,16 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+        'petugas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Petugas::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -89,6 +114,20 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'petugas' => [
+            'provider' => 'petugas',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
