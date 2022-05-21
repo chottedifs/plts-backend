@@ -19,8 +19,30 @@
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
+                                        <label for="email" class="form-label">Alamat Email</label>
+                                        <input type="email" name="email" autofocus class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}">
+                                        @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password">
+                                        @error('password')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
                                         <label for="nip" class="form-label">NIP</label>
-                                        <input type="number" name="nip" autofocus class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip') }}">
+                                        <input type="number" name="nip" class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip') }}">
                                         @error('nip')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -68,28 +90,6 @@
                                             <option value="Perempuan">Perempuan</option>
                                         </select>
                                         @error('jenis_kelamin')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-lg-12">
-                                        <label for="email" class="form-label">Alamat Email</label>
-                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}">
-                                        @error('email')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-lg-12">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password">
-                                        @error('password')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

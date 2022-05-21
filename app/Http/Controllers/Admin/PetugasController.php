@@ -46,22 +46,24 @@ class PetugasController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama_lengkap' => 'required|max:255',
-            'email' => 'required|email|unique:petugas,email',
+        $validatedData1 = $request->validate([
+            'email' => 'required|email|unique:logins,email',
             'password' => 'required|min:6',
+        ]);
+        $validatedData2 = $request->validate([
+            'nama_lengkap' => 'required|max:255',
             'lokasi_id' => 'required',
             'nip' => 'required|numeric',
             'no_hp' => 'required|numeric',
             'jenis_kelamin' => 'required'
         ]);
-        $validatedData["password"] = Hash::make($validatedData["password"]);
-        $validatedData['status_petugas'] = true;
+        // $validatedData["password"] = Hash::make($validatedData["password"]);
+        // $validatedData['status_petugas'] = true;
 
-        Petugas::create($validatedData);
+        // Petugas::create($validatedData);
 
-        // Alert::toast('Kios berhasil ditambahkan!','success');
-        return redirect(route('master-petugas.index'));
+        // // Alert::toast('Kios berhasil ditambahkan!','success');
+        // return redirect(route('master-petugas.index'));
     }
 
     /**

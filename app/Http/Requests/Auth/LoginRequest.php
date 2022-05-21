@@ -45,21 +45,7 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::guard('admin')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            // return redirect('/dashboard');
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
-        } elseif (! Auth::guard('petugas')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            // return redirect('/dashboard');
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
-            ]);
-        } elseif (! Auth::guard('user')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! auth()->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             // return redirect('/dashboard');
             RateLimiter::hit($this->throttleKey());
 

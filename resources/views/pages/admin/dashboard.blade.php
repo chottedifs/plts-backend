@@ -70,58 +70,8 @@
                                         <tr>
                                             <td class="serial">1.</td>
                                             <td> #5469 </td>
-                                            <td>  <span class="name">Louis Stanley</span> </td>
+                                            <td>  <span class="name">{{ $user->Admin->Lokasi->nama_lokasi }}</span> </td>
                                             <td> <span class="product">Uniqlo</span> </td>
-                                            <td><span class="count">1</span></td>
-                                            <td>
-                                                <span class="badge badge-complete">Complete</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="serial">2.</td>
-                                            <td> #5468 </td>
-                                            <td>  <span class="name">Gregory Dixon</span> </td>
-                                            <td> <span class="product">ZARA</span> </td>
-                                            <td><span class="count">1</span></td>
-                                            <td>
-                                                <span class="badge badge-complete">Complete</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="serial">3.</td>
-                                            <td> #5467 </td>
-                                            <td>  <span class="name">Catherine Dixon</span> </td>
-                                            <td> <span class="product">H&M</span> </td>
-                                            <td><span class="count">1</span></td>
-                                            <td>
-                                                <span class="badge badge-complete">Complete</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="serial">4.</td>
-                                            <td> #5466 </td>
-                                            <td>  <span class="name">Mary Silva</span> </td>
-                                            <td> <span class="product">Pull&Bear</span> </td>
-                                            <td><span class="count">1</span></td>
-                                            <td>
-                                                <span class="badge badge-pending">Pending</span>
-                                            </td>
-                                        </tr>
-                                        <tr class=" pb-0">
-                                            <td class="serial">5.</td>
-                                            <td> #5465 </td>
-                                            <td>  <span class="name">Johnny Stephens</span> </td>
-                                            <td> <span class="product">Bershka</span> </td>
-                                            <td><span class="count">1</span></td>
-                                            <td>
-                                                <span class="badge badge-complete">Complete</span>
-                                            </td>
-                                        </tr>
-                                        <tr class=" pb-0">
-                                            <td class="serial">5.</td>
-                                            <td> #5466 </td>
-                                            <td>  <span class="name">Kim Ratchet</span> </td>
-                                            <td> <span class="product">Nama</span> </td>
                                             <td><span class="count">1</span></td>
                                             <td>
                                                 <span class="badge badge-complete">Complete</span>

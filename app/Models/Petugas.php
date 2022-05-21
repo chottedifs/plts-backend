@@ -3,22 +3,16 @@
 namespace App\Models;
 
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Lokasi;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Petugas extends Authenticatable
+class Petugas extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $table = 'petugas';
-    protected $primaryKey = 'id';
     protected $fillable = [
         'nama_lengkap',
         'email',
@@ -30,17 +24,13 @@ class Petugas extends Authenticatable
         'status_petugas'
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     public function Lokasi(): BelongsTo
     {
         return $this->belongsTo(Lokasi::class, 'lokasi_id', 'id');
+    }
+
+    public function Login(): BelongsTo
+    {
+        return $this->belongsTo(Login::class, 'login_id', 'id');
     }
 }

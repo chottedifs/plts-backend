@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePetugasTable extends Migration
+class CreateLoginsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreatePetugasTable extends Migration
      */
     public function up()
     {
-        Schema::create('petugas', function (Blueprint $table) {
+        Schema::create('logins', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_lengkap');
-            $table->foreignId('login_id')->constrained();
-            $table->foreignId('lokasi_id')->constrained();
-            $table->string('nip');
-            $table->string('no_hp');
-            $table->string('jenis_kelamin');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->enum('roles', ['admin', 'operator', 'user'])->default('user');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +31,6 @@ class CreatePetugasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('petugas');
+        Schema::dropIfExists('logins');
     }
 }
