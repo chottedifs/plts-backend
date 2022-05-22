@@ -15,7 +15,7 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-petugas.update', $user->id) }}">
+                            <form method="post" action="{{ route('master-user.update', $user->id) }}">
                                 @method('put')
                                 @csrf
                                 <div class="row">
@@ -64,9 +64,11 @@
                                     <div class="mb-3 col-lg-12">
                                         <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                                         <select name="jenis_kelamin" id="jenis_kelamin" class="form-control @error('jenis_kelamin') is-invalid @enderror">
-                                            <option value="" disabled selected hidden>-- Jenis Kelamin --</option>
-                                            <option value="Laki-laki">Laki-laki</option>
-                                            <option value="Perempuan">Perempuan</option>
+                                        <option value="{{ $user->jenis_kelamin }}" hidden selected>{{ $user->jenis_kelamin }}</option>
+                                            @if ($user->jenis_kelamin)
+                                            <option value="laki-laki" >Laki-Laki</option>
+                                            <option value="perempuan" >Perempuan</option>
+                                            @endif
                                         </select>
                                         @error('jenis_kelamin')
                                             <div class="invalid-feedback">
@@ -78,7 +80,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="email" class="form-label">Alamat Email</label>
-                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $user->email) }}" >
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $user->Login->email) }}" >
                                         @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

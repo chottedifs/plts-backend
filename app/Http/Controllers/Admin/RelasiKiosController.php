@@ -22,6 +22,7 @@ class RelasiKiosController extends Controller
 
     public function create()
     {
+        $this->authorize('admin');
         $banyakKios = Kios::all();
         $banyakTarifKios = TarifKios::all();
         $banyakLokasi = Lokasi::all();
@@ -35,7 +36,7 @@ class RelasiKiosController extends Controller
 
     public function store(Request $request)
     {
-        
+        $this->authorize('admin');
         $validatedData = $request->validate([
             'kios_id' => 'required',
             'tarif_kios_id' => 'required',
@@ -80,6 +81,7 @@ class RelasiKiosController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('admin');
         $dataRelasiKios = RelasiKios::findOrFail($id);
         $dataLokasi = Lokasi::all();
         $dataTarifKios = TarifKios::all();
@@ -102,6 +104,7 @@ class RelasiKiosController extends Controller
      */
     public function update(Request $request,$id)
     {
+        $this->authorize('admin');
         $dataRelasiKios = RelasiKios::findOrFail($id);
         $validatedData = $request->validate([
             'kios_id' => 'required',

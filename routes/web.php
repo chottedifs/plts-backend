@@ -28,15 +28,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['checkRole:admin,operator'])->group(function () {
+Route::middleware(['checkRole:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'] );
-    Route::resource('dashboard/master-user', UserController::class);
+    // hanya admin yang bisa akses
     Route::resource('dashboard/master-admin', AdminController::class);
     Route::resource('dashboard/master-petugas', PetugasController::class);
     Route::resource('dashboard/master-kios', KiosController::class);
     Route::resource('dashboard/master-tarifKios', TarifKiosController::class);
     Route::resource('dashboard/master-tarifKwh', TarifKwhController::class);
     Route::resource('dashboard/master-lokasi', LokasiController::class);
+
+    Route::resource('dashboard/master-user', UserController::class);
+    Route::resource('dashboard/master-informasi', InformasiController::class);
+    Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
+    Route::resource('dashboard/sewa-kios', SewaKiosController::class);
+});
+
+Route::middleware(['checkRole:operator'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'] );
+    // hanya admin yang bisa akses
+    Route::resource('dashboard/master-kios', KiosController::class);
+    Route::resource('dashboard/master-tarifKios', TarifKiosController::class);
+    Route::resource('dashboard/master-tarifKwh', TarifKwhController::class);
+    Route::resource('dashboard/master-lokasi', LokasiController::class);
+
+    Route::resource('dashboard/master-user', UserController::class)->except('show');
     Route::resource('dashboard/master-informasi', InformasiController::class);
     Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
     Route::resource('dashboard/sewa-kios', SewaKiosController::class);

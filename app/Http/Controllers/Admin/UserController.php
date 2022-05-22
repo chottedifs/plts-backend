@@ -4,16 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataUser;
+use App\Models\Login;
 use App\Models\Lokasi;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $user = User::with('Lokasi')->get();
+        $roles = Auth::user()->roles;
+        if ($roles == "operator") {
+            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            $user = User::with('Lokasi')->where('lokasi_id', $lokasiPetugas)->get();
+        } else {
+            $user = User::with('Lokasi')->get();
+        }
+        // $user = User::with('Lokasi')->get();
         return view('pages.admin.user.index',[
             'judul' => 'Biodata User',
             'users' => $user
@@ -23,7 +33,13 @@ class UserController extends Controller
 
     public function create()
     {
-        $banyakLokasi = Lokasi::all();
+        $roles = Auth::user()->roles;
+        if ($roles == "operator") {
+            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            $banyakLokasi = Lokasi::where('id', $lokasiPetugas)->get();
+        } elseif($roles == "admin") {
+            $banyakLokasi = Lokasi::all();
+        }
         return view('pages.admin.user.create', [
             'judul' => 'Tambah User',
             'banyakLokasi' => $banyakLokasi
@@ -32,36 +48,29 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama_lengkap' => 'required|max:255',
-            'email' => 'required|email|unique:petugas,email',
+        $validatedData1 = $request->validate([
+            'email' => 'required|email|unique:logins,email',
             'password' => 'required|min:6',
+        ]);
+        $validatedData2 = $request->validate([
+            'nama_lengkap' => 'required|max:255',
             'lokasi_id' => 'required',
             'nik' => 'required|numeric',
             'rekening' => 'required|numeric',
             'no_hp' => 'required|numeric',
             'jenis_kelamin' => 'required'
         ]);
-        $validatedData["password"] = Hash::make($validatedData["password"]);
-        $validatedData['status_user'] = true;
+        $validatedData1['password'] = bcrypt($validatedData1['password']);
+        $validatedData1['roles'] = 'user';
+        $validatedData1['is_active'] = true;
 
-        User::create($validatedData);
+        $login = Login::create($validatedData1);
+
+        $validatedData2['login_id'] = $login->id;
+        User::create($validatedData2);
 
         // Alert::toast('Kios berhasil ditambahkan!','success');
         return redirect(route('master-user.index'));
-        
-        // // Create Data User
-        // $dataUser = new DataUser();
-        // $dataUser->user_id = $validatedData['id'];
-        // $dataUser->nama_lengkap = $validatedData['nama_lengkap'];
-        // $dataUser->nik = $validatedData['nik'];
-        // $dataUser->rekening = $validatedData['rekening'];
-        // $dataUser->no_hp = $validatedData['no_hp'];
-        // $dataUser->jenis_kelamin = $validatedData['jenis_kelamin'];
-        // $dataUser->status_user = true;
-        // $dataUser->save();
-
-        // return redirect(route('master-user.index'));
     }
 
     /**
@@ -84,7 +93,27 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $banyakLokasi = Lokasi::all();
+
+        // $roles = Auth::user()->roles;
+        // if ($roles == "operator") {
+        //     $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+        //     $banyakLokasi = Lokasi::where('id', $lokasiPetugas)->get();
+        // } elseif($roles == "admin") {
+        //     $banyakLokasi = Lokasi::all();
+        // }
+        // return view('pages.admin.user.create', [
+        //     'judul' => 'Tambah User',
+        //     'banyakLokasi' => $banyakLokasi
+        // ]);
+
+        $roles = Auth::user()->roles;
+        if ($roles == "operator") {
+            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            $banyakLokasi = Lokasi::where('id', $lokasiPetugas)->get();
+        } elseif($roles == "admin") {
+            $banyakLokasi = Lokasi::all();
+        }
+        
         return view('pages.admin.user.edit', [
             'judul' => 'Edit Data User',
             'user' => $user,
@@ -101,22 +130,43 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
+        $validatedData1 = $request->validate([
+            'email' => 'required|email',
+            'password' => '',
+        ]);
+        $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
-            'email' => 'required|email|unique:petugas,email',
-            'password' => 'required|min:6',//! apakah sekaligus bisa update password
             'lokasi_id' => 'required',
             'nik' => 'required|numeric',
             'rekening' => 'required|numeric',
             'no_hp' => 'required|numeric',
             'jenis_kelamin' => 'required'
         ]);
-        $validatedData["password"] = Hash::make($validatedData["password"]);//! hapus jika tidak ada update password
-        $validatedData['status_user'] = true;
-
+        
         $user = User::findOrFail($id);
+        // $login = Login::where('id', $user->login_id)->get();
+        $passwordLama = $user->Login->password;
+        if ($validatedData1['email'] != $user->Login->email) {
+            $validatedData1 = $request->validate([
+                'email' => 'required|email|unique:logins,email'
+            ]);
+        } else {
+            $validatedData1['email'] = $user->Login->email;
+        }
 
-        $user->update($validatedData);
+        if ($validatedData1["password"] != null) {
+            $validatedData1 = $request->validate([
+                'password' => 'required|min:6',
+            ]);
+            $validatedData1['password'] = bcrypt($validatedData1['password']);
+        } else {
+            $validatedData1['password'] = $passwordLama;
+        }
+
+        $user->Login->update($validatedData1);
+
+        $validatedData2['login_id'] = $user->login_id;
+        $user->update($validatedData2);
 
         // Alert::toast('Kios berhasil ditambahkan!','success');
         return redirect(route('master-user.index'));

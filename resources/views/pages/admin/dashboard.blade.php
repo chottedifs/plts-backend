@@ -70,7 +70,7 @@
                                         <tr>
                                             <td class="serial">1.</td>
                                             <td> #5469 </td>
-                                            <td>  <span class="name">{{ $user->Admin->Lokasi->nama_lokasi }}</span> </td>
+                                            <td>  <span class="name">{{ $user["roles"] }}</span> </td>
                                             <td> <span class="product">Uniqlo</span> </td>
                                             <td><span class="count">1</span></td>
                                             <td>

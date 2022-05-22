@@ -18,7 +18,8 @@ class User extends Model
         'rekening',
         'nik',
         'no_hp',
-        'jenis_kelamin'
+        'jenis_kelamin',
+        'login_id'
     ];
     public function SewaKios(): HasOne
     {
