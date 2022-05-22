@@ -1,8 +1,9 @@
 <header id="header" class="header">
     <div class="top-left">
         <div class="navbar-header">
-            <a class="navbar-brand" href="./">ADMIN PLTS</a>
-            <a class="navbar-brand hidden" href="./">ADMIN PLTS</a>
+            <img src="{{ asset('assets/template/images/logo.png') }}"alt="" srcset="">
+            {{-- <img class="navbar-brand" href="./">ADMIN PLTS</a> --}}
+            {{-- <a class="navbar-brand" href="./">ADMIN PLTS</a> --}}
             <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
         </div>
     </div>

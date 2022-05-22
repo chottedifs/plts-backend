@@ -94,18 +94,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        // $roles = Auth::user()->roles;
-        // if ($roles == "operator") {
-        //     $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
-        //     $banyakLokasi = Lokasi::where('id', $lokasiPetugas)->get();
-        // } elseif($roles == "admin") {
-        //     $banyakLokasi = Lokasi::all();
-        // }
-        // return view('pages.admin.user.create', [
-        //     'judul' => 'Tambah User',
-        //     'banyakLokasi' => $banyakLokasi
-        // ]);
-
+        // Cek Lokasi User
         $roles = Auth::user()->roles;
         if ($roles == "operator") {
             $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
@@ -113,7 +102,8 @@ class UserController extends Controller
         } elseif($roles == "admin") {
             $banyakLokasi = Lokasi::all();
         }
-        
+
+        // Halaman
         return view('pages.admin.user.edit', [
             'judul' => 'Edit Data User',
             'user' => $user,
@@ -121,19 +111,12 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        $validatedData1 = $request->validate([
-            'email' => 'required|email',
-            'password' => '',
-        ]);
+        // $validatedData1 = $request->validate([
+        //     'email' => 'required|email',
+        //     // 'password' => 'required',
+        // ]);
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
             'lokasi_id' => 'required',
@@ -142,11 +125,11 @@ class UserController extends Controller
             'no_hp' => 'required|numeric',
             'jenis_kelamin' => 'required'
         ]);
-        
+
         $user = User::findOrFail($id);
         // $login = Login::where('id', $user->login_id)->get();
-        $passwordLama = $user->Login->password;
-        if ($validatedData1['email'] != $user->Login->email) {
+        // $passwordLama = $user->Login->password;
+        if ($request->input('email') != $user->Login->email) {
             $validatedData1 = $request->validate([
                 'email' => 'required|email|unique:logins,email'
             ]);
@@ -154,14 +137,16 @@ class UserController extends Controller
             $validatedData1['email'] = $user->Login->email;
         }
 
-        if ($validatedData1["password"] != null) {
+        if ($request->input('password') != null) {
             $validatedData1 = $request->validate([
                 'password' => 'required|min:6',
             ]);
             $validatedData1['password'] = bcrypt($validatedData1['password']);
-        } else {
-            $validatedData1['password'] = $passwordLama;
         }
+
+        // else {
+        //     $validatedData1['password'] = $passwordLama;
+        // }
 
         $user->Login->update($validatedData1);
 

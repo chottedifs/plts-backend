@@ -56,12 +56,12 @@
                                     <td class="serial">{{ $loop->iteration }}</td>
                                     <td>{{ $petugas->nama_lengkap }}</td>
                                     <td>{{ $petugas->jenis_kelamin }}</td>
-                                    <td>{{ $petugas->email }}</td>
+                                    <td>{{ $petugas->Login->email }}</td>
                                     <td>{{ $petugas->nip }}</td>
                                     <td>{{ $petugas->no_hp }}</td>
                                     <td>{{ $petugas->Lokasi->nama_lokasi }}</td>
                                     <td>
-                                        @if ($petugas->status_petugas == 1)
+                                        @if ($petugas->Login->is_active)
                                         Aktif
                                         @else
                                         Tidak Aktif

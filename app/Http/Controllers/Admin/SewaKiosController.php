@@ -8,12 +8,21 @@ use App\Models\User;
 use App\Models\RelasiKios;
 use App\Models\SewaKios;
 use App\Models\HistoriKios;
+use Illuminate\Support\Facades\Auth;
 
 class sewaKiosController extends Controller
 {
     public function index()
     {
-        $sewaKios = SewaKios::with('RelasiKios','User')->get();
+        $roles = Auth::user()->roles;
+        if ($roles == "operator") {
+            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            $sewaKios = SewaKios::with('RelasiKios')->where('relasi_kios_id', $lokasiPetugas)->get();
+        } elseif ($roles == "admin") {
+            $sewaKios = SewaKios::with('RelasiKios')->get();
+        }
+
+        // $sewaKios = SewaKios::with('RelasiKios','User')->get();
         return view('pages.admin.sewaKios.index', [
             'judul' => 'Sewa Kios',
             'sewaKios' => $sewaKios,
@@ -22,8 +31,20 @@ class sewaKiosController extends Controller
 
     public function create()
     {
-        $user = User::all();
-        $relasiKios = RelasiKios::with('Kios')->get();
+
+        $roles = Auth::user()->roles;
+        if ($roles == "operator") {
+            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            $user = User::with('Lokasi')->where('lokasi_id', $lokasiPetugas)->get();
+            $relasiKios = RelasiKios::with('Kios','Lokasi')->where('lokasi_id', $lokasiPetugas)->get();
+        } elseif($roles == "admin") {
+            $user = User::all();
+            $relasiKios = RelasiKios::with('Kios')->get();
+            // $banyakLokasi = Lokasi::all();
+        }
+
+        // $user = User::all();
+        // $relasiKios = RelasiKios::with('Kios')->get();
         return view('pages.admin.sewaKios.create', [
             'judul' => 'Sewa Kios',
             'relasiDataKios' => $relasiKios,
@@ -44,8 +65,6 @@ class sewaKiosController extends Controller
         $validatedData['status_sewa'] = true;
         SewaKios::create($validatedData);
 
-
-        
         // Create Histori Kios
         $histori = new HistoriKios();
         $histori->user_id = $validatedData['user_id'];

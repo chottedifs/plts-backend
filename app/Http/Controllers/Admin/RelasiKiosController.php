@@ -8,12 +8,20 @@ use App\Models\Lokasi;
 use App\Models\RelasiKios;
 use App\Models\TarifKios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RelasiKiosController extends Controller
 {
     public function index()
     {
-        $relasiDataKios = RelasiKios::with('Kios','Lokasi','TarifKios')->get();
+        $roles = Auth::user()->roles;
+        if ($roles == "operator") {
+            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            $relasiDataKios = RelasiKios::with('Kios','Lokasi','TarifKios')->where('lokasi_id', $lokasiPetugas)->get();
+        } elseif ($roles == "admin") {
+            $relasiDataKios = RelasiKios::with('Kios','Lokasi','TarifKios')->get();
+        }
+        // $relasiDataKios = RelasiKios::with('Kios','Lokasi','TarifKios')->get();
         return view('pages.admin.relasiKios.index', [
             'judul' => 'Data Kios',
             'relasiDataKios' => $relasiDataKios
@@ -126,7 +134,7 @@ class RelasiKiosController extends Controller
         // $validatedData['status_relasi_kios']->update();
         $dataRelasiKios->update($validatedData);
 
-        
+
         return redirect(route('master-relasiKios.index'));
     }
 

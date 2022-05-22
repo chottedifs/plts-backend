@@ -23,7 +23,7 @@
                                         <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror">
                                             <option value="" disabled selected hidden>-- Pilih Penyewa --</option>
                                             @foreach($users as $user)
-                                                @if ($user->status_user == true)
+                                                @if ($user->Login->is_active)
                                                     <option value="{{ $user->id }}">{{ $user->nama_lengkap }}</option>
                                                 @else
                                                     <option value="" disabled>Tidak ada user tersedia</option>

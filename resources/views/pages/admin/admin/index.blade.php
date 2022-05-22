@@ -56,7 +56,7 @@
                                     <td class="serial">{{ $loop->iteration }}</td>
                                     <td>{{ $admin->nama_lengkap }}</td>
                                     <td>{{ $admin->jenis_kelamin }}</td>
-                                    <td>{{ $admin->email }}</td>
+                                    <td>{{ $admin->Login->email }}</td>
                                     <td>{{ $admin->nip }}</td>
                                     <td>{{ $admin->no_hp }}</td>
                                     <td>{{ $admin->Lokasi->nama_lokasi }}</td>

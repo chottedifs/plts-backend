@@ -17,6 +17,7 @@ class Petugas extends Model
         'nama_lengkap',
         'email',
         'password',
+        'login_id',
         'lokasi_id',
         'nip',
         'no_hp',

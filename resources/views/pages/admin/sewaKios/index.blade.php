@@ -57,10 +57,10 @@
                                     <td>{{ $sewa->RelasiKios->Lokasi->nama_lokasi }}</td>
                                     <td>{{ $sewa->RelasiKios->TarifKios->tipe }}</td>
                                     <td>
-                                        @if ($sewa->status_sewa == true)
-                                            Disewakan
-                                        @else
+                                        @if ($sewa->status_sewa)
                                             Berhenti Sewa
+                                        @else
+                                            Disewakan
                                         @endif
                                     </td>
                                     <td class="text-center">

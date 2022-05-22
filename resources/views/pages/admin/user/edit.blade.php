@@ -66,8 +66,8 @@
                                         <select name="jenis_kelamin" id="jenis_kelamin" class="form-control @error('jenis_kelamin') is-invalid @enderror">
                                         <option value="{{ $user->jenis_kelamin }}" hidden selected>{{ $user->jenis_kelamin }}</option>
                                             @if ($user->jenis_kelamin)
-                                            <option value="laki-laki" >Laki-Laki</option>
-                                            <option value="perempuan" >Perempuan</option>
+                                                <option value="laki-laki" >Laki-Laki</option>
+                                                <option value="perempuan" >Perempuan</option>
                                             @endif
                                         </select>
                                         @error('jenis_kelamin')

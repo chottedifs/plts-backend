@@ -20,9 +20,9 @@
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="nip" class="form-label">NIP</label>
-                                        <input type="number" name="nip" autofocus class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip', $petugas->nip) }}">
-                                        @error('nip')
+                                        <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+                                        <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" autofocus value="{{ old("nama_lengkap", $petugas->nama_lengkap) }}">
+                                        @error('nama_lengkap')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -31,9 +31,31 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                                        <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" autofocus value="{{ old("nama_lengkap", $petugas->nama_lengkap) }}">
-                                        @error('nama_lengkap')
+                                        <label for="email" class="form-label">Alamat Email</label>
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $petugas->Login->email) }}">
+                                        @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password">
+                                        @error('password')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="nip" class="form-label">NIP</label>
+                                        <input type="number" name="nip" autofocus class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip', $petugas->nip) }}">
+                                        @error('nip')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -64,33 +86,13 @@
                                     <div class="mb-3 col-lg-12">
                                         <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                                         <select name="jenis_kelamin" id="jenis_kelamin" class="form-control @error('jenis_kelamin') is-invalid @enderror">
-                                            <option value="" disabled selected hidden>-- Jenis Kelamin --</option>
-                                            <option value="Laki-laki">Laki-laki</option>
-                                            <option value="Perempuan">Perempuan</option>
+                                        <option value="{{ $petugas->jenis_kelamin }}" hidden selected>{{ $petugas->jenis_kelamin }}</option>
+                                            @if ($petugas->jenis_kelamin)
+                                                <option value="laki-laki" >Laki-Laki</option>
+                                                <option value="perempuan" >Perempuan</option>
+                                            @endif
                                         </select>
                                         @error('jenis_kelamin')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-lg-12">
-                                        <label for="email" class="form-label">Alamat Email</label>
-                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $petugas->email) }}">
-                                        @error('email')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-lg-12">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password">
-                                        @error('password')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

@@ -3,18 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Lokasi;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Lokasi;
 use App\Models\Petugas;
+use App\Models\Login;
 use Illuminate\Http\Request;
 
 class PetugasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $banyakPetugas = Petugas::with('lokasi')->get();
@@ -24,11 +20,6 @@ class PetugasController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $banyakLokasi = Lokasi::all();
@@ -38,12 +29,6 @@ class PetugasController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData1 = $request->validate([
@@ -57,13 +42,19 @@ class PetugasController extends Controller
             'no_hp' => 'required|numeric',
             'jenis_kelamin' => 'required'
         ]);
-        // $validatedData["password"] = Hash::make($validatedData["password"]);
-        // $validatedData['status_petugas'] = true;
 
-        // Petugas::create($validatedData);
+        // Menambahkan Akses Login
+        $validatedData1['password'] = bcrypt($validatedData1['password']);
+        $validatedData1['roles'] = 'operator';
+        $validatedData1['is_active'] = true;
+        $login = Login::create($validatedData1);
+
+        // Menambahkan Data Petugas Berdasarkan Data Login
+        $validatedData2['login_id'] = $login->id;
+        Petugas::create($validatedData2);
 
         // // Alert::toast('Kios berhasil ditambahkan!','success');
-        // return redirect(route('master-petugas.index'));
+        return redirect(route('master-petugas.index'));
     }
 
     /**
@@ -77,12 +68,6 @@ class PetugasController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $petugas = Petugas::findOrFail($id);
@@ -94,30 +79,38 @@ class PetugasController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
+        $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
-            'email' => 'required|email|unique:petugas,email',
-            'password' => 'required|min:6',//! apakah sekaligus bisa update password
             'lokasi_id' => 'required',
             'nip' => 'required|numeric',
             'no_hp' => 'required|numeric',
             'jenis_kelamin' => 'required'
         ]);
-        $validatedData["password"] = Hash::make($validatedData["password"]);//! hapus jika tidak ada update password
-        $validatedData['status_petugas'] = true;
 
         $petugas = Petugas::findOrFail($id);
+        // $login = Login::where('id', $user->login_id)->get();
+        // $passwordLama = $petugas->Login->password;
+        if ($request->input('email') != $petugas->Login->email) {
+            $validatedData1 = $request->validate([
+                'email' => 'required|email|unique:logins,email'
+            ]);
+        } else {
+            $validatedData1['email'] = $petugas->Login->email;
+        }
 
-        $petugas->update($validatedData);
+        if ($request->input('password') != null) {
+            $validatedData1 = $request->validate([
+                'password' => 'required|min:6',
+            ]);
+            $validatedData1['password'] = bcrypt($validatedData1['password']);
+        }
+
+        $petugas->Login->update($validatedData1);
+
+        $validatedData2['login_id'] = $petugas->login_id;
+        $petugas->update($validatedData2);
 
         // Alert::toast('Kios berhasil ditambahkan!','success');
         return redirect(route('master-petugas.index'));
