@@ -16,7 +16,8 @@ class Admin extends Model
         'lokasi_id',
         'nip',
         'no_hp',
-        'jenis_kelamin'
+        'jenis_kelamin',
+        'login_id'
     ];
 
     public function Lokasi(): BelongsTo

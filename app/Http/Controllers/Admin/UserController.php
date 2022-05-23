@@ -127,22 +127,43 @@ class UserController extends Controller
         ]);
 
         $user = User::findOrFail($id);
-        // $login = Login::where('id', $user->login_id)->get();
-        // $passwordLama = $user->Login->password;
-        if ($request->input('email') != $user->Login->email) {
-            $validatedData1 = $request->validate([
-                'email' => 'required|email|unique:logins,email'
-            ]);
-        } else {
-            $validatedData1['email'] = $user->Login->email;
-        }
 
-        if ($request->input('password') != null) {
+        if ($request->input('email') != $user->Login->email) {
+            // ddd($request->input('email').''. $user->Login->email);
+            if ($request->input('password') != null) {
+                $validatedData1 = $request->validate([
+                    'email' => 'required|email|unique:Logins,email',
+                    'password' => 'required|min:6'
+                ]);
+                $validatedData1['password'] = bcrypt($validatedData1['password']);
+            } else {
+                $validatedData1 = $request->validate([
+                    'email' => 'required|email|unique:Logins,email'
+                ]);
+            }
+        } elseif ($request->input('password') != null) {
             $validatedData1 = $request->validate([
-                'password' => 'required|min:6',
+                'password' => 'required|min:6'
             ]);
             $validatedData1['password'] = bcrypt($validatedData1['password']);
         }
+
+        // $login = Login::where('id', $user->login_id)->get();
+        // $passwordLama = $user->Login->password;
+        // if ($request->input('email') != $user->Login->email) {
+        //     $validatedData1 = $request->validate([
+        //         'email' => 'required|email|unique:logins,email'
+        //     ]);
+        // } else {
+        //     $validatedData1['email'] = $user->Login->email;
+        // }
+
+        // if ($request->input('password') != null) {
+        //     $validatedData1 = $request->validate([
+        //         'password' => 'required|min:6',
+        //     ]);
+        //     $validatedData1['password'] = bcrypt($validatedData1['password']);
+        // }
 
         // else {
         //     $validatedData1['password'] = $passwordLama;

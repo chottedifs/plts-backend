@@ -92,20 +92,41 @@ class PetugasController extends Controller
         $petugas = Petugas::findOrFail($id);
         // $login = Login::where('id', $user->login_id)->get();
         // $passwordLama = $petugas->Login->password;
-        if ($request->input('email') != $petugas->Login->email) {
-            $validatedData1 = $request->validate([
-                'email' => 'required|email|unique:logins,email'
-            ]);
-        } else {
-            $validatedData1['email'] = $petugas->Login->email;
-        }
 
-        if ($request->input('password') != null) {
+        if ($request->input('email') != $petugas->Login->email) {
+            // ddd($request->input('email').''. $user->Login->email);
+            if ($request->input('password') != null) {
+                $validatedData1 = $request->validate([
+                    'email' => 'required|email|unique:Logins,email',
+                    'password' => 'required|min:6'
+                ]);
+                $validatedData1['password'] = bcrypt($validatedData1['password']);
+            } else {
+                $validatedData1 = $request->validate([
+                    'email' => 'required|email|unique:Logins,email'
+                ]);
+            }
+        } elseif ($request->input('password') != null) {
             $validatedData1 = $request->validate([
-                'password' => 'required|min:6',
+                'password' => 'required|min:6'
             ]);
             $validatedData1['password'] = bcrypt($validatedData1['password']);
         }
+
+        // if ($request->input('email') != $petugas->Login->email) {
+        //     $validatedData1 = $request->validate([
+        //         'email' => 'required|email|unique:logins,email'
+        //     ]);
+        // } else {
+        //     $validatedData1['email'] = $petugas->Login->email;
+        // }
+
+        // if ($request->input('password') != null) {
+        //     $validatedData1 = $request->validate([
+        //         'password' => 'required|min:6',
+        //     ]);
+        //     $validatedData1['password'] = bcrypt($validatedData1['password']);
+        // }
 
         $petugas->Login->update($validatedData1);
 
