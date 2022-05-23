@@ -17,14 +17,16 @@ class sewaKiosController extends Controller
         $roles = Auth::user()->roles;
         if ($roles == "operator") {
             $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
-            $sewaKios = SewaKios::with('RelasiKios')->where('relasi_kios_id', $lokasiPetugas)->get();
+            $sewaKios = SewaKios::with('RelasiKios')->get();
         } elseif ($roles == "admin") {
             $sewaKios = SewaKios::with('RelasiKios')->get();
         }
 
         // $sewaKios = SewaKios::with('RelasiKios','User')->get();
+        // ddd($sewaKios->relasi_kios_id);
+        
         return view('pages.admin.sewaKios.index', [
-            'judul' => 'Sewa Kios',
+            'judul' => 'Data Sewa Kios',
             'sewaKios' => $sewaKios,
         ]);
     }
@@ -61,16 +63,22 @@ class sewaKiosController extends Controller
         $statusRelasiKios = RelasiKios::findOrFail($validatedData['relasi_kios_id']);
         $statusRelasiKios['status_relasi_kios'] = true;
         $statusRelasiKios->update();
-
+        
         $validatedData['status_sewa'] = true;
-        SewaKios::create($validatedData);
+        $sewa = SewaKios::create($validatedData);
 
-        // Create Histori Kios
-        $histori = new HistoriKios();
-        $histori->user_id = $validatedData['user_id'];
-        $histori->sewa_kios_id = $validatedData['relasi_kios_id'];
-        $histori->tgl_awal_sewa = date('Y-m-d');
-        $histori->save();
+        //* Create Histori Kios
+        $dataHistori = [
+            'user_id' => $validatedData['user_id'],
+            'sewa_kios_id' => $sewa->id,
+            'tgl_awal_sewa' => date('Y-m-d')
+        ];
+        HistoriKios::create($dataHistori);
+        // $histori = new HistoriKios();
+        // $histori->user_id = $validatedData['user_id'];
+        // $histori->sewa_kios_id = $validatedData['relasi_kios_id'];
+        // $histori->tgl_awal_sewa = date('Y-m-d');
+        // $histori->save();
 
         return redirect(route('sewa-kios.index'));
     }

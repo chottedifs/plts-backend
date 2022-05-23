@@ -15,7 +15,7 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('master-petugas.update', $admin->id) }}">
+                            <form method="post" action="{{ route('master-admin.update', $admin->id) }}">
                                 @method('put')
                                 @csrf
                                 <div class="row">
