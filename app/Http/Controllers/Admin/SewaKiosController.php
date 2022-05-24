@@ -76,11 +76,6 @@ class sewaKiosController extends Controller
             'tgl_awal_sewa' => date('Y-m-d')
         ];
         HistoriKios::create($dataHistori);
-        // $histori = new HistoriKios();
-        // $histori->user_id = $validatedData['user_id'];
-        // $histori->sewa_kios_id = $validatedData['relasi_kios_id'];
-        // $histori->tgl_awal_sewa = date('Y-m-d');
-        // $histori->save();
 
         return redirect(route('sewa-kios.index'));
     }
