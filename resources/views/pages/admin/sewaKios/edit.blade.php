@@ -26,9 +26,9 @@
                                             <option value="" disabled>-- Pilih Penyewa --</option>
                                             @foreach($users as $user)
                                                 @if ($user->status_user == true)
-                                                    <option value="{{ $user->id }}">{{ $user->nama_lengkap }}</option>
-                                                @else
                                                     <option value="" disabled>Tidak ada user tersedia</option>
+                                                @else
+                                                    <option value="{{ $user->id }}">{{ $user->nama_lengkap }}</option>
                                                 @endif
                                             @endforeach
                                         </select>
