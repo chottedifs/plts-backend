@@ -18,10 +18,10 @@ class sewaKiosController extends Controller
         if ($roles == "operator") {
             $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
             // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPetugas)->get();
-            $sewaKios = SewaKios::with('RelasiKios')->where('relasi_kios_id', $lokasiPetugas)->get();
+            $sewaKios = SewaKios::with('RelasiKios','HistoriKios')->where('lokasi_id', $lokasiPetugas)->get();
             // $sewaKios = SewaKios::with('RelasiKios')->get();
         } elseif ($roles == "admin") {
-            $sewaKios = SewaKios::with('RelasiKios')->get();
+            $sewaKios = SewaKios::with('RelasiKios','HistoriKios')->get();
         }
 
         // $sewaKios = SewaKios::with('RelasiKios','User')->get();
@@ -67,6 +67,7 @@ class sewaKiosController extends Controller
         $statusRelasiKios->update();
 
         $validatedData['status_sewa'] = true;
+        $validatedData['lokasi_id'] = $statusRelasiKios['lokasi_id'];
         $sewa = SewaKios::create($validatedData);
 
         //* Create Histori Kios
@@ -116,18 +117,22 @@ class sewaKiosController extends Controller
             'relasi_kios_id' => 'required'
         ]);
         $sewaKios = SewaKios::findOrFail($id);
-
+        
         // Update Histori Kios
-        if(!$request->input('user_id') == $sewaKios) {
-            $updateHistori = [
-                'tgl_akhir_sewa' => date('Y-m-d H:i:s')
-            ];
-            Histori::update($updateHistori);
+        $idHistorySebelumnya = $sewaKios->HistoriKios[0]->id;
+        if($request->input('user_id') != $sewaKios->user_id) {
+            // $updateHistori = [
+                //     'tgl_akhir_sewa' => date('Y-m-d H:i:s')
+                // ];
+                $historiKiosSebelumnya = HistoriKios::findOrFail($idHistorySebelumnya);
+                $historiKiosSebelumnya['tgl_akhir_sewa'] = date('Y-m-d H:i:s');
+                $historiKiosSebelumnya->update($historiKiosSebelumnya);
+                // ddd($updateHistori);
+            
             // $updateHistoriKios['tgl_akhir_sewa'] = date('Y-m-d H:i:s');
             // $updateHistoriKios->update();
         }
 
-        ddd($updateHistori);
         // Update Tanggal sewa kios sebelumnya
         // $updateHistori = HistoriKios::findOrFail($id);
         // $updateHistori->update($updateHistori);

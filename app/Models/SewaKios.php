@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SewaKios extends Model
 {
@@ -15,7 +16,8 @@ class SewaKios extends Model
     protected $fillable = [
         'user_id',
         'relasi_kios_id',
-        'status_sewa'
+        'status_sewa',
+        'lokasi_id'
     ];
 
     public function Tagihan(): HasOne
@@ -31,5 +33,15 @@ class SewaKios extends Model
     public function RelasiKios(): BelongsTo
     {
         return $this->belongsTo(RelasiKios::class);
+    }
+
+    public function Lokasi(): BelongsTo
+    {
+        return $this->belongsTo(Lokasi::class);
+    }
+
+    public function HistoriKios(): HasMany
+    {
+        return $this->hasMany(HistoriKios::class);
     }
 }

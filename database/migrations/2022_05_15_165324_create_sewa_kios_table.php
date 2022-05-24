@@ -17,6 +17,7 @@ class CreateSewaKiosTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('relasi_kios_id')->constrained();
+            $table->foreignId('lokasi_id')->constrained();
             $table->boolean('status_sewa');
             $table->timestamps();
             $table->softDeletes();

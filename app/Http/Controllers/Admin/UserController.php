@@ -137,9 +137,9 @@ class UserController extends Controller
                 ]);
                 $validatedData1['password'] = bcrypt($validatedData1['password']);
             } else {
-                // $validatedData1 = $request->validate([
-                //     'email' => 'required|email|unique:Logins,email'
-                // ]);
+                $validatedData1 = $request->validate([
+                    'email' => 'required|email|unique:Logins,email'
+                ]);
             }
         } elseif ($request->input('password') != null) {
             $validatedData1 = $request->validate([

@@ -25,6 +25,11 @@ class Lokasi extends Model
     {
         return $this->hasMany(Petugas::class, 'lokasi_id', 'id');
     }
+
+    public function SewaKios(): HasMany
+    {
+        return $this->hasMany(SewaKios::class, 'lokasi_id', 'id');
+    }
     
     public function User(): HasMany
     {
