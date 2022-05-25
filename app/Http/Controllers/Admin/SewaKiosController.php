@@ -9,6 +9,7 @@ use App\Models\RelasiKios;
 use App\Models\SewaKios;
 use App\Models\HistoriKios;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class sewaKiosController extends Controller
 {
@@ -44,11 +45,8 @@ class sewaKiosController extends Controller
         } elseif($roles == "admin") {
             $user = User::all();
             $relasiKios = RelasiKios::with('Kios')->get();
-            // $banyakLokasi = Lokasi::all();
         }
 
-        // $user = User::all();
-        // $relasiKios = RelasiKios::with('Kios')->get();
         return view('pages.admin.sewaKios.create', [
             'judul' => 'Sewa Kios',
             'relasiDataKios' => $relasiKios,
@@ -74,10 +72,11 @@ class sewaKiosController extends Controller
         $dataHistori = [
             'user_id' => $validatedData['user_id'],
             'sewa_kios_id' => $sewa->id,
-            'tgl_awal_sewa' => date('Y-m-d')
+            'tgl_awal_sewa' => date('Y-m-d H:i:s')
         ];
         HistoriKios::create($dataHistori);
 
+        Alert::toast('Data penyewa kios berhasil ditambahkan!','success');
         return redirect(route('sewa-kios.index'));
     }
 
@@ -94,66 +93,56 @@ class sewaKiosController extends Controller
 
     public function edit($id)
     {
-        $user = User::all();
         $sewaKios = SewaKios::findOrFail($id);
-        $relasiDataKiosBerdasarkan = RelasiKios::findOrFail($sewaKios->relasi_kios_id);
-        $relasiDataKios = RelasiKios::all();
-        // $sewaKios = SewaKios::with('RelasiKios','User')->get();
+        $roles = Auth::user()->roles;
+        if ($roles == "operator") {
+            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            $user = User::with('Lokasi')->where('lokasi_id', $lokasiPetugas)->get();
+            $relasiKios = RelasiKios::with('Kios','Lokasi')->where('lokasi_id', $lokasiPetugas)->get();
+        } elseif($roles == "admin") {
+            $user = User::all();
+            $relasiKios = RelasiKios::with('Kios')->get();
+            // $banyakLokasi = Lokasi::all();
+        }
+        // ddd($user);
         return view('pages.admin.sewaKios.edit', [
             'judul' => 'Edit Data Sewa Kios',
             'sewaKios' => $sewaKios,
             'users' => $user,
-            'relasiDataKios' => $relasiDataKios,
-            'relasiDataKiosBerdasarkan' => $relasiDataKiosBerdasarkan
+            'relasiKios' => $relasiKios,
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        // $data = $request->all();
+        $sewaKios = SewaKios::findOrFail($id);
+        $historiSebelumnya = HistoriKios::where('user_id', $sewaKios->user_id)->get();
+
+        // ddd($historiSebelumnya);
         // Validasi Input
         $validatedData = $request->validate([
-            'user_id' => 'required',
-            'relasi_kios_id' => 'required'
-        ]);
-        $sewaKios = SewaKios::findOrFail($id);
-        
-        // Update Histori Kios
-        $idHistorySebelumnya = $sewaKios->HistoriKios[0]->id;
-        if($request->input('user_id') != $sewaKios->user_id) {
-            // $updateHistori = [
-                //     'tgl_akhir_sewa' => date('Y-m-d H:i:s')
-                // ];
-                $historiKiosSebelumnya = HistoriKios::findOrFail($idHistorySebelumnya);
-                $historiKiosSebelumnya['tgl_akhir_sewa'] = date('Y-m-d H:i:s');
-                $historiKiosSebelumnya->update($historiKiosSebelumnya);
-                // ddd($updateHistori);
-            
-            // $updateHistoriKios['tgl_akhir_sewa'] = date('Y-m-d H:i:s');
-            // $updateHistoriKios->update();
+                'user_id' => 'required',
+                'relasi_kios_id' => 'required'
+            ]);
+
+        if ($sewaKios != $historiSebelumnya){
+            $updateHistori = [
+                'tgl_akhir_sewa' => date('Y-m-d H:i:s')
+            ];
+            HistoriKios::where('user_id', $sewaKios->user_id)->update($updateHistori);
         }
 
-        // Update Tanggal sewa kios sebelumnya
-        // $updateHistori = HistoriKios::findOrFail($id);
-        // $updateHistori->update($updateHistori);
-
-        //* Create Histori Kios
-        // $dataHistori = [
-        //     'user_id' => $validatedData['user_id'],
-        //     'sewa_kios_id' => $sewaKios->id,
-        //     'tgl_awal_sewa' => date('Y-m-d')
-        // ];
-        // HistoriKios::create($dataHistori);
-        // $sewaKios->update($validatedData);
-        // ddd($updateHistori);
+        $sewaKios->update($validatedData);
 
         // Create Histori Kios
-        // $histori = new HistoriKios();
-        // $histori->user_id = $data['user_id'];
-        // $histori->sewa_kios_id = $sewaKios['relasi_kios_id'];
-        // $histori->tgl_awal_sewa = date('Y-m-d H:i:s');
-        // $histori->save();
+        $dataHistori = [
+            'user_id' => $validatedData['user_id'],
+            'sewa_kios_id' => $sewaKios->id,
+            'tgl_awal_sewa' => date('Y-m-d H:i:s')
+        ];
+        HistoriKios::create($dataHistori);
 
+        Alert::toast('Data penyewa kios berhasil diupdate!','success');
         return redirect(route('sewa-kios.index'));
     }
 

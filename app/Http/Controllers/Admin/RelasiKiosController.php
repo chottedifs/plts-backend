@@ -9,6 +9,7 @@ use App\Models\RelasiKios;
 use App\Models\TarifKios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RelasiKiosController extends Controller
 {
@@ -58,15 +59,7 @@ class RelasiKiosController extends Controller
         $status['status_kios'] = true;
         $status->update();
 
-        // $affected = Kios::table('users')
-        //             ->where('id', 1)
-        //             ->update(['votes' => 1]);
-
-        // Update Status Kios
-        // $status = new Kios();
-
-
-        // Alert::toast('Kios berhasil ditambahkan!','success');
+        Alert::toast('Kios berhasil ditambahkan!','success');
         return redirect(route('master-relasiKios.index'));
     }
 
@@ -81,12 +74,6 @@ class RelasiKiosController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $this->authorize('admin');
@@ -103,13 +90,6 @@ class RelasiKiosController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request,$id)
     {
         $this->authorize('admin');
@@ -134,7 +114,7 @@ class RelasiKiosController extends Controller
         // $validatedData['status_relasi_kios']->update();
         $dataRelasiKios->update($validatedData);
 
-
+        Alert::toast('Kios berhasil diupdate!','success');
         return redirect(route('master-relasiKios.index'));
     }
 

@@ -8,6 +8,7 @@ use App\Models\Lokasi;
 use App\Models\Petugas;
 use App\Models\Login;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PetugasController extends Controller
 {
@@ -53,7 +54,7 @@ class PetugasController extends Controller
         $validatedData2['login_id'] = $login->id;
         Petugas::create($validatedData2);
 
-        // // Alert::toast('Kios berhasil ditambahkan!','success');
+        Alert::toast('Kios berhasil ditambahkan!','success');
         return redirect(route('master-petugas.index'));
     }
 
@@ -113,27 +114,12 @@ class PetugasController extends Controller
             $validatedData1['password'] = bcrypt($validatedData1['password']);
         }
 
-        // if ($request->input('email') != $petugas->Login->email) {
-        //     $validatedData1 = $request->validate([
-        //         'email' => 'required|email|unique:logins,email'
-        //     ]);
-        // } else {
-        //     $validatedData1['email'] = $petugas->Login->email;
-        // }
-
-        // if ($request->input('password') != null) {
-        //     $validatedData1 = $request->validate([
-        //         'password' => 'required|min:6',
-        //     ]);
-        //     $validatedData1['password'] = bcrypt($validatedData1['password']);
-        // }
-
         $petugas->Login->update($validatedData1);
 
         $validatedData2['login_id'] = $petugas->login_id;
         $petugas->update($validatedData2);
 
-        // Alert::toast('Kios berhasil ditambahkan!','success');
+        Alert::toast('Kios berhasil diupdate!','success');
         return redirect(route('master-petugas.index'));
     }
 

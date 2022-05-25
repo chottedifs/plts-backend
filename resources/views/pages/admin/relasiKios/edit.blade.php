@@ -16,7 +16,6 @@
                         </div>
                         <div class="card-body">
                             <form method="post" action="{{ route('master-relasiKios.update', $dataRelasiKios->id) }}">
-                                {{ $dataRelasiKios->id }}
                                 @method('put')
                                 @csrf
                                 <div class="row">

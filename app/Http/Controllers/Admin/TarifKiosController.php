@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TarifKios;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TarifKiosController extends Controller
 {
@@ -32,6 +33,8 @@ class TarifKiosController extends Controller
         ]);
 
         TarifKios::create($validatedData);
+
+        Alert::toast('Data penyewa kios berhasil ditambahkan!','success');
         return redirect(route('master-tarifKios.index'));
     }
 
@@ -60,6 +63,8 @@ class TarifKiosController extends Controller
         $data = $request->all();
         $tarifKios = TarifKios::findOrFail($id);
         $tarifKios->update($data);
+
+        Alert::toast('Data penyewa kios berhasil diupdate!','success');
         return redirect(route('master-tarifKios.index'));
     }
 

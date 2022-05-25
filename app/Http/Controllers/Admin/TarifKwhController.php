@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TarifKwh;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TarifKwhController extends Controller
 {
@@ -32,6 +33,8 @@ class TarifKwhController extends Controller
         ]);
 
         TarifKwh::create($validatedData);
+
+        Alert::toast('Data penyewa kios berhasil ditambahkan!','success');
         return redirect(route('master-tarifKwh.index'));
     }
 
@@ -60,6 +63,8 @@ class TarifKwhController extends Controller
         $data = $request->all();
         $tarifKwh = TarifKwh::findOrFail($id);
         $tarifKwh->update($data);
+
+        Alert::toast('Data penyewa kios berhasil diupdate!','success');
         return redirect(route('master-tarifKwh.index'));
     }
 

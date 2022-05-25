@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -69,7 +70,7 @@ class UserController extends Controller
         $validatedData2['login_id'] = $login->id;
         User::create($validatedData2);
 
-        // Alert::toast('Kios berhasil ditambahkan!','success');
+        Alert::toast('Data user berhasil ditambahkan!','success');
         return redirect(route('master-user.index'));
     }
 
@@ -84,12 +85,6 @@ class UserController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -113,10 +108,6 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $validatedData1 = $request->validate([
-        //     'email' => 'required|email',
-        //     // 'password' => 'required',
-        // ]);
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
             'lokasi_id' => 'required',
@@ -153,7 +144,7 @@ class UserController extends Controller
         $validatedData2['login_id'] = $user->login_id;
         $user->update($validatedData2);
 
-        // Alert::toast('Kios berhasil ditambahkan!','success');
+        Alert::toast('Data user berhasil diupdate!','success');
         return redirect(route('master-user.index'));
     }
 

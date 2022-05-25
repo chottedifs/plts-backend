@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Lokasi;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LokasiController extends Controller
 {
@@ -31,6 +32,8 @@ class LokasiController extends Controller
         ]);
 
         Lokasi::create($validatedData);
+
+        Alert::toast('Kios berhasil ditambahkan!','success');
         return redirect(route('master-lokasi.index'));
     }
 
@@ -59,6 +62,8 @@ class LokasiController extends Controller
         $data = $request->all();
         $lokasis = Lokasi::findOrFail($id);
         $lokasis->update($data);
+
+        Alert::toast('Kios berhasil diupdate!','success');
         return redirect(route('master-lokasi.index'));
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Informasi;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class InformasiController extends Controller
 {
@@ -39,9 +40,9 @@ class InformasiController extends Controller
             $gambar = date('Ymd-His').'-'.str_replace(' ','-', $request->file('gambar')->getClientOriginalName());
             $request->file('gambar')->move(public_path('images'), $gambar);
             Informasi::create($validatedData);
+
+            Alert::toast('Data informasi berhasil ditambahkan!','success');
             return redirect(route('master-informasi.index'));
-        } else {
-            echo'Gagal';
         }
     }
 
@@ -70,6 +71,8 @@ class InformasiController extends Controller
         $data = $request->all();
         $informations = Informasi::findOrFail($id);
         $informations->update($data);
+
+        Alert::toast('Data informasi berhasil diupdate!','success');
         return redirect(route('master-informasi.index'));
     }
 

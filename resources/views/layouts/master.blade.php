@@ -21,9 +21,10 @@
 
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
+
         {{-- SweetAlert --}}
-        {{-- @include('sweetalert::alert') --}}
-        
+        @include('sweetalert::alert')
+
         <!-- Navbar Header-->
         @include('components.dashboard.navbar')
         <!-- /#Navbar Header -->

@@ -5,15 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kios;
-// use RealRashid\SweetAlert\Facades\Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KiosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $banyakKios = Kios::all();
@@ -23,11 +18,6 @@ class KiosController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('pages.admin.kios.create', [
@@ -35,12 +25,6 @@ class KiosController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -50,7 +34,7 @@ class KiosController extends Controller
         $validatedData['status_kios'] = false;
         Kios::create($validatedData);
 
-        // Alert::toast('Kios berhasil ditambahkan!','success');
+        Alert::toast('Kios berhasil ditambahkan!','success');
         return redirect(route('master-kios.index'));
     }
 
@@ -65,12 +49,6 @@ class KiosController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $kios = Kios::findOrFail($id);
@@ -80,13 +58,6 @@ class KiosController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
@@ -98,6 +69,8 @@ class KiosController extends Controller
 
         $kios = Kios::findOrFail($id);
         $kios->update($data);
+
+        Alert::toast('Kios berhasil diupdate!','success');
         return redirect(route('master-kios.index'));
     }
 
