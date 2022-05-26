@@ -127,19 +127,22 @@ class UserController extends Controller
                     'password' => 'required|min:6'
                 ]);
                 $validatedData1['password'] = bcrypt($validatedData1['password']);
+                $user->Login->update($validatedData1);
             } else {
                 $validatedData1 = $request->validate([
                     'email' => 'required|email|unique:Logins,email'
                 ]);
+                $user->Login->update($validatedData1);
             }
         } elseif ($request->input('password') != null) {
             $validatedData1 = $request->validate([
                 'password' => 'required|min:6'
             ]);
             $validatedData1['password'] = bcrypt($validatedData1['password']);
+            $user->Login->update($validatedData1);
         }
 
-        $user->Login->update($validatedData1);
+
 
         $validatedData2['login_id'] = $user->login_id;
         $user->update($validatedData2);
