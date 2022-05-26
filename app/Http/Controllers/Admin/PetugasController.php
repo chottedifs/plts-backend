@@ -102,24 +102,27 @@ class PetugasController extends Controller
                     'password' => 'required|min:6'
                 ]);
                 $validatedData1['password'] = bcrypt($validatedData1['password']);
+                $petugas->Login->update($validatedData1);
             } else {
                 $validatedData1 = $request->validate([
                     'email' => 'required|email|unique:Logins,email'
                 ]);
+                $petugas->Login->update($validatedData1);
             }
         } elseif ($request->input('password') != null) {
             $validatedData1 = $request->validate([
                 'password' => 'required|min:6'
             ]);
             $validatedData1['password'] = bcrypt($validatedData1['password']);
+            $petugas->Login->update($validatedData1);
         }
 
-        $petugas->Login->update($validatedData1);
+        // $petugas->Login->update($validatedData1);
 
         $validatedData2['login_id'] = $petugas->login_id;
         $petugas->update($validatedData2);
 
-        Alert::toast('Kios berhasil diupdate!','success');
+        Alert::toast('Data Petugas berhasil diupdate!','success');
         return redirect(route('master-petugas.index'));
     }
 
