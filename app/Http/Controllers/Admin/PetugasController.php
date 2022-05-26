@@ -122,11 +122,8 @@ class PetugasController extends Controller
         $validatedData2['login_id'] = $petugas->login_id;
         $petugas->update($validatedData2);
 
-<<<<<<< HEAD
         Alert::toast('Petugas berhasil diupdate!','success');
-=======
-        Alert::toast('Data Petugas berhasil diupdate!','success');
->>>>>>> ee905449329b1bb39735bcc29e8d5293789b55c2
+
         return redirect(route('master-petugas.index'));
     }
 
