@@ -44,9 +44,12 @@
                                     <div class="mb-3 col-lg-12">
                                         <label for="luas_kios" class="form-label">Kios</label>
                                         <select name="relasi_kios_id" id="relasi_kios_id" class="form-control mb-3 @error('relasi_kios_id') is-invalid @enderror">
+                                            <option value="{{ $sewaKios->relasi_kios_id }}" disabled hidden selected>{{ $sewaKios->RelasiKios->Kios->nama_kios }}</option>
                                             @foreach ($relasiKios as $relasiKios)
-                                                @if ($relasiKios->status_relasi_kios)
-                                                    <option value="{{ $relasiKios->id }}" selected>{{ $relasiKios->Kios->nama_kios }}</option>
+                                                @if ($relasiKios->status_relasi_kios && $sewaKios->relasi_kios_id != $relasiKios->id)
+                                                    Tidak ada data kios
+                                                @else
+                                                    <option value="{{ $relasiKios->id }}">{{ $relasiKios->Kios->nama_kios }}</option>
                                                 @endif
                                                 {{-- @if ($relasiKios->id)
                                                     <option value="{{ $relasiKios->id }}" selected>{{ $relasiKios->nama_kios }}</option>

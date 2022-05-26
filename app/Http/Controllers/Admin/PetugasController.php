@@ -54,7 +54,7 @@ class PetugasController extends Controller
         $validatedData2['login_id'] = $login->id;
         Petugas::create($validatedData2);
 
-        Alert::toast('Kios berhasil ditambahkan!','success');
+        Alert::toast('Petugas berhasil ditambahkan!','success');
         return redirect(route('master-petugas.index'));
     }
 
@@ -119,7 +119,7 @@ class PetugasController extends Controller
         $validatedData2['login_id'] = $petugas->login_id;
         $petugas->update($validatedData2);
 
-        Alert::toast('Kios berhasil diupdate!','success');
+        Alert::toast('Petugas berhasil diupdate!','success');
         return redirect(route('master-petugas.index'));
     }
 

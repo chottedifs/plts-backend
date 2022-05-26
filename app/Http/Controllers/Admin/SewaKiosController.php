@@ -72,7 +72,8 @@ class sewaKiosController extends Controller
         $dataHistori = [
             'user_id' => $validatedData['user_id'],
             'sewa_kios_id' => $sewa->id,
-            'tgl_awal_sewa' => date('Y-m-d H:i:s')
+            'tgl_awal_sewa' => date('Y-m-d H:i:s'),
+            'lokasi_id' => $validatedData['lokasi_id']
         ];
         HistoriKios::create($dataHistori);
 
@@ -116,9 +117,10 @@ class sewaKiosController extends Controller
     public function update(Request $request, $id)
     {
         $sewaKios = SewaKios::findOrFail($id);
-        $historiSebelumnya = HistoriKios::where('user_id', $sewaKios->user_id)->get();
+        $historiSebelumnya = HistoriKios::where('user_id', $sewaKios->user_id)->get()->last();
 
-        // ddd($historiSebelumnya);
+        // ddd($historiSebelumnya->tgl_awal_sewa);
+
         // Validasi Input
         $validatedData = $request->validate([
                 'user_id' => 'required',
@@ -127,10 +129,13 @@ class sewaKiosController extends Controller
 
         if ($sewaKios != $historiSebelumnya){
             $updateHistori = [
+                'tgl_awal_sewa' => $historiSebelumnya->tgl_awal_sewa,
                 'tgl_akhir_sewa' => date('Y-m-d H:i:s')
             ];
             HistoriKios::where('user_id', $sewaKios->user_id)->update($updateHistori);
         }
+
+        // ddd($updateHistori);
 
         $sewaKios->update($validatedData);
 
@@ -138,7 +143,8 @@ class sewaKiosController extends Controller
         $dataHistori = [
             'user_id' => $validatedData['user_id'],
             'sewa_kios_id' => $sewaKios->id,
-            'tgl_awal_sewa' => date('Y-m-d H:i:s')
+            'tgl_awal_sewa' => date('Y-m-d H:i:s'),
+            'lokasi_id' => $sewaKios->lokasi_id
         ];
         HistoriKios::create($dataHistori);
 

@@ -16,7 +16,8 @@ class HistoriKios extends Model
         'user_id',
         'sewa_kios_id',
         'tgl_awal_sewa',
-        'tgl_akhir_sewa'
+        'tgl_akhir_sewa',
+        'lokasi_id',
     ];
 
     public function Tagihan(): HasOne
@@ -27,5 +28,15 @@ class HistoriKios extends Model
     public function SewaKios(): BelongsTo
     {
         return $this->belongsTo(SewaKios::class);
+    }
+
+    public function User(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function Lokasi(): BelongsTo
+    {
+        return $this->belongsTo(Lokasi::class);
     }
 }

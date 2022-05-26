@@ -21,16 +21,22 @@ class User extends Model
         'jenis_kelamin',
         'login_id'
     ];
+
     public function SewaKios(): HasOne
     {
         return $this->hasOne(SewaKios::class, 'user_id', 'id');
+    }
+
+    public function HistoriKios(): HasOne
+    {
+        return $this->hasOne(HistoriKios::class, 'user_id', 'id');
     }
 
     public function Lokasi(): BelongsTo
     {
         return $this->belongsTo(Lokasi::class, 'lokasi_id', 'id');
     }
-    
+
     public function Login(): BelongsTo
     {
         return $this->belongsTo(Login::class, 'login_id', 'id');

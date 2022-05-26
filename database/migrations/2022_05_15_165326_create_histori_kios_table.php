@@ -17,6 +17,7 @@ class CreateHistoriKiosTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('sewa_kios_id')->constrained();
+            $table->foreignId('lokasi_id')->constrained();
             $table->timestamp('tgl_awal_sewa');
             $table->timestamp('tgl_akhir_sewa')->nullable();
             $table->timestamps();

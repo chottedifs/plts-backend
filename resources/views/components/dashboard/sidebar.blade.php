@@ -39,7 +39,7 @@
                     <a href="{{ route('sewa-kios.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA PENYEWA KIOS</a>
                 </li>
                 <li class="">
-                    <a href="{{ route('master-relasiKios.index') }}"> <i class="menu-icon fa fa-plus"></i>DATA RIWAYAT KIOS</a>
+                    <a href="{{ route('histori-sewa') }}"> <i class="menu-icon fa fa-plus"></i>DATA RIWAYAT KIOS</a>
                 </li>
                 <li class="menu-title">KEUANGAN</li><!-- /.menu-title -->
                 <li class="">
