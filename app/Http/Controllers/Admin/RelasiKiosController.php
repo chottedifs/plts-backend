@@ -59,7 +59,7 @@ class RelasiKiosController extends Controller
         $status['status_kios'] = true;
         $status->update();
 
-        Alert::toast('Kios berhasil ditambahkan!','success');
+        Alert::toast('Kios berhasil ditentukan!','success');
         return redirect(route('master-relasiKios.index'));
     }
 

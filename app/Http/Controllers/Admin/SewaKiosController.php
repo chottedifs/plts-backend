@@ -117,7 +117,8 @@ class sewaKiosController extends Controller
     public function update(Request $request, $id)
     {
         $sewaKios = SewaKios::findOrFail($id);
-        $historiSebelumnya = HistoriKios::where('user_id', $sewaKios->user_id)->get()->last();
+        $historiSebelumnya = HistoriKios::where('sewa_kios_id', $sewaKios->id)->get()->last();
+        // ddd($historiSebelumnya->id);
 
         // ddd($historiSebelumnya->tgl_awal_sewa);
 
@@ -127,26 +128,70 @@ class sewaKiosController extends Controller
                 'relasi_kios_id' => 'required'
             ]);
 
-        if ($sewaKios != $historiSebelumnya){
-            $updateHistori = [
-                'tgl_awal_sewa' => $historiSebelumnya->tgl_awal_sewa,
-                'tgl_akhir_sewa' => date('Y-m-d H:i:s')
-            ];
-            HistoriKios::where('user_id', $sewaKios->user_id)->update($updateHistori);
+        if ($validatedData['user_id'] != $sewaKios->user_id){
+            if ($validatedData['relasi_kios_id'] != $sewaKios->relasi_kios_id) {
+                $validatedData = $request->validate([
+                    'user_id' => 'required',
+                    'relasi_kios_id' => 'required'
+                ]);
+                $updateHistori = [
+                    'tgl_akhir_sewa' => date('Y-m-d H:i:s')
+                ];
+                //Update table historiKios tgl_akhir_sewa berdasarkan user_id
+                HistoriKios::where('user_id', $sewaKios->user_id)->update($updateHistori);
+                //Update Sewa Kios
+                $sewaKios->update($validatedData);
+                //Buat Histori baru karena usernya berubah
+                $dataHistori = [
+                    'user_id' => $validatedData['user_id'],
+                    'sewa_kios_id' => $sewaKios->id,
+                    'tgl_awal_sewa' => date('Y-m-d H:i:s'),
+                    'lokasi_id' => $sewaKios->lokasi_id
+                ];
+                HistoriKios::create($dataHistori);
+            } else {
+                // jika relasi kios sama dengan relasi kios di $sewaKios
+                $validatedData = $request->validate([
+                    'user_id' => 'required',
+                ]);
+                $updateHistori = [
+                    'tgl_akhir_sewa' => date('Y-m-d H:i:s')
+                ];
+                //Update table historiKios tgl_akhir_sewa berdasarkan user_id
+                HistoriKios::where('id', $historiSebelumnya->id)->update($updateHistori);
+                //Update sewaKios
+                $sewaKios->update($validatedData);
+                //Buat Histori baru karena usernya berubah
+                $dataHistori = [
+                    'user_id' => $validatedData['user_id'],
+                    'sewa_kios_id' => $sewaKios->id,
+                    'tgl_awal_sewa' => date('Y-m-d H:i:s'),
+                    'lokasi_id' => $sewaKios->lokasi_id
+                ];
+                HistoriKios::create($dataHistori);
+            }
+        } elseif ($validatedData['relasi_kios_id'] != $sewaKios->relasi_kios_id) {
+            $validatedData = $request->validate([
+                'relasi_kios_id' => 'required'
+            ]);
+            $sewaKios->update($validatedData);
+        } else {
+            Alert::toast('Data penyewa kios tidak ada yang di Update!','success');
+            return redirect(route('sewa-kios.index'));
         }
 
         // ddd($updateHistori);
 
-        $sewaKios->update($validatedData);
+
 
         // Create Histori Kios
-        $dataHistori = [
-            'user_id' => $validatedData['user_id'],
-            'sewa_kios_id' => $sewaKios->id,
-            'tgl_awal_sewa' => date('Y-m-d H:i:s'),
-            'lokasi_id' => $sewaKios->lokasi_id
-        ];
-        HistoriKios::create($dataHistori);
+        // $dataHistori = [
+        //     'user_id' => $validatedData['user_id'],
+        //     'sewa_kios_id' => $sewaKios->id,
+        //     'tgl_awal_sewa' => date('Y-m-d H:i:s'),
+        //     'lokasi_id' => $sewaKios->lokasi_id
+        // ];
+        // HistoriKios::create($dataHistori);
 
         Alert::toast('Data penyewa kios berhasil diupdate!','success');
         return redirect(route('sewa-kios.index'));
