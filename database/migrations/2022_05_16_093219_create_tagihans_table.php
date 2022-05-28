@@ -17,11 +17,13 @@ class CreateTagihansTable extends Migration
             $table->id();
             $table->foreignId('sewa_kios_id')->constrained();
             $table->foreignId('histori_kios_id')->constrained();
+            $table->foreignId('lokasi_id')->constrained();
             $table->integer('total_kwh');
             $table->integer('tagihan_kwh');
             $table->integer('tagihan_kios');
             $table->integer('total_tagihan');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

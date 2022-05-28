@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\Admin\RelasiKiosController;
 use App\Http\Controllers\Admin\SewaKiosController;
 use App\Http\Controllers\Admin\HistoriSewaKiosController;
+use App\Http\Controllers\Admin\TagihanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::middleware(['checkRole:admin'])->group(function () {
     Route::resource('dashboard/master-informasi', InformasiController::class);
     Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
     Route::resource('dashboard/sewa-kios', SewaKiosController::class);
+    Route::resource('dashboard/tagihan', TagihanController::class);
 });
 
 Route::middleware(['checkRole:admin,operator'])->group(function () {
@@ -58,6 +60,7 @@ Route::middleware(['checkRole:admin,operator'])->group(function () {
     Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
     Route::resource('dashboard/sewa-kios', SewaKiosController::class);
     Route::get('dashboard/histori-sewa', [HistoriSewaKiosController::class, 'index'] )->name('histori-sewa');
+    Route::resource('dashboard/tagihan', TagihanController::class);
 });
 
 

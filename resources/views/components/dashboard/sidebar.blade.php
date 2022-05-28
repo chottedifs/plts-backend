@@ -43,7 +43,7 @@
                 </li>
                 <li class="menu-title">KEUANGAN</li><!-- /.menu-title -->
                 <li class="">
-                    <a href="#"> <i class="menu-icon fa fa-list"></i>TAGIHAN KIOS</a>
+                    <a href="{{ route('tagihan.index') }}"> <i class="menu-icon fa fa-list"></i>TAGIHAN KIOS</a>
                 </li>
                 <li class="">
                     <a href="#"> <i class="menu-icon fa fa-list"></i>HISTORI TAGIHAN</a>

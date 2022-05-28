@@ -14,6 +14,7 @@ class Tagihan extends Model
     protected $fillable = [
         'sewa_kios_id',
         'histori_kios_id',
+        'lokasi_id',
         'total_kwh',
         'tagihan_kwh',
         'tagihan_kios',
@@ -28,5 +29,10 @@ class Tagihan extends Model
     public function HistoriKios(): BelongsTo
     {
         return $this->belongsTo(HistoriKios::class);
+    }
+
+    public function Lokasi(): BelongsTo
+    {
+        return $this->belongsTo(Lokasi::class);
     }
 }

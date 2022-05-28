@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\SewaKios;
+use App\Models\Tagihan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TagihanController extends Controller
 {
@@ -14,7 +17,23 @@ class TagihanController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Auth::user()->roles;
+        if ($roles == "operator") {
+            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPetugas)->get();
+            $dataTagihan = Tagihan::with('SewaKios','HistoriKios')->where('lokasi_id', $lokasiPetugas)->get();
+            // $sewaKios = SewaKios::with('RelasiKios')->get();
+        } elseif ($roles == "admin") {
+            $dataTagihan = Tagihan::with('SewaKios','HistoriKios')->get();
+        }
+
+        // $sewaKios = SewaKios::with('RelasiKios','User')->get();
+        // ddd($sewaKios);
+
+        return view('pages.admin.tagihan.index', [
+            'judul' => 'Tagihan Penyewa Kios',
+            'dataTagihan' => $dataTagihan,
+        ]);
     }
 
     /**
@@ -24,7 +43,20 @@ class TagihanController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Auth::user()->roles;
+        if ($roles == "operator") {
+            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPetugas)->get();
+            $sewaKios = SewaKios::with('RelasiKios','HistoriKios')->where([
+                'lokasi_id' => $lokasiPetugas,
+                'status_sewa' => 1
+                ])->get();
+            // $sewaKios = SewaKios::with('RelasiKios')->get();
+        } elseif ($roles == "admin") {
+            $sewaKios = SewaKios::with('RelasiKios','HistoriKios')->where('status_sewa', 1)->get();
+        }
+
+        ddd($sewaKios);
     }
 
     /**

@@ -36,6 +36,11 @@ class Lokasi extends Model
         return $this->hasMany(SewaKios::class, 'lokasi_id', 'id');
     }
 
+    public function Tagihan(): HasMany
+    {
+        return $this->hasMany(Tagihan::class, 'lokasi_id', 'id');
+    }
+
     public function User(): HasMany
     {
         return $this->hasMany(User::class, 'lokasi_id', 'id');
