@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\TagihanExport;
 use App\Http\Controllers\Controller;
 use App\Models\SewaKios;
 use App\Models\Tagihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TagihanController extends Controller
 {
@@ -43,6 +45,9 @@ class TagihanController extends Controller
      */
     public function create()
     {
+        return Excel::download(new TagihanExport, 'templateExportTagihan.xlsx');
+
+
         $roles = Auth::user()->roles;
         if ($roles == "operator") {
             $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
