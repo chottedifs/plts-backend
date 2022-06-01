@@ -60,7 +60,8 @@ Route::middleware(['checkRole:admin,operator'])->group(function () {
     Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
     Route::resource('dashboard/sewa-kios', SewaKiosController::class);
     Route::get('dashboard/histori-sewa', [HistoriSewaKiosController::class, 'index'] )->name('histori-sewa');
-    Route::resource('dashboard/tagihan', TagihanController::class);
+    Route::get('dashboard/tagihan', [TagihanController::class, 'index'] )->name('tagihan-index');
+    Route::get('dashboard/export', [TagihanController::class, 'create'] )->name('export-tagihan');
 });
 
 

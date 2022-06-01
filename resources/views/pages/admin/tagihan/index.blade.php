@@ -33,7 +33,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('tagihan.create') }}" class="btn btn-success text-right">Dwonload Template</a>
+                        <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right">Dwonload Template</a>
                         <a href="#" class="btn btn-primary text-right">Import Template</a>
                         {{-- <a href="#" class="btn btn-success text-right">Tambah Sewa kios</a> --}}
                     </div>

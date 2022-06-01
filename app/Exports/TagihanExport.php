@@ -3,10 +3,15 @@
 namespace App\Exports;
 
 use App\Models\SewaKios;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class TagihanExport implements FromCollection
+class TagihanExport implements FromCollection, WithMapping, WithHeadings, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -26,10 +31,32 @@ class TagihanExport implements FromCollection
             $sewaKios = SewaKios::with('RelasiKios','HistoriKios')->where('status_sewa', 1)->get();
         }
 
-        ddd($sewaKios);
-
         return $sewaKios;
+    }
 
-        // return SewaKios::where()
+    public function map($sewaKios): array
+    {
+        $tanggal = date('M Y');
+        return [
+            $sewaKios->RelasiKios->Kios->nama_kios,
+            $sewaKios->id,
+            $sewaKios->RelasiKios->Kios->id,
+            $sewaKios->User->nama_lengkap,
+            $sewaKios->Lokasi->nama_lokasi,
+            $tanggal,
+        ];
+    }
+
+    public function headings(): array
+    {
+        return [
+            ' ',
+            'Id Sewa Kios',
+            'Id Kios',
+            'Nama Kios',
+            'Lokasi Kios',
+            'Periode',
+            'Total KWH',
+        ];
     }
 }
