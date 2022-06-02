@@ -62,6 +62,7 @@ Route::middleware(['checkRole:admin,operator'])->group(function () {
     Route::get('dashboard/histori-sewa', [HistoriSewaKiosController::class, 'index'] )->name('histori-sewa');
     Route::get('dashboard/tagihan', [TagihanController::class, 'index'] )->name('tagihan-index');
     Route::get('dashboard/export', [TagihanController::class, 'create'] )->name('export-tagihan');
+    Route::post('dashboard/import', [TagihanController::class, 'import'] )->name('import-tagihan');
 });
 
 

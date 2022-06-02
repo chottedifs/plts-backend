@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\TagihanExport;
+use App\Imports\TagihanImport;
 use App\Http\Controllers\Controller;
 use App\Models\SewaKios;
 use App\Models\Tagihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class TagihanController extends Controller
 {
@@ -102,5 +104,40 @@ class TagihanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file'=> 'required|mimes:xlsx'
+        ]);
+
+        $file = $request->file('import-file');
+
+        $nama_file = $file->hashName();
+
+        //temporary file
+        $path = $file->store('public/excel/',$nama_file);
+
+        ddd($path);
+
+        // import data
+        $import = Excel::import(new TagihanImport(), storage_path('app/public/excel/'.$nama_file));
+
+        //remove from server
+        Storage::delete($path);
+
+        if($import) {
+            //redirect
+            return redirect()->route('tagihan-index')->with(['success' => 'Data Berhasil Diimport!']);
+        } else {
+            //redirect
+            return redirect()->route('tagihan-index')->with(['error' => 'Data Gagal Diimport!']);
+        }
+
+
+        // Excel::import(new TagihanImport, 'templateExportTagihan.xlsx');
+
+        // return redirect(route('tagihan-index'));
     }
 }
