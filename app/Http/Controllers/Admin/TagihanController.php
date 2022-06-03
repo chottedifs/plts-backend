@@ -108,24 +108,26 @@ class TagihanController extends Controller
 
     public function import(Request $request)
     {
-        $request->validate([
-            'file'=> 'required|mimes:xlsx'
-        ]);
+        // $request->validate([
+        //     'file'=> 'required|mimes:xlsx'
+        // ]);
 
         $file = $request->file('import-file');
 
-        $nama_file = $file->hashName();
+        $namaFile = $file->getClientOriginalName();
 
-        //temporary file
-        $path = $file->store('public/excel/',$nama_file);
+        $file->move('excel', $namaFile);
 
-        ddd($path);
+        // //temporary file
+        // $path = $file->store('public/excel/',$nama_file);
+
+        // ddd($path);
 
         // import data
-        $import = Excel::import(new TagihanImport(), storage_path('app/public/excel/'.$nama_file));
+        $import = Excel::import(new TagihanImport, public_path('/excel/'.$namaFile));
 
         //remove from server
-        Storage::delete($path);
+        // Storage::delete($path);
 
         if($import) {
             //redirect

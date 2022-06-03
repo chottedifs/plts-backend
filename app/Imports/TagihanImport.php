@@ -21,15 +21,15 @@ class TagihanImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // $histori = $this->historiKios->where('id', $row['sewa_kios'])->first();
-        return new TagihanImport([
+        return new Tagihan([
             'sewa_kios_id' => $row['sewa_id'],
             'histori_kios_id' => $row['histori_id'] ,
             'lokasi_id' => $row['lokasi_id'],
             'total_kwh' => $row['total_kwh'],
-            'tagihan_kwh' => $row['tarif_kios'],
+            'tagihan_kwh' => $row['tarif_dasar_kwh'] * $row['total_kwh'],
             'tagihan_kios' => $row['tarif_kios'],
-            'total_tagihan' => $row['tarif_kios'],
-            'periode' => $row['periode'],
+            'total_tagihan' => $row['tarif_dasar_kwh'] * $row['total_kwh'] + $row['tarif_kios'],
+            'periode' => date('Y-m-d H:i:s'),
             // 'sewa_kios_id' => $row[1],
             // 'histori_kios_id' => $row[3] ,
             // 'lokasi_id' => $row[4],

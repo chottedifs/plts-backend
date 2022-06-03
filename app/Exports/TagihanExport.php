@@ -39,20 +39,11 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
 
     public function map($sewaKios): array
     {
-
-<<<<<<< HEAD
         $historiKios = HistoriKios::with('SewaKios')->where('user_id', $sewaKios->user_id)->first();
         $tarif_dasar = TarifKwh::select('harga')->first();
         $tanggal = date('M Y');
 
         // ddd($tarif_dasar);
-=======
-        $historiKios = HistoriKios::with('SewaKios')->where('id',$sewaKios->id)->first();
-        $tarif_dasar = TarifKwh::select('harga')->first();
-        $tanggal = date('M Y');
-
-        // ddd($historiKios->id);
->>>>>>> 638c100db527aa5e3d8e1c88022b9a1bfd31ecce
         return [
             $sewaKios->RelasiKios->Kios->nama_kios,
             $sewaKios->id,
