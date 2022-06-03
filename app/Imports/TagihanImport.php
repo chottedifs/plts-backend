@@ -18,8 +18,7 @@ class TagihanImport implements ToModel, WithHeadingRow
             'tagihan_kwh' => $row['tarif_dasar_kwh'] * $row['total_kwh'],
             'tagihan_kios' => $row['tarif_kios'],
             'total_tagihan' => $row['tarif_dasar_kwh'] * $row['total_kwh'] + $row['tarif_kios'],
-            'periode' => date('Y-m-d H:i:s'),
-
+            'periode' => date('Y-m-d'),
         ]);
     }
 }

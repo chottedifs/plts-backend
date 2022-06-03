@@ -22,7 +22,7 @@ class CreateTagihansTable extends Migration
             $table->integer('tagihan_kwh');
             $table->integer('tagihan_kios');
             $table->integer('total_tagihan');
-            $table->timestamp('periode');
+            $table->date('periode');
             $table->timestamps();
             $table->softDeletes();
         });

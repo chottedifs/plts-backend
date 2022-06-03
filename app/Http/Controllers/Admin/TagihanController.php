@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Exports\TagihanExport;
 use App\Imports\TagihanImport;
 use App\Http\Controllers\Controller;
-use App\Models\SewaKios;
 use App\Models\Tagihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,20 +20,39 @@ class TagihanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $roles = Auth::user()->roles;
-        if ($roles == "operator") {
-            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
-            // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPetugas)->get();
-            $dataTagihan = Tagihan::with('SewaKios','HistoriKios')->where('lokasi_id', $lokasiPetugas)->get();
-            // $sewaKios = SewaKios::with('RelasiKios')->get();
-        } elseif ($roles == "admin") {
-            $dataTagihan = Tagihan::with('SewaKios','HistoriKios')->get();
+
+
+        // $bulanTagihan = request()->bulanTagihan;
+        if ($request->bulanTagihan) {
+            $bulan = $request->bulanTagihan;
+            $bulanP = explode('-', $bulan);
+            $roles = Auth::user()->roles;
+            if ($roles == "operator") {
+                $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+                $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPetugas)->get();
+            } elseif ($roles == "admin") {
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
+            }
+        } else {
+            $bulan = Carbon::now()->format('Y-m');
+            $bulanP = explode('-', $bulan);
+            $roles = Auth::user()->roles;
+            if ($roles == "operator") {
+                $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+                $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPetugas)->get();
+            } elseif ($roles == "admin") {
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
+            }
         }
 
-        // $sewaKios = SewaKios::with('RelasiKios','User')->get();
-        // ddd($sewaKios);
 
         return view('pages.admin.tagihan.index', [
             'judul' => 'Tagihan Penyewa Kios',

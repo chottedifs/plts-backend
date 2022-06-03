@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-
         Lokasi::create([
             'nama_lokasi' => 'VIKTOR',
         ]);
@@ -33,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'roles' => 'admin',
             'is_active' => true,
         ]);
-        
+
         Admin::create([
             'nama_lengkap' => 'Admin',
             'login_id' => 1,

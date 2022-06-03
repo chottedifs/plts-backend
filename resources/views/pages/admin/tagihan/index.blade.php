@@ -33,9 +33,31 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right">Dwonload Template</a>
-                        <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right">Import Template</button>
-                        {{-- <a href="#" class="btn btn-success text-right">Tambah Sewa kios</a> --}}
+                        <div class="float-right">
+                            <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right">Download Template</a>
+                            <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right">Import Template</button>
+                        </div>
+
+                        <form class="form-inline" action="{{ route('tagihan-index') }}" method="get">
+                            @csrf
+                            <div class="form-group mx-sm-3 mb-2">
+                              <label for="bulanTagihan" class="mr-2">Periode Tagihan</label>
+                              <input type="month" class="form-control" name="bulanTagihan" id="bulanTagihan">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Cari Tagihan</button>
+                        </form>
+
+                        {{-- <form action="{{ route('tagihan-index') }}" method="get">
+                            @csrf
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-floating">
+                                        <input type="month" class="form-control" name="bulanTagihan" id="bulanTagihan">
+                                        <button type="submit" class="mt-3 btn btn-primary">Cari Tagihan</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form> --}}
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -63,9 +85,9 @@
                                     <td>{{ $tagihan->SewaKios->RelasiKios->Kios->nama_kios }}</td>
                                     <td>{{ $tagihan->Lokasi->nama_lokasi }}</td>
                                     <td>{{ $tagihan->total_kwh }}</td>
-                                    <td>{{ $tagihan->tagihan_kwh }}</td>
-                                    <td>{{ $tagihan->tagihan_kios }}</td>
-                                    <td>{{ $tagihan->total_tagihan }}</td>
+                                    <td>{{ 'Rp '.number_format($tagihan->tagihan_kwh,0,',','.') }}</td>
+                                    <td>{{ 'Rp '.number_format($tagihan->tagihan_kios,0,',','.') }}</td>
+                                    <td>{{ 'Rp '.number_format($tagihan->total_tagihan,0,',','.') }}</td>
                                     <td>{{  date('M Y', strtotime($tagihan->periode)) }}</td>
                                 </tr>
                                 @endforeach
