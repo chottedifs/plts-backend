@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TagihanController extends Controller
 {
@@ -108,38 +109,23 @@ class TagihanController extends Controller
 
     public function import(Request $request)
     {
-        // $request->validate([
-        //     'file'=> 'required|mimes:xlsx'
-        // ]);
-
         $file = $request->file('import-file');
 
         $namaFile = $file->getClientOriginalName();
 
         $file->move('excel', $namaFile);
 
-        // //temporary file
-        // $path = $file->store('public/excel/',$nama_file);
-
-        // ddd($path);
-
         // import data
         $import = Excel::import(new TagihanImport, public_path('/excel/'.$namaFile));
 
-        //remove from server
-        // Storage::delete($path);
-
         if($import) {
             //redirect
-            return redirect()->route('tagihan-index')->with(['success' => 'Data Berhasil Diimport!']);
+            Alert::toast('Data berhasil diimport!','success');
+            return redirect(route('tagihan-index'));
         } else {
             //redirect
-            return redirect()->route('tagihan-index')->with(['error' => 'Data Gagal Diimport!']);
+            Alert::toast('Data gagal diimport!','warning');
+            return redirect(route('tagihan-index'));
         }
-
-
-        // Excel::import(new TagihanImport, 'templateExportTagihan.xlsx');
-
-        // return redirect(route('tagihan-index'));
     }
 }

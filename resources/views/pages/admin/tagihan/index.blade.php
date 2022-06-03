@@ -49,32 +49,27 @@
                                     <th>Tagihan Kwh</th>
                                     <th>Tagihan Kios</th>
                                     <th>Total Tagihan</th>
+                                    <th>Periode</th>
                                     @can('admin')
-                                    <th class="text-center">Action</th>
+                                        <th class="text-center">Action</th>
                                     @endcan
                                 </tr>
                             </thead>
-                            {{-- <tbody>
-                                @foreach ($sewaKios as $sewa)
+                            <tbody>
+                                @foreach ($dataTagihan as $tagihan)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
-                                    <td>{{ $sewa->User->nama_lengkap }}</td>
-                                    <td>{{ $sewa->RelasiKios->Kios->nama_kios }}</td>
-                                    <td>{{ $sewa->RelasiKios->Lokasi->nama_lokasi }}</td>
-                                    <td>{{ $sewa->RelasiKios->TarifKios->tipe }}</td>
-                                    <td>
-                                        @if ($sewa->status_sewa)
-                                            Berhenti Sewa
-                                        @else
-                                            Disewakan
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ route('sewa-kios.edit', $sewa->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
-                                    </td>
+                                    <td>{{ $tagihan->SewaKios->User->nama_lengkap }}</td>
+                                    <td>{{ $tagihan->SewaKios->RelasiKios->Kios->nama_kios }}</td>
+                                    <td>{{ $tagihan->Lokasi->nama_lokasi }}</td>
+                                    <td>{{ $tagihan->total_kwh }}</td>
+                                    <td>{{ $tagihan->tagihan_kwh }}</td>
+                                    <td>{{ $tagihan->tagihan_kios }}</td>
+                                    <td>{{ $tagihan->total_tagihan }}</td>
+                                    <td>{{  date('M Y', strtotime($tagihan->periode)) }}</td>
                                 </tr>
                                 @endforeach
-                            </tbody> --}}
+                            </tbody>
                         </table>
                     </div>
                 </div>
