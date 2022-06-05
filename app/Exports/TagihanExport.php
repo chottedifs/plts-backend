@@ -21,11 +21,11 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
     public function collection()
     {
         $roles = Auth::user()->roles;
-        if ($roles == "operator") {
-            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
-            // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPetugas)->get();
+        if ($roles == "plts") {
+            $lokasiPlts = Auth::user()->Plts->lokasi_id;
+            // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPlts)->get();
             $sewaKios = SewaKios::with('RelasiKios')->where([
-                'lokasi_id' => $lokasiPetugas,
+                'lokasi_id' => $lokasiPlts,
                 'status_sewa' => 1
                 ])->get();
             // $historiKios = HistoriKios::with('SewaKios')->where('sewa_kios_id',$sewaKios->id)->get();

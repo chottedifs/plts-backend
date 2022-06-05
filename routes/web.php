@@ -31,46 +31,80 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::middleware(['checkRole:admin'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'] );
-    // hanya admin yang bisa akses
-    Route::resource('dashboard/master-admin', AdminController::class)->except('show');
-    Route::resource('dashboard/master-petugas', PetugasController::class)->except('show');
-    Route::resource('dashboard/master-plts', PltsController::class)->except('show');
-    Route::resource('dashboard/master-kios', KiosController::class)->except('show');
-    Route::resource('dashboard/master-tarifKios', TarifKiosController::class)->except('show');
-    Route::resource('dashboard/master-tarifKwh', TarifKwhController::class)->except('show');
-    Route::resource('dashboard/master-lokasi', LokasiController::class)->except('show');
-
-    Route::resource('dashboard/master-user', UserController::class)->except('show');
-    Route::resource('dashboard/master-informasi', InformasiController::class);
-    Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
-    Route::resource('dashboard/sewa-kios', SewaKiosController::class);
-    Route::resource('dashboard/tagihan', TagihanController::class);
+// Route Super Admin, Operator, Plts
+Route::middleware(['checkRole:admin,operator,plts'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'] )->name('dashboard');
 });
 
+//Route Super Admin, Operator
 Route::middleware(['checkRole:admin,operator'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'] );
-    // hanya admin yang bisa akses
-    Route::resource('dashboard/master-kios', KiosController::class);
-    Route::resource('dashboard/master-tarifKios', TarifKiosController::class);
-    Route::resource('dashboard/master-tarifKwh', TarifKwhController::class);
-    Route::resource('dashboard/master-lokasi', LokasiController::class);
-
+    // Route::get('/dashboard', [DashboardController::class, 'index'] );
     Route::resource('dashboard/master-user', UserController::class)->except('show');
     Route::resource('dashboard/master-informasi', InformasiController::class);
     Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
     Route::resource('dashboard/sewa-kios', SewaKiosController::class);
     Route::get('dashboard/histori-sewa', [HistoriSewaKiosController::class, 'index'] )->name('histori-sewa');
+});
+
+//Route Super Admin, Plts
+Route::middleware(['checkRole:admin,plts'])->group(function () {
+    Route::resource('dashboard/tagihan', TagihanController::class);
+    Route::resource('dashboard/master-tarifKwh', TarifKwhController::class)->except('show');
     Route::get('dashboard/tagihan', [TagihanController::class, 'index'] )->name('tagihan-index');
     Route::get('dashboard/export', [TagihanController::class, 'create'] )->name('export-tagihan');
     Route::post('dashboard/import', [TagihanController::class, 'import'] )->name('import-tagihan');
 });
 
-Route::middleware(['checkRole:plts'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'] );
-    Route::resource('dashboard/tagihan', TagihanController::class);
+//Route Super Admin
+Route::middleware(['checkRole:admin'])->group(function () {
+    Route::resource('dashboard/master-admin', AdminController::class)->except('show');
+        Route::resource('dashboard/master-petugas', PetugasController::class)->except('show');
+        Route::resource('dashboard/master-plts', PltsController::class)->except('show');
+        Route::resource('dashboard/master-kios', KiosController::class)->except('show');
+        Route::resource('dashboard/master-tarifKios', TarifKiosController::class)->except('show');
+        Route::resource('dashboard/master-lokasi', LokasiController::class)->except('show');
 });
+
+
+
+// Route::middleware(['checkRole:admin'])->group(function () {
+//     // Route::get('/dashboard', [DashboardController::class, 'index'] );
+//     // hanya admin yang bisa akses
+//     Route::resource('dashboard/master-admin', AdminController::class)->except('show');
+//     Route::resource('dashboard/master-petugas', PetugasController::class)->except('show');
+//     Route::resource('dashboard/master-plts', PltsController::class)->except('show');
+//     Route::resource('dashboard/master-kios', KiosController::class)->except('show');
+//     Route::resource('dashboard/master-tarifKios', TarifKiosController::class)->except('show');
+//     Route::resource('dashboard/master-tarifKwh', TarifKwhController::class)->except('show');
+//     Route::resource('dashboard/master-lokasi', LokasiController::class)->except('show');
+
+//     Route::resource('dashboard/master-user', UserController::class)->except('show');
+//     Route::resource('dashboard/master-informasi', InformasiController::class);
+//     Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
+//     Route::resource('dashboard/sewa-kios', SewaKiosController::class);
+//     Route::resource('dashboard/tagihan', TagihanController::class);
+// });
+
+// Route::middleware(['checkRole:admin,operator,plts'])->group(function () {
+//     // Route::get('/dashboard', [DashboardController::class, 'index'] );
+//     // hanya admin yang bisa akses
+//     Route::resource('dashboard/master-kios', KiosController::class);
+//     Route::resource('dashboard/master-tarifKios', TarifKiosController::class);
+//     Route::resource('dashboard/master-tarifKwh', TarifKwhController::class);
+//     Route::resource('dashboard/master-lokasi', LokasiController::class);
+
+//     Route::resource('dashboard/master-user', UserController::class)->except('show');
+//     Route::resource('dashboard/master-informasi', InformasiController::class);
+//     Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
+//     Route::resource('dashboard/sewa-kios', SewaKiosController::class);
+//     Route::get('dashboard/histori-sewa', [HistoriSewaKiosController::class, 'index'] )->name('histori-sewa');
+
+// });
+
+// Route::middleware(['checkRole:plts'])->group(function () {
+//     Route::get('/dashboard', [DashboardController::class, 'index'] );
+//     Route::resource('dashboard/tagihan', TagihanController::class);
+// });
 
 
 // Route::get('/dashboard', function () {

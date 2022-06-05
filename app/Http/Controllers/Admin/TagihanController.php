@@ -22,18 +22,16 @@ class TagihanController extends Controller
      */
     public function index(Request $request)
     {
-
-
         // $bulanTagihan = request()->bulanTagihan;
         if ($request->bulanTagihan) {
             $bulan = $request->bulanTagihan;
             $bulanP = explode('-', $bulan);
             $roles = Auth::user()->roles;
-            if ($roles == "operator") {
-                $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            if ($roles == "plts") {
+                $lokasiPlts = Auth::user()->Plts->lokasi_id;
                 $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
                 $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-                $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPetugas)->get();
+                $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPlts)->get();
             } elseif ($roles == "admin") {
                 $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
                 $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
@@ -42,11 +40,11 @@ class TagihanController extends Controller
             $bulan = Carbon::now()->format('Y-m');
             $bulanP = explode('-', $bulan);
             $roles = Auth::user()->roles;
-            if ($roles == "operator") {
-                $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            if ($roles == "plts") {
+                $lokasiPlts = Auth::user()->Plts->lokasi_id;
                 $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
                 $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-                $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPetugas)->get();
+                $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPlts)->get();
             } elseif ($roles == "admin") {
                 $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
                 $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
