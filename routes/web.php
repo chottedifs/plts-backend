@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\Admin\RelasiKiosController;
 use App\Http\Controllers\Admin\SewaKiosController;
 use App\Http\Controllers\Admin\HistoriSewaKiosController;
+use App\Http\Controllers\Admin\PltsController;
 use App\Http\Controllers\Admin\TagihanController;
 
 /*
@@ -35,6 +36,7 @@ Route::middleware(['checkRole:admin'])->group(function () {
     // hanya admin yang bisa akses
     Route::resource('dashboard/master-admin', AdminController::class)->except('show');
     Route::resource('dashboard/master-petugas', PetugasController::class)->except('show');
+    Route::resource('dashboard/master-plts', PltsController::class)->except('show');
     Route::resource('dashboard/master-kios', KiosController::class)->except('show');
     Route::resource('dashboard/master-tarifKios', TarifKiosController::class)->except('show');
     Route::resource('dashboard/master-tarifKwh', TarifKwhController::class)->except('show');
@@ -63,6 +65,11 @@ Route::middleware(['checkRole:admin,operator'])->group(function () {
     Route::get('dashboard/tagihan', [TagihanController::class, 'index'] )->name('tagihan-index');
     Route::get('dashboard/export', [TagihanController::class, 'create'] )->name('export-tagihan');
     Route::post('dashboard/import', [TagihanController::class, 'import'] )->name('import-tagihan');
+});
+
+Route::middleware(['checkRole:plts'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'] );
+    Route::resource('dashboard/tagihan', TagihanController::class);
 });
 
 

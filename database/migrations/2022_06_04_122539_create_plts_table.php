@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLoginsTable extends Migration
+class CreatePltsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateLoginsTable extends Migration
      */
     public function up()
     {
-        Schema::create('logins', function (Blueprint $table) {
+        Schema::create('plts', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->enum('roles', ['admin', 'operator', 'user', 'plts'])->default('user');
-            $table->boolean('is_active')->default(true);
+            $table->string('nama_lengkap');
+            $table->foreignId('login_id')->constrained();
+            $table->foreignId('lokasi_id')->constrained();
+            $table->string('nip');
+            $table->string('no_hp');
+            $table->string('jenis_kelamin');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +33,6 @@ class CreateLoginsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logins');
+        Schema::dropIfExists('plts');
     }
 }

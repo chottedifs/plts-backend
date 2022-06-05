@@ -9,10 +9,13 @@
                 <li class="menu-title">MASTER DATA</li><!-- /.menu-title -->
                 @can('admin')
                     <li class="">
+                        <a href="{{ route('master-admin.index') }}"> <i class="menu-icon fa fa-plus"></i>MASTER ADMIN</a>
+                    </li>
+                    <li class="">
                         <a href="{{ route('master-petugas.index') }}"> <i class="menu-icon fa fa-list"></i>MASTER PETUGAS</a>
                     </li>
                     <li class="">
-                        <a href="{{ route('master-admin.index') }}"> <i class="menu-icon fa fa-plus"></i>MASTER ADMIN</a>
+                        <a href="{{ route('master-plts.index') }}"> <i class="menu-icon fa fa-list"></i>MASTER PLTS</a>
                     </li>
                     <li class="">
                         <a href="{{ route('master-kios.index') }}"> <i class="menu-icon fa fa-list"></i>MASTER KIOS</a>

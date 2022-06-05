@@ -23,6 +23,7 @@ class CreateTagihansTable extends Migration
             $table->integer('tagihan_kios');
             $table->integer('total_tagihan');
             $table->date('periode');
+            $table->boolean('status_bayar');
             $table->timestamps();
             $table->softDeletes();
         });
