@@ -64,9 +64,15 @@
                                     <td>{{ $user->rekening }}</td>
                                     <td>
                                         @if ($user->Login->is_active == 1)
-                                        Aktif
+                                        <form action="{{ route('user-isActive', $user->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-success mb-2">Aktif</button>
+                                        </form>
                                         @else
-                                        Tidak Aktif
+                                        <form action="{{ route('user-isActive', $user->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-danger mb-2">Tidak Aktif</button>
+                                        </form>
                                         @endif
                                     </td>
                                     <td class="text-center">

@@ -10,6 +10,7 @@ class TagihanImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+
         return new Tagihan([
             'sewa_kios_id' => $row['sewa_id'],
             'histori_kios_id' => $row['histori_id'] ,
@@ -19,6 +20,7 @@ class TagihanImport implements ToModel, WithHeadingRow
             'tagihan_kios' => $row['tarif_kios'],
             'total_tagihan' => $row['tarif_dasar_kwh'] * $row['total_kwh'] + $row['tarif_kios'],
             'periode' => date('Y-m-d'),
+            'status_bayar' => false,
         ]);
     }
 }

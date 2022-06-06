@@ -66,6 +66,7 @@ class TagihanController extends Controller
      */
     public function create()
     {
+        $this->authorize('plts');
         return Excel::download(new TagihanExport, 'templateExportTagihan.xlsx');
     }
 
@@ -127,6 +128,7 @@ class TagihanController extends Controller
 
     public function import(Request $request)
     {
+        $this->authorize('plts');
         $file = $request->file('import-file');
 
         $namaFile = $file->getClientOriginalName();

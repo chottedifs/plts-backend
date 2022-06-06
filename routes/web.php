@@ -40,9 +40,12 @@ Route::middleware(['checkRole:admin,operator,plts'])->group(function () {
 Route::middleware(['checkRole:admin,operator'])->group(function () {
     // Route::get('/dashboard', [DashboardController::class, 'index'] );
     Route::resource('dashboard/master-user', UserController::class)->except('show');
+    Route::resource('dashboard/master-user', UserController::class)->except('show');
+    Route::post('dashboard/master-user/{id}', [UserController::class, 'isActive'])->name('user-isActive');
     Route::resource('dashboard/master-informasi', InformasiController::class);
     Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
     Route::resource('dashboard/sewa-kios', SewaKiosController::class);
+    Route::post('dashboard/sewa-kios/{id}', [SewaKiosController::class, 'isActive'])->name('sewa-isActive');
     Route::get('dashboard/histori-sewa', [HistoriSewaKiosController::class, 'index'] )->name('histori-sewa');
 });
 

@@ -33,16 +33,18 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="float-right">
-                            <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Template Tagihan </a>
-                            <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Tagihan</button>
-                            <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-down mr-2"></i> Download Report </a>
-                        </div>
+                        @can('plts')
+                            <div class="float-right">
+                                <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Template Tagihan </a>
+                                <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Tagihan</button>
+                                <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-down mr-2"></i> Download Report </a>
+                            </div>
+                        @endcan
                         <form class="form-inline" action="{{ route('tagihan-index') }}" method="get">
                             @csrf
                             <div class="form-group mx-sm-3 mb-2">
-                              <label for="bulanTagihan" class="mr-2">Periode Tagihan</label>
-                              <input type="month" class="form-control" name="bulanTagihan" id="bulanTagihan" value="{{ old('bulanTagihan', $periode) }}">
+                            <label for="bulanTagihan" class="mr-2">Periode Tagihan</label>
+                            <input type="month" class="form-control" name="bulanTagihan" id="bulanTagihan" value="{{ old('bulanTagihan', $periode) }}">
                             </div>
                             <button type="submit" class="btn btn-primary mb-2" style="border-radius: 10px;">Cari Tagihan</button>
                         </form>
@@ -60,7 +62,8 @@
                                     <th>Tagihan Kios</th>
                                     <th>Total Tagihan</th>
                                     <th>Periode</th>
-                                    @can('admin')
+                                    <th>Status Bayar</th>
+                                    @can('plts')
                                         <th class="text-center">Action</th>
                                     @endcan
                                 </tr>
@@ -77,6 +80,22 @@
                                     <td>{{ 'Rp '.number_format($tagihan->tagihan_kios,0,',','.') }}</td>
                                     <td>{{ 'Rp '.number_format($tagihan->total_tagihan,0,',','.') }}</td>
                                     <td>{{  date('M Y', strtotime($tagihan->periode)) }}</td>
+                                    <td>
+                                        @if($tagihan->status_bayar == 1)
+                                            <div class="badge bg-success text-wrap" style="width: 6rem;">
+                                                Terbayar
+                                            </div>
+                                        @elseif ($tagihan->status_bayar == 0)
+                                            <div class="badge bg-danger text-wrap" style="width: 6rem;">
+                                                Belum Terbayar
+                                            </div>
+                                        @endif
+                                    </td>
+                                    @can('plts')
+                                    <td class="text-center">
+                                        <a href="#" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
+                                    </td>
+                                    @endcan
                                 </tr>
                                 @endforeach
                             </tbody>

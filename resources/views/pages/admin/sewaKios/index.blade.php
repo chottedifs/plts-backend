@@ -57,10 +57,21 @@
                                     <td>{{ $sewa->RelasiKios->Lokasi->nama_lokasi }}</td>
                                     <td>{{ $sewa->RelasiKios->TarifKios->tipe }}</td>
                                     <td>
-                                        @if ($sewa->status_sewa)
+                                        {{-- @if ($sewa->status_sewa)
                                             Berhenti Sewa
                                         @else
                                             Disewakan
+                                        @endif --}}
+                                        @if ($sewa->status_sewa == 1)
+                                        <form action="{{ route('sewa-isActive', $sewa->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-success mb-2">Aktif</button>
+                                        </form>
+                                        @else
+                                        <form action="{{ route('sewa-isActive', $sewa->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-danger mb-2">Tidak Aktif</button>
+                                        </form>
                                         @endif
                                     </td>
                                     <td class="text-center">

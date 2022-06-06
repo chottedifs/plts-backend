@@ -162,4 +162,25 @@ class UserController extends Controller
         // User::destroy($id);
         // return redirect(route('master-user.index'));
     }
+
+    public function isActive($id)
+    {
+        // $user = User::with('Login')->where('id',$id)->get();
+        $user = User::with('Login')->findOrFail($id);
+        // ddd($user->Login->is_active);
+        if ($user->Login->is_active == 1) {
+            $active['is_active'] = 0;
+            $login = Login::findOrFail($user->Login->id);
+            $login->update($active);
+            // $user->Login->is_active->update($active);
+            Alert::toast('Data user berhasil di Non-aktifkan!','success');
+            return redirect(route('master-user.index'));
+        } elseif ($user->Login->is_active == 0) {
+            $active['is_active'] = 1;
+            $login = Login::findOrFail($user->Login->id);
+            $login->update($active);
+            Alert::toast('Data user berhasil di aktifkan!','success');
+            return redirect(route('master-user.index'));
+        }
+    }
 }

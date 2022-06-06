@@ -17,18 +17,18 @@
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-user-cog"></i>Master Data User</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="menu-icon fa fa-user-secret"></i><a href="{{ route('master-admin.index') }}">Administrator</a></li>
-                                <li><i class="menu-icon fa fa-user-tie"></i><a href="{{ route('master-petugas.index') }}">Operator</a></li>
-                                <li><i class="menu-icon fa fa-user-tie"></i><a href="{{ route('master-plts.index') }}">Admin PLTS</a></li>
-                                <li><i class="menu-icon fa fa-user"></i><a href="{{ route('master-user.index') }}">User Kios</a></li>
+                                <li><i class="menu-icon fa fa-user-secret"></i><a href="{{ route('master-admin.index') }}" class="ml-1">Administrator</a></li>
+                                <li><i class="menu-icon fa fa-user-tie"></i><a href="{{ route('master-petugas.index') }}" class="ml-1">Operator</a></li>
+                                <li><i class="menu-icon fa fa-user-tie"></i><a href="{{ route('master-plts.index') }}" class="ml-1">Admin PLTS</a></li>
+                                <li><i class="menu-icon fa fa-user"></i><a href="{{ route('master-user.index') }}" class="ml-1">User Kios</a></li>
                             </ul>
                         </li>
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-store-alt"></i>Master Data Kios</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="menu-icon fa fa-store-alt"></i><a href="{{ route('master-kios.index') }}">Pendaftaran Kios</a></li>
-                                <li><i class="menu-icon fa fa-funnel-dollar"></i><a href="{{ route('master-tarifKios.index') }}">Tarif Kios</a></li>
-                                <li><i class="menu-icon fa fa-funnel-dollar"></i><a href="{{ route('master-tarifKwh.index') }}">Tarif Dasar KWH</a></li>
+                                <li><i class="menu-icon fa fa-store-alt"></i><a href="{{ route('master-kios.index') }}" class="ml-1">Pendaftaran Kios</a></li>
+                                <li><i class="menu-icon fa fa-funnel-dollar"></i><a href="{{ route('master-tarifKios.index') }}" class="ml-1">Tarif Kios</a></li>
+                                <li><i class="menu-icon fa fa-funnel-dollar"></i><a href="{{ route('master-tarifKwh.index') }}" class="ml-1">Tarif Dasar KWH</a></li>
                             </ul>
                         </li>
                         <li>
@@ -43,8 +43,8 @@
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-window-restore"></i>Sewa Kios</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="menu-icon fa fa-user-tag pr-2"></i> <a href="{{ route('sewa-kios.index') }}">Data Penyewa Kios</a></li>
-                                <li><i class="menu-icon fa fa-history pr-2"></i> <a href="{{ route('histori-sewa') }}">Histori Kios</a></li>
+                                <li><i class="menu-icon fa fa-user-tag pr-2"></i> <a href="{{ route('sewa-kios.index') }}" class="ml-1">Data Penyewa Kios</a></li>
+                                <li><i class="menu-icon fa fa-history pr-2"></i> <a href="{{ route('histori-sewa') }}" class="ml-1">Histori Kios</a></li>
                             </ul>
                         </li>
 
@@ -86,8 +86,8 @@
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-window-restore"></i>Sewa Kios</a>
                             <ul class="sub-menu children dropdown-menu">
-                                <li><i class="menu-icon fa fa-user-tag pr-2"></i> <a href="{{ route('sewa-kios.index') }}">Data Penyewa Kios</a></li>
-                                <li><i class="menu-icon fa fa-history pr-2"></i> <a href="{{ route('histori-sewa') }}">Histori Kios</a></li>
+                                <li><i class="menu-icon fa fa-user-tag pr-2"></i> <a href="{{ route('sewa-kios.index') }}" class="ml-1">Data Penyewa Kios</a></li>
+                                <li><i class="menu-icon fa fa-history pr-2"></i> <a href="{{ route('histori-sewa') }}" class="ml-1">Histori Kios</a></li>
                             </ul>
                         </li>
 

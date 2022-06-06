@@ -207,4 +207,20 @@ class sewaKiosController extends Controller
     {
         //
     }
+
+    public function isActive($id)
+    {
+        $kios = SewaKios::findOrFail($id);
+        if ($kios->status_sewa == 1) {
+            $active['status_sewa'] = 0;
+            $kios->update($active);
+            Alert::toast('Data sewa kios berhasil di Non-aktifkan!','success');
+            return redirect(route('sewa-kios.index'));
+        } elseif ($kios->status_sewa == 0) {
+            $active['status_sewa'] = 1;
+            $kios->update($active);
+            Alert::toast('Data sewa kios berhasil di aktifkan!','success');
+            return redirect(route('sewa-kios.index'));
+        }
+    }
 }
