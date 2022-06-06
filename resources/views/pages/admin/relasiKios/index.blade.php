@@ -34,7 +34,7 @@
                 <div class="card">
                     <div class="card-header">
                         @can('admin')
-                        <a href="{{ route('master-relasiKios.create') }}" class="btn btn-primary text-right">Tentukan Data kios</a>
+                        <a href="{{ route('master-relasiKios.create') }}" class="btn btn-primary text-right" style="border-radius: 10px;"><i class="fa-solid fa-square-plus mr-2"></i> Kelola Kios</a>
                         @endcan
                     </div>
                     <div class="card-body">

@@ -55,6 +55,7 @@ class TagihanController extends Controller
         return view('pages.admin.tagihan.index', [
             'judul' => 'Tagihan Penyewa Kios',
             'dataTagihan' => $dataTagihan,
+            'periode' => $bulan
         ]);
     }
 

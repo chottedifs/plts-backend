@@ -34,30 +34,18 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="float-right">
-                            <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right">Download Template</a>
-                            <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right">Import Template</button>
+                            <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Template Tagihan </a>
+                            <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Tagihan</button>
+                            <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-down mr-2"></i> Download Report </a>
                         </div>
-
                         <form class="form-inline" action="{{ route('tagihan-index') }}" method="get">
                             @csrf
                             <div class="form-group mx-sm-3 mb-2">
                               <label for="bulanTagihan" class="mr-2">Periode Tagihan</label>
-                              <input type="month" class="form-control" name="bulanTagihan" id="bulanTagihan">
+                              <input type="month" class="form-control" name="bulanTagihan" id="bulanTagihan" value="{{ old('bulanTagihan', $periode) }}">
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2">Cari Tagihan</button>
+                            <button type="submit" class="btn btn-primary mb-2" style="border-radius: 10px;">Cari Tagihan</button>
                         </form>
-
-                        {{-- <form action="{{ route('tagihan-index') }}" method="get">
-                            @csrf
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="form-floating">
-                                        <input type="month" class="form-control" name="bulanTagihan" id="bulanTagihan">
-                                        <button type="submit" class="mt-3 btn btn-primary">Cari Tagihan</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form> --}}
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
