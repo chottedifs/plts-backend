@@ -13,6 +13,9 @@ use App\Imports\TagihanImport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Style;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 
 class TagihanController extends Controller
 {
@@ -67,6 +70,7 @@ class TagihanController extends Controller
     public function create()
     {
         $this->authorize('plts');
+        // $sheet->setCell('B')->setHidden();
         return Excel::download(new TagihanExport, 'template-tagihan'.time().'.xlsx');
     }
 

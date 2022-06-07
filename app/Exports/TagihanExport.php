@@ -11,12 +11,16 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class TagihanExport implements FromCollection, WithMapping, WithHeadings, ShouldAutoSize
+class TagihanExport implements FromCollection, WithMapping, WithHeadings, ShouldAutoSize, WithEvents, WithStyles
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
+    use RegistersEventListeners;
+
     public function collection()
     {
         $roles = Auth::user()->roles;
@@ -72,5 +76,61 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             'periode',
             'total_kwh',
         ];
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            // Style the first row as bold text.
+            1 => ['font' => [
+                'bold' => true,
+                'size' => 13
+                ]],
+        ];
+    }
+
+    public static function afterSheet(AfterSheet $event)
+    {
+        try {
+            // Inisialisasi semua column untuk dilock
+            $workSheet = $event
+            ->sheet
+            ->getProtection()
+            ->setSheet(true);
+
+            // Hide Column yang tidak diperlukan
+            $workSheet = $event
+                ->sheet
+                ->getColumnDimension('F')
+                ->setVisible(false);
+
+            // Hide Column yang tidak diperlukan
+            $workSheet = $event
+                ->sheet
+                ->getColumnDimension('G')
+                ->setVisible(false);
+
+            // Hide Column yang tidak diperlukan
+            $workSheet = $event
+                ->sheet
+                ->getColumnDimension('H')
+                ->setVisible(false);
+
+            // Hide Column yang tidak diperlukan
+            $workSheet = $event
+                ->sheet
+                ->getColumnDimension('I')
+                ->setVisible(false);
+
+            // Unlock Column untuk diisi
+            $workSheet = $event
+            ->sheet
+            ->getStyle('K')
+            ->getProtection()
+            ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+
+        } catch (Exception $exception) {
+            throw $exception;
+        }
     }
 }
