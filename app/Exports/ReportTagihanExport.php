@@ -2,15 +2,53 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Carbon\Carbon;
+use App\Models\Tagihan;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Concerns\Fromview;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class ReportTagihanExport implements FromCollection
+class ReportTagihanExport implements Fromview, ShouldAutoSize
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    public function view() : View
     {
-        //
+        $request = Request::input('bulanTagihan');
+        if (!$request == NULL) {
+            $bulan = $request;
+            $bulanP = explode('-', $bulan);
+            $roles = Auth::user()->roles;
+            if ($roles == "plts") {
+                $lokasiPlts = Auth::user()->Plts->lokasi_id;
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+                $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPlts)->get();
+            } elseif ($roles == "admin") {
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
+            }
+        } else {
+            $bulan = Carbon::now()->format('Y-m');
+            $bulanP = explode('-', $bulan);
+            $roles = Auth::user()->roles;
+            if ($roles == "plts") {
+                $lokasiPlts = Auth::user()->Plts->lokasi_id;
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+                $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPlts)->get();
+            } elseif ($roles == "admin") {
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
+            }
+        }
+
+        return view('pages.admin.tagihan.table', [
+            'dataTagihan' => $dataTagihan,
+        ]);
+
+        // return view('pages.admin.tagihan.table', [
+        //     'dataTagihan' => Tagihan::all(),
+        // ]);
     }
 }

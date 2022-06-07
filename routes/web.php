@@ -54,8 +54,9 @@ Route::middleware(['checkRole:admin,plts'])->group(function () {
     Route::resource('dashboard/tagihan', TagihanController::class);
     Route::resource('dashboard/master-tarifKwh', TarifKwhController::class)->except('show');
     Route::get('dashboard/tagihan', [TagihanController::class, 'index'] )->name('tagihan-index');
-    Route::get('dashboard/export', [TagihanController::class, 'create'] )->name('export-tagihan');
-    Route::post('dashboard/import', [TagihanController::class, 'import'] )->name('import-tagihan');
+    Route::get('dashboard/tagihan-export', [TagihanController::class, 'create'] )->name('export-tagihan');
+    Route::get('dashboard/tagihan-report', [TagihanController::class, 'export'] )->name('export-laporan');
+    Route::post('dashboard/tagihan-import', [TagihanController::class, 'import'] )->name('import-tagihan');
 });
 
 //Route Super Admin

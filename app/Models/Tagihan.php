@@ -20,6 +20,7 @@ class Tagihan extends Model
         'tagihan_kios',
         'total_tagihan',
         'periode',
+        'status_bayar',
     ];
 
     public function SewaKios(): BelongsTo

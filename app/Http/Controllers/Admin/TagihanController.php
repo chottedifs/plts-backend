@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
-use App\Exports\TagihanExport;
-use App\Imports\TagihanImport;
-use App\Http\Controllers\Controller;
-use App\Models\Tagihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Tagihan;
+use App\Exports\TagihanExport;
+use App\Exports\ReportTagihanExport;
+use App\Imports\TagihanImport;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class TagihanController extends Controller
@@ -51,7 +52,6 @@ class TagihanController extends Controller
             }
         }
 
-
         return view('pages.admin.tagihan.index', [
             'judul' => 'Tagihan Penyewa Kios',
             'dataTagihan' => $dataTagihan,
@@ -67,7 +67,7 @@ class TagihanController extends Controller
     public function create()
     {
         $this->authorize('plts');
-        return Excel::download(new TagihanExport, 'templateExportTagihan.xlsx');
+        return Excel::download(new TagihanExport, 'template-tagihan'.time().'.xlsx');
     }
 
     /**
@@ -133,10 +133,10 @@ class TagihanController extends Controller
 
         $namaFile = $file->getClientOriginalName();
 
-        $file->move('excel', $namaFile);
+        $file->move('uploads-tagihan', $namaFile);
 
         // import data
-        $import = Excel::import(new TagihanImport, public_path('/excel/'.$namaFile));
+        $import = Excel::import(new TagihanImport, public_path('/uploads-tagihan/'.$namaFile));
 
         if($import) {
             //redirect
@@ -147,5 +147,10 @@ class TagihanController extends Controller
             Alert::toast('Data gagal diimport!','warning');
             return redirect(route('tagihan-index'));
         }
+    }
+
+    public function export()
+    {
+        return Excel::download(new ReportTagihanExport, 'report-tagihan'.time().'.xlsx');
     }
 }
