@@ -25,17 +25,19 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
     {
         $roles = Auth::user()->roles;
         if ($roles == "plts") {
-            $lokasiPlts = Auth::user()->Plts->lokasi_id;
-            // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPlts)->get();
-            $sewaKios = SewaKios::with('RelasiKios')->where([
-                'lokasi_id' => $lokasiPlts,
-                'status_sewa' => 1
-                ])->get();
-            // $historiKios = HistoriKios::with('SewaKios')->where('sewa_kios_id',$sewaKios->id)->get();
-            // $sewaKios = SewaKios::with('RelasiKios')->get();
-        } elseif ($roles == "admin") {
             $sewaKios = SewaKios::with('RelasiKios')->where('status_sewa', 1)->get();
+            // $lokasiPlts = Auth::user()->Plts->lokasi_id;
+            // // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPlts)->get();
+            // $sewaKios = SewaKios::with('RelasiKios')->where([
+            //     'lokasi_id' => $lokasiPlts,
+            //     'status_sewa' => 1
+            //     ])->get();
+            // // $historiKios = HistoriKios::with('SewaKios')->where('sewa_kios_id',$sewaKios->id)->get();
+            // // $sewaKios = SewaKios::with('RelasiKios')->get();
         }
+        // elseif ($roles == "admin") {
+        //     $sewaKios = SewaKios::with('RelasiKios')->where('status_sewa', 1)->get();
+        // }
 
         return $sewaKios;
     }
@@ -123,11 +125,11 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
                 ->setVisible(false);
 
             // Unlock Column untuk diisi
-            $workSheet = $event
-            ->sheet
-            ->getStyle('K')
-            ->getProtection()
-            ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+            // $workSheet = $event
+            // ->sheet
+            // ->getStyle('K')
+            // ->getProtection()
+            // ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
 
         } catch (Exception $exception) {
             throw $exception;
