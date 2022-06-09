@@ -138,4 +138,25 @@ class PetugasController extends Controller
         // Petugas::destroy($id);
         // return redirect(route('master-petugas.index'));
     }
+
+    public function isActive($id)
+    {
+        // $user = User::with('Login')->where('id',$id)->get();
+        $petugas = Petugas::with('Login')->findOrFail($id);
+        // ddd($user->Login->is_active);
+        if ($petugas->Login->is_active == 1) {
+            $active['is_active'] = 0;
+            $login = Login::findOrFail($petugas->Login->id);
+            $login->update($active);
+            // $petugas->Login->is_active->update($active);
+            Alert::toast('Data petugas berhasil di Non-aktifkan!','success');
+            return redirect(route('master-petugas.index'));
+        } elseif ($petugas->Login->is_active == 0) {
+            $active['is_active'] = 1;
+            $login = Login::findOrFail($petugas->Login->id);
+            $login->update($active);
+            Alert::toast('Data petugas berhasil di aktifkan!','success');
+            return redirect(route('master-petugas.index'));
+        }
+    } 
 }

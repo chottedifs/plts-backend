@@ -211,14 +211,29 @@ class sewaKiosController extends Controller
     public function isActive($id)
     {
         $kios = SewaKios::findOrFail($id);
+        $historiSebelumnya = HistoriKios::where('sewa_kios_id', $kios->id)->get()->last();
         if ($kios->status_sewa == 1) {
             $active['status_sewa'] = 0;
+            $updateHistori = [
+                'tgl_awal_sewa' => $historiSebelumnya->tgl_awal_sewa,
+                'tgl_akhir_sewa' => date('Y-m-d H:i:s')
+            ];
+            //Update sewaKios
             $kios->update($active);
+            HistoriKios::where('id', $historiSebelumnya->id)->update($updateHistori);
             Alert::toast('Data sewa kios berhasil di Non-aktifkan!','success');
             return redirect(route('sewa-kios.index'));
         } elseif ($kios->status_sewa == 0) {
             $active['status_sewa'] = 1;
+            $dataHistori = [
+                'user_id' => $kios->User->id,
+                'sewa_kios_id' => $kios->id,
+                'tgl_awal_sewa' => date('Y-m-d H:i:s'),
+                'lokasi_id' => $kios->lokasi_id
+            ];
+            // ddd($dataHistori);
             $kios->update($active);
+            HistoriKios::create($dataHistori);
             Alert::toast('Data sewa kios berhasil di aktifkan!','success');
             return redirect(route('sewa-kios.index'));
         }

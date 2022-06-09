@@ -165,4 +165,22 @@ class PltsController extends Controller
     {
         //
     }
+
+    public function isActive($id)
+    {
+        $plts = Plts::findOrFail($id);
+        if ($plts->Login->is_active == 1) {
+            $active['is_active'] = 0;
+            $login = Login::findOrFail($plts->Login->id);
+            $login->update($active);
+            Alert::toast('Status PLTS berhasil di Non-aktifkan!','success');
+            return redirect(route('master-plts.index'));
+        } elseif ($plts->Login->is_active == 0) {
+            $active['is_active'] = 1;
+            $login = Login::findOrFail($plts->Login->id);
+            $login->update($active);
+            Alert::toast('Status PLTS Berhasil di Diaktifkan!','success');
+            return redirect(route('master-plts.index'));
+        }
+    }
 }

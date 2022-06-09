@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\Admin\RelasiKiosController;
 use App\Http\Controllers\Admin\SewaKiosController;
 use App\Http\Controllers\Admin\HistoriSewaKiosController;
+use App\Http\Controllers\Admin\HistoriTagihanController;
 use App\Http\Controllers\Admin\PltsController;
 use App\Http\Controllers\Admin\TagihanController;
 
@@ -46,6 +47,8 @@ Route::middleware(['checkRole:admin,operator'])->group(function () {
     Route::resource('dashboard/master-relasiKios', RelasiKiosController::class);
     Route::resource('dashboard/sewa-kios', SewaKiosController::class);
     Route::post('dashboard/sewa-kios/{id}', [SewaKiosController::class, 'isActive'])->name('sewa-isActive');
+    Route::get('dashboard/histori-tagihan', [HistoriTagihanController::class, 'index'])->name('historiTagihan');
+    Route::post('dashboard/histori-tagihan/{id}', [HistoriTagihanController::class, 'isActive'])->name('tagihan-isActive');
     Route::get('dashboard/histori-sewa', [HistoriSewaKiosController::class, 'index'] )->name('histori-sewa');
 });
 
@@ -63,7 +66,9 @@ Route::middleware(['checkRole:admin,plts'])->group(function () {
 Route::middleware(['checkRole:admin'])->group(function () {
     Route::resource('dashboard/master-admin', AdminController::class)->except('show');
         Route::resource('dashboard/master-petugas', PetugasController::class)->except('show');
+        Route::post('dashboard/master-petugas/{id}', [PetugasController::class, 'isActive'])->name('petugas-isActive');
         Route::resource('dashboard/master-plts', PltsController::class)->except('show');
+        Route::post('dashboard/master-plts/{id}', [PltsController::class, 'isActive'])->name('plts-isActive');
         Route::resource('dashboard/master-kios', KiosController::class)->except('show');
         Route::resource('dashboard/master-tarifKios', TarifKiosController::class)->except('show');
         Route::resource('dashboard/master-lokasi', LokasiController::class)->except('show');

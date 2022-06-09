@@ -40,22 +40,17 @@
                                 {{-- <a href="{{ route('export-laporan') }}" class="btn btn-success text-right" onclick="kirimData()" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-down mr-2"></i> Download Report </a> --}}
                             </div>
                         @endcan
-                        <form class="form-inline" action="{{ route('tagihan-index') }}" method="get">
+                        <form class="form-inline" action="{{ route('historiTagihan') }}" method="get">
                             @csrf
                             <div class="form-group mx-sm-3 mb-2">
                                 <label for="bulanTagihan" class="mr-2">Periode Tagihan</label>
                                 <input type="month" class="form-control" name="bulanTagihan" id="bulanTagihan" value="{{ old('bulanTagihan', $periode) }}">
                             </div>
                             <div class="form-group mx-sm-3 mb-2">
-                                <select name="lokasi" id="lokasi" class="form-control @error('lokasi') is-invalid @enderror">
-                                    <option value=" ">-Pilih Lokasi-</option>
-                                    @foreach ($banyakLokasi as $lokasi)
-                                        @if (old('lokasi') == $lokasi->id)
-                                            <option value="{{ $lokasi->id }}" selected>{{ $lokasi->nama_lokasi }}</option>
-                                        @else
-                                            <option value="{{ $lokasi->id }}">{{ $lokasi->nama_lokasi }}</option>
-                                        @endif
-                                    @endforeach
+                                <select name="status_tagihan" id="status_tagihan" class="form-control @error('lokasi') is-invalid @enderror">
+                                    <option value="null" disabled selected hidden>Status Tagihan</option>
+                                    <option value="0">BELUM TERBAYAR</option>
+                                    <option value="1">TERBAYAR</option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary mb-2" style="border-radius: 10px;">Cari Tagihan</button>
@@ -94,15 +89,17 @@
                                     <td>{{ 'Rp '.number_format($tagihan->total_tagihan,0,',','.') }}</td>
                                     <td>{{  date('M Y', strtotime($tagihan->periode)) }}</td>
                                     <input type="hidden" id="periode" name="periode" value="{{ $tagihan->periode }}">
-                                    <td>
-                                        @if($tagihan->status_bayar == 1)
-                                            <div class="badge bg-success text-wrap">
-                                                Terbayar
-                                            </div>
-                                        @elseif ($tagihan->status_bayar == 0)
-                                            <div class="badge bg-danger text-wrap">
-                                                Belum Terbayar
-                                            </div>
+                                    <td class='text-center'>
+                                        @if ($tagihan->status_bayar == 1)
+                                        <form action="{{ route('tagihan-isActive', $tagihan->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-success mb-2" style="border-radius: 10px;">Terbayar</button>
+                                        </form>
+                                        @else
+                                        <form action="{{ route('tagihan-isActive', $tagihan->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-danger mb-2" style="border-radius: 10px;">Belum Terbayar</button>
+                                        </form>
                                         @endif
                                     </td>
                                     @can('plts')

@@ -66,12 +66,12 @@
                                         @if ($user->Login->is_active == 1)
                                         <form action="{{ route('user-isActive', $user->id)}}" method="post">
                                             @csrf
-                                            <button class="btn btn-success mb-2">Aktif</button>
+                                            <button class="btn btn-success mb-2" style="border-radius: 10px;">Aktif</button>
                                         </form>
                                         @else
                                         <form action="{{ route('user-isActive', $user->id)}}" method="post">
                                             @csrf
-                                            <button class="btn btn-danger mb-2">Tidak Aktif</button>
+                                            <button class="btn btn-danger mb-2" style="border-radius: 10px;">Tidak Aktif</button>
                                         </form>
                                         @endif
                                     </td>

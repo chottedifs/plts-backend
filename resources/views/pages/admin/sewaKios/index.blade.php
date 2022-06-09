@@ -56,7 +56,7 @@
                                     <td>{{ $sewa->RelasiKios->Kios->nama_kios }}</td>
                                     <td>{{ $sewa->RelasiKios->Lokasi->nama_lokasi }}</td>
                                     <td>{{ $sewa->RelasiKios->TarifKios->tipe }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         {{-- @if ($sewa->status_sewa)
                                             Berhenti Sewa
                                         @else
@@ -65,12 +65,12 @@
                                         @if ($sewa->status_sewa == 1)
                                         <form action="{{ route('sewa-isActive', $sewa->id)}}" method="post">
                                             @csrf
-                                            <button class="btn btn-success mb-2">Aktif</button>
+                                            <button class="btn btn-success mb-2" style="border-radius: 10px;">Aktif</button>
                                         </form>
                                         @else
                                         <form action="{{ route('sewa-isActive', $sewa->id)}}" method="post">
                                             @csrf
-                                            <button class="btn btn-danger mb-2">Tidak Aktif</button>
+                                            <button class="btn btn-danger mb-2" style="border-radius: 10px;">Tidak Aktif</button>
                                         </form>
                                         @endif
                                     </td>

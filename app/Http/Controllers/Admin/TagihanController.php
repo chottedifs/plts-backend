@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Tagihan;
+use App\Models\Lokasi;
 use App\Exports\TagihanExport;
 use App\Exports\ReportTagihanExport;
 use App\Imports\TagihanImport;
@@ -26,44 +27,41 @@ class TagihanController extends Controller
      */
     public function index(Request $request)
     {
-        // $bulanTagihan = request()->bulanTagihan;
-        if ($request->bulanTagihan) {
-            // ddd($request->bulanTagihan);
-            $bulan = $request->bulanTagihan;
-            $bulanP = explode('-', $bulan);
-            $roles = Auth::user()->roles;
-            // if ($roles == "plts") {
-            //     $lokasiPlts = Auth::user()->Plts->lokasi_id;
-            //     $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-            //     $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-            //     $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPlts)->get();
-            // } else
-            if ($roles == "plts") {
+        $banyakLokasi = Lokasi::all();
+        // $roles = Auth::user()->roles;
+        // if ($roles == "plts") {
+            if ($request->bulanTagihan && $request->lokasi){
+                $bulan = $request->bulanTagihan;
+                $lokasi = $request->lokasi;
+                $bulanP = explode('-', $bulan);
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+                $dataTagihan = $dataBulan->where('lokasi_id', $lokasi)->get();
+            } elseif ($request->bulanTagihan) {
+                $bulan = $request->bulanTagihan;
+                $bulanP = explode('-', $bulan);
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
+            } elseif ($request->lokasi) {
+                // $bulan = $request->bulanTagihan;
+                $bulan = Carbon::now()->format('Y-m');
+                $lokasi = $request->lokasi;
+                $bulanP = explode('-', $bulan);
+                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+                $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+                $dataTagihan = $dataBulan->where('lokasi_id', $lokasi)->get();
+            } else {
+                $bulan = Carbon::now()->format('Y-m');
+                $bulanP = explode('-', $bulan);
                 $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
                 $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
             }
-        } else {
-            $bulan = Carbon::now()->format('Y-m');
-            $bulanP = explode('-', $bulan);
-            $roles = Auth::user()->roles;
-            // if ($roles == "plts") {
-            //     $lokasiPlts = Auth::user()->Plts->lokasi_id;
-            //     $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-            //     $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-            //     $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPlts)->get();
-            // } else
-            if ($roles == "plts") {
-                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-                $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
-            }
-        }
-
-        // ddd('periode');
-
+        // }
         return view('pages.admin.tagihan.index', [
             'judul' => 'Tagihan Penyewa Kios',
             'dataTagihan' => $dataTagihan,
-            'periode' => $bulan
+            'periode' => $bulan,
+            'banyakLokasi' =>$banyakLokasi
         ]);
     }
 

@@ -62,9 +62,15 @@
                                     <td>{{ $plts->Lokasi->nama_lokasi }}</td>
                                     <td>
                                         @if ($plts->Login->is_active)
-                                        Aktif
+                                        <form action="{{ route('plts-isActive', $plts->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-success mb-2" style="border-radius: 10px;">Aktif</button>
+                                        </form>
                                         @else
-                                        Tidak Aktif
+                                        <form action="{{ route('plts-isActive', $plts->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-danger mb-2" style="border-radius: 10px;">Tidak Aktif</button>
+                                        </form>
                                         @endif
                                     </td>
                                     <td class="text-center">

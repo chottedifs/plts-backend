@@ -54,7 +54,7 @@
                             <a href="{{ route('tagihan-index') }}"> <i class="menu-icon fa fa-file-invoice-dollar"></i>Tagihan</a>
                         </li>
                         <li>
-                            <a href="#"><i class="menu-icon fa fa-history"></i>Histori Tagihan</a>
+                            <a href="{{ route('historiTagihan') }}"><i class="menu-icon fa fa-history"></i>Transaksi Tagihan</a>
                         </li>
 
                     <!-- /.menu-title -->
@@ -94,7 +94,7 @@
                     <!-- /.menu-title -->
                     <li class="menu-title">KEUANGAN</li>
                         <li>
-                            <a href="#"><i class="menu-icon fa fa-history"></i>Histori Tagihan</a>
+                            <a href="{{ route('historiTagihan') }}"><i class="menu-icon fa fa-history"></i>Transaksi Tagihan</a>
                         </li>
 
                     <!-- /.menu-title -->

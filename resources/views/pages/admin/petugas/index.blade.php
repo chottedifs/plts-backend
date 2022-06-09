@@ -60,11 +60,17 @@
                                     <td>{{ $petugas->nip }}</td>
                                     <td>{{ $petugas->no_hp }}</td>
                                     <td>{{ $petugas->Lokasi->nama_lokasi }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         @if ($petugas->Login->is_active)
-                                        Aktif
+                                        <form action="{{ route('petugas-isActive', $petugas->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-success mb-2" style="border-radius: 10px;">Aktif</button>
+                                        </form>
                                         @else
-                                        Tidak Aktif
+                                        <form action="{{ route('petugas-isActive', $petugas->id)}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-danger mb-2" style="border-radius: 10px;">Tidak Aktif</button>
+                                        </form>
                                         @endif
                                     </td>
                                     <td class="text-center">
