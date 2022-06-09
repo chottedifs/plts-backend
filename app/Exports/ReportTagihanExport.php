@@ -14,41 +14,44 @@ class ReportTagihanExport implements Fromview, ShouldAutoSize
 {
     public function view() : View
     {
-        $request = Request::input('bulanTagihan');
-        if (!$request == NULL) {
-            $bulan = $request;
-            $bulanP = explode('-', $bulan);
-            $roles = Auth::user()->roles;
-            if ($roles == "plts") {
-                $lokasiPlts = Auth::user()->Plts->lokasi_id;
-                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-                $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-                $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPlts)->get();
-            } elseif ($roles == "admin") {
-                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-                $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
-            }
-        } else {
-            $bulan = Carbon::now()->format('Y-m');
-            $bulanP = explode('-', $bulan);
-            $roles = Auth::user()->roles;
-            if ($roles == "plts") {
-                $lokasiPlts = Auth::user()->Plts->lokasi_id;
-                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-                $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-                $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPlts)->get();
-            } elseif ($roles == "admin") {
-                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-                $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
-            }
-        }
-
-        return view('pages.admin.tagihan.table', [
-            'dataTagihan' => $dataTagihan,
-        ]);
+        // $request1 = Request()->bulanTagihan;
+        // ddd($request1);
+        // $request = Request::input('bulanTagihan');
+        // ddd($request);
+        // if (!$request == NULL) {
+        //     $bulan = $request;
+        //     $bulanP = explode('-', $bulan);
+        //     $roles = Auth::user()->roles;
+        //     if ($roles == "plts") {
+        //         $lokasiPlts = Auth::user()->Plts->lokasi_id;
+        //         $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+        //         $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+        //         $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPlts)->get();
+        //     } elseif ($roles == "admin") {
+        //         $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+        //         $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
+        //     }
+        // } else {
+        //     $bulan = Carbon::now()->format('Y-m');
+        //     $bulanP = explode('-', $bulan);
+        //     $roles = Auth::user()->roles;
+        //     if ($roles == "plts") {
+        //         $lokasiPlts = Auth::user()->Plts->lokasi_id;
+        //         $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+        //         $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+        //         $dataTagihan = $dataBulan->where('lokasi_id', $lokasiPlts)->get();
+        //     } elseif ($roles == "admin") {
+        //         $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+        //         $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
+        //     }
+        // }
 
         // return view('pages.admin.tagihan.table', [
-        //     'dataTagihan' => Tagihan::all(),
+        //     // 'dataTagihan' => $dataTagihan,
         // ]);
+
+        return view('pages.admin.tagihan.index', [
+            'dataTagihan' => Tagihan::all(),
+        ]);
     }
 }

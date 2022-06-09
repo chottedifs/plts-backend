@@ -41,7 +41,7 @@
             </td>
             @can('plts')
             <td class="text-center">
-                <a href="#" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
+                <a href="{{ route('tagihan.edit', $tagihan->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
             </td>
             @endcan
         </tr>

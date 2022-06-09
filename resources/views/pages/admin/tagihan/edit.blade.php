@@ -15,48 +15,29 @@
                             <h4 class="box-title">{{ $judul }}</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="{{ route('sewa-kios.update', $sewaKios->id) }}">
+                            <form method="post" action="{{ route('tagihan.update', $tagihan->id) }}">
                                 @method('put')
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="user_id" class="form-label">Nama Penyewa</label>
-                                        <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror">
-                                            {{-- <option value="" disabled selected hidden>{{ $users->}}</option> --}}
-                                            <option value="{{ $sewaKios->user_id }}"hidden selected>{{ $sewaKios->User->nama_lengkap }}</option>
-                                            <option value="" disabled>-- Pilih Penyewa --</option>
-                                            @foreach($users as $user)
-                                                @if ($user->Login->is_active && $user->id == $sewaKios->user_id)
-                                                    <option value="{{ $user->id }}" disabled>{{ $user->nama_lengkap }} | Terdaftar </option>
-                                                @else
-                                                    <option value="{{ $user->id }}">{{ $user->nama_lengkap }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        @error('user_id')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                        <label for="user_id" class="form-label">Nama Penyewa : {{ $tagihan->SewaKios->User->nama_lengkap }}</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="luas_kios" class="form-label">Kios</label>
-                                        <select name="relasi_kios_id" id="relasi_kios_id" class="form-control mb-3 @error('relasi_kios_id') is-invalid @enderror">
-                                            <option value="{{ $sewaKios->relasi_kios_id }}"hidden selected>{{ $sewaKios->RelasiKios->Kios->nama_kios }}</option>
-                                            @foreach ($relasiKios as $relasiKios)
-                                                @if ($relasiKios->status_relasi_kios && $sewaKios->relasi_kios_id != $relasiKios->id)
-                                                    Tidak ada data kios
-                                                @else
-                                                    <option value="{{ $relasiKios->id }}">{{ $relasiKios->Kios->nama_kios }}</option>
-                                                @endif
-                                                {{-- @if ($relasiKios->id)
-                                                    <option value="{{ $relasiKios->id }}" selected>{{ $relasiKios->nama_kios }}</option>
-                                                @endif --}}
-                                            @endforeach
-                                        </select>
-                                        @error('relasi_kios_id')
+                                        <label for="user_id" class="form-label">Kios : {{ $tagihan->SewaKios->RelasiKios->Kios->nama_kios }}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="user_id" class="form-label">Lokasi : {{ $tagihan->Lokasi->nama_lokasi }}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="total_kwh" class="form-label">Total KWH</label>
+                                        <input type="number" name="total_kwh" autofocus class="form-control @error('total_kwh') is-invalid @enderror" id="total_kwh" value="{{ old('total_kwh', $tagihan->total_kwh) }}">
+                                        @error('total_kwh')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

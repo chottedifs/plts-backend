@@ -6,6 +6,7 @@ use App\Models\SewaKios;
 use App\Models\User;
 use App\Models\TarifKwh;
 use App\Models\HistoriKios;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -125,11 +126,11 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
                 ->setVisible(false);
 
             // Unlock Column untuk diisi
-            // $workSheet = $event
-            // ->sheet
-            // ->getStyle('K')
-            // ->getProtection()
-            // ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+            $workSheet = $event
+            ->sheet
+            ->getStyle('K')
+            ->getProtection()
+            ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
 
         } catch (Exception $exception) {
             throw $exception;
