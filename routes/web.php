@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\HistoriSewaKiosController;
 use App\Http\Controllers\Admin\HistoriTagihanController;
 use App\Http\Controllers\Admin\PltsController;
 use App\Http\Controllers\Admin\TagihanController;
+use App\Http\Controllers\API\UserController as APIUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +75,9 @@ Route::middleware(['checkRole:admin'])->group(function () {
         Route::resource('dashboard/master-lokasi', LokasiController::class)->except('show');
 });
 
+Route::middleware(['checkRole:user'])->group(function () {
+    Route::get('/user',[APIUserController::class, 'index']);
+});
 
 
 // Route::middleware(['checkRole:admin'])->group(function () {

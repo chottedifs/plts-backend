@@ -17,7 +17,13 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next)
     {
-        $roles = array_slice(func_get_args(),2);
+        $roles = [
+            'admin',
+            'operator',
+            'plts',
+            'user'
+        ];
+        // $roles = array_slice(func_get_args(),3);
 
         foreach ($roles as $role) {
             $user = Auth::user()->roles;
