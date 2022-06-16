@@ -23,8 +23,9 @@ class CheckRole
             'plts',
             'user'
         ];
-        // $roles = array_slice(func_get_args(),3);
+        // $roles = array_slice(func_get_args(),2);
 
+        // ddd($roles);
         foreach ($roles as $role) {
             $user = Auth::user()->roles;
             if (!$user == Auth::check() || $user == $role && Auth::user()->is_active){

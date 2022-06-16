@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Console\Output\Output;
@@ -16,8 +17,15 @@ use Symfony\Component\Console\Output\Output;
 |
 */
 
-Route::get('/user', [UserController::class, 'index']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::get('/user', [UserController::class, 'index']);
 });
+
+Route::post('/login', [AuthController::class, 'login']);
+
+
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     // return $request->user();
+// });
