@@ -18,8 +18,12 @@ use Symfony\Component\Console\Output\Output;
 */
 
 
-Route::group(['middleware' => 'auth:sanctum'], function(){
-    Route::get('/user', [UserController::class, 'index']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('/home', [UserController::class, 'home']);
+    Route::get('/tagihan', [UserController::class, 'tagihan']);
+    Route::get('/detail-kios', [UserController::class, 'detailKios']);
+    Route::get('/user-kios', [UserController::class, 'userKios']);
+    Route::get('/detail-informasi/{id}', [UserController::class, 'detailInformasi']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);

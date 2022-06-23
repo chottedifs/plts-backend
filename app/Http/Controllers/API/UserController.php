@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Helpers\ApiFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\Informasi;
 use App\Models\Login;
 use App\Models\SewaKios;
 use App\Models\RelasiKios;
@@ -21,42 +22,131 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function home()
     {
         $login = Auth::user();
-        // ddd($user->email);
         $users = User::where('login_id', $login->id)->get();
-        // $sewa = RelasiKios::where('user_id', $login->User->id)->get();
-        $sewaKios = SewaKios::with('Tagihan')->where('user_id', $users[0]->id)->get();
-        // $tagihan = Tagihan::with('SewaKios')->where('sewa_kios_id', $sewaKioss[0]->id)->get();
+        $sewaKios = SewaKios::with('Tagihan', 'User', 'RelasiKios')->where('user_id', $users[0]->id)->get();
+        $jumlahSewa = count($sewaKios);
+        if ($sewaKios != null) {
+            for ($i = 0; $i < $jumlahSewa; $i++) {
+                // $data = [];
+                $data[] = response()->json([
+                    'message' => 'sukses',
+                    'nama' => $sewaKios[$i]->User->nama_lengkap,
+                    'nama_kios' => $sewaKios[$i]->RelasiKios->Kios->nama_kios,
+                    'tagihan_kwh' => $sewaKios[$i]->Tagihan->tagihan_kwh,
+                    'total_kwh' => $sewaKios[$i]->Tagihan->total_kwh,
+                    'periode' => $sewaKios[$i]->Tagihan->periode,
+                ], 200);
+            }
+            $informasi = Informasi::all();
+            $data[] = response()->json([
+                'informasi' => $informasi
+            ]);
+            return $data;
+        } else {
+            return response()->json([
+                'message' => 'gagal data tidak ada'
+            ]);
+        }
+    }
 
-        return response()->json([
-            'message' => 'sukses',
-            // 'user' => $users,
-            // 'tagihan' => $sewaKioss['tagihan'],
-            'sewaKios' => $sewaKios,
-            // 'sewa-kios' => $sewa,
-            'keterangan' => 'halaman home'
-        ], 200);
-        // foreach ($sewaKios as $sewa) {
-        //     return response()->json([
-        //         'message' => 'sukses',
-        //         // 'user' => $request->session()->get('user'),
-        //         // 'tagihan' => $sewaKioss['tagihan'],
-        //         'sewaKios' => $sewa->RelasiKios->Kios->nama_kios,
-        //         'nama' => $sewa->User->nama_lengkap,
-        //         'keterangan' => 'halaman home'
-        //     ], 200);
-        // }
+    public function tagihan()
+    {
+        $login = Auth::user();
+        $users = User::where('login_id', $login->id)->get();
+        $tagihan = SewaKios::with('Tagihan')->where('user_id', $users[0]->id)->get();
+        $jumlahSewa = count($tagihan);
+        if ($tagihan != null) {
+            for ($i = 0; $i < $jumlahSewa; $i++) {
+                $data[] = response()->json([
+                    'message' => 'sukses',
+                    'id' => $tagihan[$i]->Tagihan->id,
+                    'status' => $tagihan[$i]->Tagihan->status_bayar,
+                    'tagihan_kwh' => $tagihan[$i]->Tagihan->tagihan_kwh,
+                    'total_kwh' => $tagihan[$i]->Tagihan->total_kwh,
+                    'periode' => $tagihan[$i]->Tagihan->periode,
+                ], 200);
+            }
+            return $data;
+        } else {
+            return response()->json([
+                'message' => 'gagal data tidak ada'
+            ]);
+        }
+    }
 
-        // $data = $request->session('token-name');
+    public function detailKios()
+    {
+        $login = Auth::user();
+        $users = User::where('login_id', $login->id)->get();
+        $kios = SewaKios::with('RelasiKios')->where('user_id', $users[0]->id)->get();
+        $jumlahSewa = count($kios);
+        if ($kios != null) {
+            for ($i = 0; $i < $jumlahSewa; $i++) {
+                $data[] = response()->json([
+                    'message' => 'sukses',
+                    'nama_kios' => $kios[$i]->RelasiKios->Kios->nama_kios,
+                    'luas_kios' => $kios[$i]->RelasiKIos->Kios->luas_kios,
+                    'tagihan_kios' => $kios[$i]->RelasiKios->TarifKios->harga,
+                    'tipe_tarif' => $kios[$i]->RelasiKios->TarifKios->tipe,
+                    'lokasi' => $kios[$i]->RelasiKios->Lokasi->nama_lokasi,
+                ], 200);
+            }
+            return $data;
+        } else {
+            return response()->json([
+                'message' => 'gagal data tidak ada'
+            ]);
+        }
+    }
 
-        // // $data = SewaKios::all();
+    public function userKios()
+    {
+        $login = Auth::user();
+        $users = User::where('login_id', $login->id)->get();
+        // $jumlahSewa = count($users);
+        if ($users != null) {
+            // for ($i = 0; $i < $jumlahSewa; $i++) {
+            $data[] = response()->json([
+                'message' => 'sukses',
+                'nama_kios' => $users[0]->Login->email,
+                'luas_kios' => $users[0]->nama_lengkap,
+                'tagihan_kios' => $users[0]->no_hp,
+                'tipe_tarif' => $users[0]->nik,
+                'lokasi' => $users[0]->rekening,
+            ], 200);
+            // }
+            return $data;
+        } else {
+            return response()->json([
+                'message' => 'gagal data tidak ada'
+            ]);
+        }
+    }
 
-        // if ($data) {
-        //     return ApiFormatter::createApi(200, "Berhasil Login", $data);
-        // } else {
-        //     return ApiFormatter::createApi(400, "gagal Login");
+    public function detailInformasi($id)
+    {
+        // $login = Auth::user();
+        // $users = User::where('login_id', $login->id)->get();
+        $informasi = Informasi::findOrFail($id);
+        // $jumlahSewa = count($users);
+        if ($informasi != null) {
+            // for ($i = 0; $i < $jumlahSewa; $i++) {
+            $data[] = response()->json([
+                'message' => 'sukses',
+                'title' => $informasi->title,
+                'deskripsi' => $informasi->deskripsi,
+                'gambar' => $informasi->gambar,
+            ], 200);
+            // }
+            return $data;
+        } else {
+            return response()->json([
+                'message' => 'gagal data tidak ada'
+            ]);
+        }
     }
 
     /**
