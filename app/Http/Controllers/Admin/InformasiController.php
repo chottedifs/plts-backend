@@ -80,7 +80,10 @@ class InformasiController extends Controller
 
     public function destroy($id)
     {
-        Informasi::destroy($id);
+        $informations = Informasi::findOrFail($id);
+        $informations->delete();
+
+        Alert::toast('Data informasi berhasil dihapus!','success');
         return redirect(route('master-informasi.index'));
     }
 }

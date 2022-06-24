@@ -54,8 +54,12 @@
                                     <td>{{ $informasi->deskripsi }}</td>
                                     <td><img src="{{ Storage::url($informasi->gambar) }}" alt="" style="width: 150px;"></td>
                                     <td class="text-center">
-                                        <a href="{{ route('master-informasi.edit', $informasi->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
-                                        <a href="{{ route('master-informasi.edit', $informasi->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-trash"></i></a>
+                                        <a href="{{ route('master-informasi.edit', $informasi->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px; margin-right: 10px;"><i class="fa fa-edit"></i></a>
+                                        <form action="{{ route('master-informasi.destroy', $informasi->id) }}" method="post" class="d-inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-sm badge-danger" style="font-size: 14px; border-radius:10px;"><i class="fa fa-trash"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
