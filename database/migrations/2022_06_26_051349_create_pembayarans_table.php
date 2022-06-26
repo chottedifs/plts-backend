@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHistoriKiosTable extends Migration
+class CreatePembayaransTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateHistoriKiosTable extends Migration
      */
     public function up()
     {
-        Schema::create('histori_kios', function (Blueprint $table) {
+        Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('sewa_kios_id')->constrained();
+            $table->string('kode_batch');
+            $table->foreignId('tagihan_id')->constrained('tagihans');
+            $table->date('tgl_kirim');
+            $table->date('tgl_terima');
             $table->foreignId('lokasi_id')->constrained();
-            $table->timestamp('tgl_awal_sewa');
-            $table->timestamp('tgl_akhir_sewa')->nullable();
+            $table->foreignId('status_id')->constrained('master_statuses')->default(false);
+            $table->text('remarks');
+            $table->date('periode');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +35,6 @@ class CreateHistoriKiosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('histori_kios');
+        Schema::dropIfExists('pembayarans');
     }
 }

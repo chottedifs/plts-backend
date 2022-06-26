@@ -6,21 +6,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Tagihan extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'id',
+        'kode_tagihan',
+        'user_id',
         'sewa_kios_id',
         'histori_kios_id',
         'lokasi_id',
         'total_kwh',
+        'diskon',
+        'remarks',
         'tagihan_kwh',
         'tagihan_kios',
-        'total_tagihan',
         'periode',
-        'status_bayar',
+        'status_id'
     ];
 
     public function SewaKios(): BelongsTo
@@ -36,5 +41,15 @@ class Tagihan extends Model
     public function Lokasi(): BelongsTo
     {
         return $this->belongsTo(Lokasi::class);
+    }
+
+    public function Status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    public function Pembayaran(): HasOne
+    {
+        return $this->hasOne(Pembayaran::class);
     }
 }

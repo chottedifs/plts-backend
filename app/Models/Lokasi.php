@@ -55,4 +55,9 @@ class Lokasi extends Model
     {
         return $this->hasMany(Admin::class, 'lokasi_id', 'id');
     }
+
+    public function Pembayaran(): HasMany
+    {
+        return $this->hasMany(Pembayaran::class, 'lokasi_id', 'id');
+    }
 }

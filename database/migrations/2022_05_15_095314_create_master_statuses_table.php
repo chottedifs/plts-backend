@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSewaKiosTable extends Migration
+class CreateMasterStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateSewaKiosTable extends Migration
      */
     public function up()
     {
-        Schema::create('sewa_kios', function (Blueprint $table) {
+        Schema::create('master_statuses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('relasi_kios_id')->constrained();
-            $table->foreignId('lokasi_id')->constrained();
-            $table->date('tgl_sewa');
-            $table->date('tgl_akhir_sewa');
-            $table->boolean('status_sewa');
+            $table->string('nama_status');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +28,6 @@ class CreateSewaKiosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sewa_kios');
+        Schema::dropIfExists('master_statuses');
     }
 }

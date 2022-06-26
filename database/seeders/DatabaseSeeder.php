@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Models\Lokasi;
 use App\Models\Admin;
 use App\Models\Login;
+use App\Models\MasterStatus;
 use App\Models\Petugas;
+use App\Models\Status;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,6 +20,22 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        MasterStatus::create([
+            'nama_status' => 'Belum Terbayar',
+        ]);
+        MasterStatus::create([
+            'nama_status' => 'Menunggu Konfirmasi',
+        ]);
+        MasterStatus::create([
+            'nama_status' => 'Terbayar',
+        ]);
+        MasterStatus::create([
+            'nama_status' => 'Di Batalkan',
+        ]);
+        MasterStatus::create([
+            'nama_status' => 'Berhenti',
+        ]);
+
         Lokasi::create([
             'nama_lokasi' => 'VIKTOR',
         ]);

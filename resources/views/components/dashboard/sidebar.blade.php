@@ -34,6 +34,9 @@
                         <li>
                             <a href="{{ route('master-lokasi.index') }}"> <i class="menu-icon fa fa-search-location"></i>Lokasi</a>
                         </li>
+                        <li>
+                            <a href="{{ route('master-status.index') }}"> <i class="menu-icon fa fa-search-location"></i>Status</a>
+                        </li>
 
                     <!-- /.menu-title -->
                     <li class="menu-title">MANAGEMENT KIOS</li>
@@ -44,7 +47,6 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-window-restore"></i>Sewa Kios</a>
                             <ul class="sub-menu children dropdown-menu">
                                 <li><i class="menu-icon fa fa-user-tag pr-2"></i> <a href="{{ route('sewa-kios.index') }}" class="ml-1">Data Penyewa Kios</a></li>
-                                <li><i class="menu-icon fa fa-history pr-2"></i> <a href="{{ route('histori-sewa') }}" class="ml-1">Histori Kios</a></li>
                             </ul>
                         </li>
 
@@ -55,6 +57,9 @@
                         </li>
                         <li>
                             <a href="{{ route('historiTagihan') }}"><i class="menu-icon fa fa-history"></i>Transaksi Tagihan</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('pembayaran.index') }}"><i class="menu-icon fa fa-history"></i>Pembayaran</a>
                         </li>
 
                     <!-- /.menu-title -->
@@ -77,6 +82,9 @@
                         <li class="">
                             <a href="{{ route('master-user.index') }}"> <i class="menu-icon fa fa-user"></i>Master User</a>
                         </li>
+                        <li class="">
+                            <a href="{{ route('master-status.index') }}"> <i class="menu-icon fa fa-user"></i>Status</a>
+                        </li>
 
                     <!-- /.menu-title -->
                     <li class="menu-title">MANAGEMENT KIOS</li>
@@ -87,7 +95,6 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-window-restore"></i>Sewa Kios</a>
                             <ul class="sub-menu children dropdown-menu">
                                 <li><i class="menu-icon fa fa-user-tag pr-2"></i> <a href="{{ route('sewa-kios.index') }}" class="ml-1">Data Penyewa Kios</a></li>
-                                <li><i class="menu-icon fa fa-history pr-2"></i> <a href="{{ route('histori-sewa') }}" class="ml-1">Histori Kios</a></li>
                             </ul>
                         </li>
 
@@ -95,6 +102,9 @@
                     <li class="menu-title">KEUANGAN</li>
                         <li>
                             <a href="{{ route('historiTagihan') }}"><i class="menu-icon fa fa-history"></i>Transaksi Tagihan</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('pembayaran.index') }}"><i class="menu-icon fa fa-history"></i>Pembayaran</a>
                         </li>
 
                     <!-- /.menu-title -->
