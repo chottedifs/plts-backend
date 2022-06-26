@@ -44,7 +44,9 @@
                                     <th>Nama Kios</th>
                                     <th>Lokasi Kios</th>
                                     <th>Tipe Kios</th>
-                                    <th>Status Kios</th>
+                                    <th>Tanggal Sewa</th>
+                                    <th>Tanggal Berhenti Sewa</th>
+                                    <th>Status Sewa</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -56,12 +58,15 @@
                                     <td>{{ $sewa->RelasiKios->Kios->nama_kios }}</td>
                                     <td>{{ $sewa->RelasiKios->Lokasi->nama_lokasi }}</td>
                                     <td>{{ $sewa->RelasiKios->TarifKios->tipe }}</td>
+                                    <td class="text-center">{{ date('d F Y', strtotime($sewa->tgl_sewa)) }}</td>
                                     <td class="text-center">
-                                        {{-- @if ($sewa->status_sewa)
-                                            Berhenti Sewa
+                                        @if(!$sewa->tgl_akhir_sewa == NULL)
+                                        {{ date('d F Y', strtotime($sewa->tgl_akhir_sewa)) }}
                                         @else
-                                            Disewakan
-                                        @endif --}}
+                                        -
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
                                         @if ($sewa->status_sewa == 1)
                                         <form action="{{ route('sewa-isActive', $sewa->id)}}" method="post">
                                             @csrf

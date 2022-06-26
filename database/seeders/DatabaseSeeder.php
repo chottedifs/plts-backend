@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Lokasi;
 use App\Models\Admin;
+use App\Models\User;
 use App\Models\Login;
 use App\Models\MasterStatus;
 use App\Models\Petugas;
@@ -76,16 +77,22 @@ class DatabaseSeeder extends Seeder
             'jenis_kelamin' => 'Laki-Laki'
         ]);
 
+        Login::create([
+            'email' => 'juminten@gmail.com',
+            'password' => bcrypt('juminten123'),
+            'roles' => 'user',
+            'is_active' => true,
+        ]);
 
-        // Petugas::create([
-        //     'nama_lengkap' => 'Petugas',
-        //     'email' => 'petugas@gmail.com',
-        //     'password' => bcrypt('petugas123'),
-        //     'lokasi_id' => 1,
-        //     'nip' => '182011022201',
-        //     'no_hp' => '0897129202100',
-        //     'jenis_kelamin' => 'Laki-Laki',
-        //     'status_petugas' => true,
-        // ]);
+        User::create([
+            'nama_lengkap' => 'juminten',
+            'login_id' => 3,
+            'lokasi_id' => 1,
+            'nik' => '3174109020120001',
+            'no_hp' => '085778992100',
+            'jenis_kelamin' => 'Perempuan',
+            'rekening' => '99210020011'
+        ]);
+
     }
 }
