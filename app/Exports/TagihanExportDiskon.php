@@ -26,9 +26,13 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
     public function collection()
     {
         $login = Auth::user();
+        $data = Tagihan::all()->last();
+        $dataPeriode = $data->periode;
+        $bulanP = explode('-', $dataPeriode);
         if ($login->roles == "admin") {
-            // ddd($sewaKios[0]->id);
-            $tagihan = Tagihan::with('SewaKios')->where('status_id', 1)->get();
+            // ddd($dataPeriode);
+            // ddd($bulanP[1]);
+            $dataTagihan = Tagihan::with('SewaKios')->where('status_id', 1)->whereMonth('periode', $bulanP[1])->orWhere('status_id', 4)->get();
             // $lokasiPlts = Auth::user()->Plts->lokasi_id;
             // // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPlts)->get();
             // $tagihan = tagihan::with('RelasiKios')->where([
@@ -39,38 +43,36 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
         } elseif ($login->roles == "operator") {
             $petugas = Petugas::where('login_id', $login->id)->get();
             // $tagihan = Tagihan::with('RelasiKios', 'User')->where(['status_sewa' => 1, 'lokasi_id' => $petugas[0]->lokasi_id])->get();
-            $tagihan = Tagihan::with('SewaKios')->where([
+            $dataTagihan = Tagihan::with('SewaKios')->where([
                 'status_id' => 1,
                 'lokasi_id' => $petugas[0]->lokasi_id
-            ])->get();
+            ])->whereMonth('periode', $bulanP[1])->orWhere('status_id', 4)->get();
         }
         // elseif ($roles == "admin") {
         //     $tagihan = tagihan::with('RelasiKios')->where('status_sewa', 1)->get();
         // }
 
-        return $tagihan;
+        return $dataTagihan;
     }
 
-    public function map($tagihan): array
+    public function map($dataTagihan): array
     {
         $tarif_dasar = TarifKwh::select('harga')->first();
         $tanggal = date('M Y');
 
         // ddd($tarif_dasar);
         return [
-            $tagihan->sewa_kios_id,
-            // $tagihan->RelasiKios->Kios->nama_kios,
-            // $tagihan->User->id,
-            // $tagihan->id,
-            // $tagihan->RelasiKios->Kios->id,
-            // $tagihan->lokasi_id,
-            // $tagihan->User->nama_lengkap,
-            // $tagihan->User->rekening,
-            // $tagihan->Lokasi->nama_lokasi,
-            // $tarif_dasar->harga,
-            // $tagihan->RelasiKios->TarifKios->harga,
-            // $tanggal,
-            // $tagihan->Tagihan->total_kwh
+            $dataTagihan->SewaKios->RelasiKios->Kios->nama_kios,
+            $dataTagihan->user_id,
+            $dataTagihan->sewa_kios_id,
+            $dataTagihan->lokasi_id,
+            $dataTagihan->total_kwh,
+            $dataTagihan->tagihan_kwh,
+            $dataTagihan->tagihan_kios,
+            $dataTagihan->status_id,
+            $dataTagihan->kode_tagihan,
+            $dataTagihan->SewaKios->User->nama_lengkap,
+            date('M Y', strtotime($dataTagihan->periode)),
         ];
     }
 
@@ -79,17 +81,17 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
         return [
             ' ',
             'user_id',
-            'sewa_id',
-            'kios_id',
+            'sewa_kios_id',
             'lokasi_id',
-            'nama_penyewa',
-            'no_rekening',
-            'lokasi',
-            'tarif_dasar_kwh',
-            'tarif_kios',
-            'periode',
             'total_kwh',
-            'diskon'
+            'tagihan_kwh',
+            'tagihan_kios',
+            'status_id',
+            'kode_tagihan',
+            'nama_penyewa',
+            'periode',
+            'diskon',
+            'keterangan'
         ];
     }
 
@@ -113,47 +115,21 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
                 ->getProtection()
                 ->setSheet(true);
 
-            // Hide Column yang tidak diperlukan
-            $workSheet = $event
-                ->sheet
-                ->getColumnDimension('B')
-                ->setVisible(false);
+            // // Hide Column yang tidak diperlukan
+            $workSheet = $event->sheet->getColumnDimension('B')->setVisible(false);
+            $workSheet = $event->sheet->getColumnDimension('C')->setVisible(false);
+            $workSheet = $event->sheet->getColumnDimension('D')->setVisible(false);
+            $workSheet = $event->sheet->getColumnDimension('E')->setVisible(false);
+            $workSheet = $event->sheet->getColumnDimension('F')->setVisible(false);
+            $workSheet = $event->sheet->getColumnDimension('G')->setVisible(false);
+            $workSheet = $event->sheet->getColumnDimension('H')->setVisible(false);
 
-            // Hide Column yang tidak diperlukan
+            // Unlock Column untuk diisi
             $workSheet = $event
                 ->sheet
-                ->getColumnDimension('C')
-                ->setVisible(false);
-
-            // Hide Column yang tidak diperlukan
-            $workSheet = $event
-                ->sheet
-                ->getColumnDimension('D')
-                ->setVisible(false);
-
-            // Hide Column yang tidak diperlukan
-            $workSheet = $event
-                ->sheet
-                ->getColumnDimension('E')
-                ->setVisible(false);
-
-            // Hide Column yang tidak diperlukan
-            $workSheet = $event
-                ->sheet
-                ->getColumnDimension('H')
-                ->setVisible(false);
-
-            // Hide Column yang tidak diperlukan
-            $workSheet = $event
-                ->sheet
-                ->getColumnDimension('I')
-                ->setVisible(false);
-
-            // Hide Column yang tidak diperlukan
-            $workSheet = $event
-                ->sheet
-                ->getColumnDimension('J')
-                ->setVisible(false);
+                ->getStyle('L')
+                ->getProtection()
+                ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
 
             // Unlock Column untuk diisi
             $workSheet = $event

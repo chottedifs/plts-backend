@@ -78,14 +78,17 @@
                             <thead>
                                 <tr>
                                     <th class="serial">#</th>
+                                    <th>kode Tagihan</th>
                                     <th>Nama Penyewa</th>
                                     <th>Kios</th>
                                     <th>Lokasi</th>
                                     <th>Total Kwh</th>
                                     <th>Tagihan Kwh</th>
                                     <th>Tagihan Kios</th>
+                                    <th>Diskon Tagihan</th>
                                     <th>Total Tagihan</th>
                                     <th>Periode</th>
+                                    <th>Keterangan</th>
                                     @can('plts')
                                         <th class="text-center">Action</th>
                                     @endcan
@@ -95,15 +98,18 @@
                                 @foreach ($dataTagihan as $tagihan)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
+                                    <td>{{ $tagihan->kode_tagihan }}</td>
                                     <td>{{ $tagihan->SewaKios->User->nama_lengkap }}</td>
                                     <td>{{ $tagihan->SewaKios->RelasiKios->Kios->nama_kios }}</td>
                                     <td>{{ $tagihan->Lokasi->nama_lokasi }}</td>
                                     <td>{{ $tagihan->total_kwh }}</td>
                                     <td>{{ 'Rp '.number_format($tagihan->tagihan_kwh,0,',','.') }}</td>
                                     <td>{{ 'Rp '.number_format($tagihan->tagihan_kios,0,',','.') }}</td>
-                                    {{-- <?php $totalTagihan = $tagihan->tagihan_kwh + $tagihan->tagihan_kios ?> --}}
-                                    <td>{{ 'Rp '.number_format($tagihan->tagihan_kwh + $tagihan->tagihan_kios,0,',','.')}}</td>
+                                    <td>{{ $tagihan->diskon}}%</td>
+                                    {{-- 1.000.000 x 40/100 --}}
+                                    <td>{{ 'Rp '.number_format($tagihan->tagihan_kios - ($tagihan->diskon/100*$tagihan->tagihan_kios)+ $tagihan->tagihan_kwh,0,',','.')}}</td>
                                     <td>{{  date('M Y', strtotime($tagihan->periode)) }}</td>
+                                    <td>{{  $tagihan->remarks }}</td>
                                     <input type="hidden" id="periode" name="periode" value="{{ $tagihan->periode }}">
                                     @can('plts')
                                     <td class="text-center">

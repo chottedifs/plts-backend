@@ -55,7 +55,7 @@ Route::middleware(['checkRole:admin,operator'])->group(function () {
     Route::post('dashboard/histori-tagihan/{id}', [HistoriTagihanController::class, 'isActive'])->name('tagihan-isActive');
 });
 
-//Route Super Admin, Plts
+//Route Super Admin, Plts, Operator
 Route::middleware(['checkRole:admin,operator,plts'])->group(function () {
     Route::resource('dashboard/tagihan', TagihanController::class);
     Route::resource('dashboard/master-tarifKwh', TarifKwhController::class)->except('show');
@@ -64,7 +64,7 @@ Route::middleware(['checkRole:admin,operator,plts'])->group(function () {
     Route::get('dashboard/tagihan-report', [TagihanController::class, 'export'])->name('export-laporan');
     Route::post('dashboard/tagihan-import', [TagihanController::class, 'import'])->name('import-tagihan');
     Route::get('dashboard/tagihan-diskon', [TagihanController::class, 'createDiskon'])->name('export-tagihan-diskon');
-    Route::get('dashboard/tagihan-diskonImport', [TagihanController::class, 'importDiskon'])->name('import-tagihan-diskon');
+    Route::post('dashboard/tagihan-diskonImport', [TagihanController::class, 'importDiskon'])->name('import-tagihan-diskon');
 });
 
 //Route Super Admin

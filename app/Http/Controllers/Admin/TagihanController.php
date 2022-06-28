@@ -12,6 +12,7 @@ use App\Exports\TagihanExport;
 use App\Exports\TagihanExportDiskon;
 use App\Exports\ReportTagihanExport;
 use App\Imports\TagihanImport;
+use App\Imports\TagihanImportDiskon;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -151,10 +152,10 @@ class TagihanController extends Controller
 
         $namaFile = $file->getClientOriginalName();
 
-        $file->move('uploads-tagihan', $namaFile);
+        $file->move('uploads-tagihan-kwh', $namaFile);
 
         // import data
-        $import = Excel::import(new TagihanImport, public_path('/uploads-tagihan/' . $namaFile));
+        $import = Excel::import(new TagihanImport, public_path('/uploads-tagihan-kwh/' . $namaFile));
 
         if ($import) {
             // $tagihanPeriode = Tagihan::all()->last();
@@ -176,17 +177,58 @@ class TagihanController extends Controller
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function createDiskon()
     {
-        // $this->authorize('admin');
-        // $this->authorize('operator');
-        return Excel::download(new TagihanExportDiskon, 'template-tagihan' . time() . '.xlsx');
+        return Excel::download(new TagihanExportDiskon, 'template-tagihan-diskon' . time() . '.xlsx');
     }
 
-    //     public function export()
-    //     {
-    //         // // ddd($request->submit);
-    //         ddd($periode);
-    //         return Excel::download(new ReportTagihanExport, 'report-tagihan'.time().'.xlsx');
-    //     }
+    public function importDiskon(Request $request)
+    {
+        $file = $request->file('import-file');
+
+        $namaFile = $file->getClientOriginalName();
+
+        $file->move('uploads-tagihan-diskon', $namaFile);
+
+        // import data
+        $data = Tagihan::all()->last();
+        $dataPeriode = $data->periode;
+        $bulanP = explode('-', $dataPeriode);
+        $dataTagihan = Tagihan::with('SewaKios')->where('status_id', 1)->whereMonth('periode', $bulanP[1])->orWhere('status_id', 4)->get();
+
+        if ($dataTagihan) {
+            // $dataTagihan->update();
+            Excel::import(new TagihanImportDiskon, public_path('/uploads-tagihan-diskon/' . $namaFile));
+            // $tagihanPeriode = Tagihan::all()->last();
+
+            // ddd($tagihanPeriode->periode);
+            // $pembayaran = new Pembayaran;
+            // $data = count($tagihanPeriode);
+            // for ($i = 0; $i < $data; $i++) {
+            //     $dataa[] = $tagihanPeriode[$i]->kode_tagihan;
+            // }
+
+            //redirect
+            Alert::toast('Data berhasil diimport!', 'success');
+            return redirect(route('tagihan-index'));
+        } else {
+            //redirect
+            Alert::toast('Data gagal diimport!', 'warning');
+            return redirect(route('tagihan-index'));
+        }
+    }
 }
