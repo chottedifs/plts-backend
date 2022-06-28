@@ -28,11 +28,6 @@ class User extends Model
         return $this->hasOne(SewaKios::class, 'user_id', 'id');
     }
 
-    public function HistoriKios(): HasOne
-    {
-        return $this->hasOne(HistoriKios::class, 'user_id', 'id');
-    }
-
     public function Lokasi(): BelongsTo
     {
         return $this->belongsTo(Lokasi::class, 'lokasi_id', 'id');

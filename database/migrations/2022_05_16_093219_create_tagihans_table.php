@@ -19,9 +19,9 @@ class CreateTagihansTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('sewa_kios_id')->constrained();
             $table->foreignId('lokasi_id')->constrained();
-            $table->integer('total_kwh');
-            $table->string('diskon');
-            $table->text('remarks');
+            $table->float('total_kwh');
+            $table->integer('diskon');
+            $table->text('remarks')->nullable();
             $table->integer('tagihan_kwh');
             $table->integer('tagihan_kios');
             $table->date('periode');

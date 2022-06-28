@@ -37,7 +37,18 @@
                             <div class="float-right">
                                 <a href="{{ route('export-tagihan') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Template Tagihan </a>
                                 <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Tagihan</button>
-                                {{-- <a href="{{ route('export-laporan') }}" class="btn btn-success text-right" onclick="kirimData()" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-down mr-2"></i> Download Report </a> --}}
+                            </div>
+                        @endcan
+                        @can('admin')
+                            <div class="float-right">
+                                <a href="{{ route('export-tagihan-diskon') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Template Diskon</a>
+                                <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Template</button>
+                            </div>
+                        @endcan
+                        @can('operator')
+                            <div class="float-right">
+                                <a href="{{ route('export-tagihan-diskon') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Template Diskon</a>
+                                <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Template</button>
                             </div>
                         @endcan
                         <form class="form-inline" action="{{ route('tagihan-index') }}" method="get">
@@ -75,7 +86,6 @@
                                     <th>Tagihan Kios</th>
                                     <th>Total Tagihan</th>
                                     <th>Periode</th>
-                                    <th>Status Bayar</th>
                                     @can('plts')
                                         <th class="text-center">Action</th>
                                     @endcan
@@ -91,20 +101,10 @@
                                     <td>{{ $tagihan->total_kwh }}</td>
                                     <td>{{ 'Rp '.number_format($tagihan->tagihan_kwh,0,',','.') }}</td>
                                     <td>{{ 'Rp '.number_format($tagihan->tagihan_kios,0,',','.') }}</td>
-                                    <td>{{ 'Rp '.number_format($tagihan->total_tagihan,0,',','.') }}</td>
+                                    {{-- <?php $totalTagihan = $tagihan->tagihan_kwh + $tagihan->tagihan_kios ?> --}}
+                                    <td>{{ 'Rp '.number_format($tagihan->tagihan_kwh + $tagihan->tagihan_kios,0,',','.')}}</td>
                                     <td>{{  date('M Y', strtotime($tagihan->periode)) }}</td>
                                     <input type="hidden" id="periode" name="periode" value="{{ $tagihan->periode }}">
-                                    <td>
-                                        @if($tagihan->status_bayar == 1)
-                                            <div class="badge bg-success text-wrap">
-                                                Terbayar
-                                            </div>
-                                        @elseif ($tagihan->status_bayar == 0)
-                                            <div class="badge bg-danger text-wrap">
-                                                Belum Terbayar
-                                            </div>
-                                        @endif
-                                    </td>
                                     @can('plts')
                                     <td class="text-center">
                                         <a href="{{ route('tagihan.edit', $tagihan->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
@@ -114,7 +114,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        
+
                     </div>
                 </div>
             </div>
@@ -126,7 +126,7 @@
 
 
 
-<!-- Modal -->
+<!-- Modal tagihan -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -136,17 +136,45 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form action="{{ route('import-tagihan') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <div class="modal-body">
-                <label for="file">Masukan template</label>
-                <input type="file" name="import-file" id="import-file" required>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-        </form>
+        @can('plts')
+            <form action="{{ route('import-tagihan') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <label for="file">Masukan template</label>
+                    <input type="file" name="import-file" id="import-file" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        @endcan
+        @can('admin')
+            <form action="{{ route('import-tagihan-diskon') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <label for="file">Masukan template</label>
+                    <input type="file" name="import-file" id="import-file" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        @endcan
+        @can('operator')
+            <form action="{{ route('import-tagihan-diskon') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    <label for="file">Masukan template</label>
+                    <input type="file" name="import-file" id="import-file" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        @endcan
         </div>
     </div>
 </div>

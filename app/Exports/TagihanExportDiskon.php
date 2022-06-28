@@ -3,7 +3,10 @@
 namespace App\Exports;
 
 use App\Models\SewaKios;
+use App\Models\User;
 use App\Models\TarifKwh;
+use App\Models\Petugas;
+use App\Models\Tagihan;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -16,51 +19,58 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class TagihanExport implements FromCollection, WithMapping, WithHeadings, ShouldAutoSize, WithEvents, WithStyles
+class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, ShouldAutoSize, WithEvents, WithStyles
 {
     use RegistersEventListeners;
 
     public function collection()
     {
-        $roles = Auth::user()->roles;
-        if ($roles == "plts") {
-            $sewaKios = SewaKios::with('RelasiKios')->where('status_sewa', 1)->get();
-            // $sewaKios = SewaKios::with('RelasiKios')->where('status_sewa', 1)->get();
+        $login = Auth::user();
+        if ($login->roles == "admin") {
+            // ddd($sewaKios[0]->id);
+            $tagihan = Tagihan::with('SewaKios')->where('status_id', 1)->get();
             // $lokasiPlts = Auth::user()->Plts->lokasi_id;
             // // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPlts)->get();
-            // $sewaKios = SewaKios::with('RelasiKios')->where([
-            //     'lokasi_id' => $lokasiPlts,
-            //     'status_sewa' => 1
-            //     ])->get();// $lokasiPlts = Auth::user()->Plts->lokasi_id;
-            // // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPlts)->get();
-            // $sewaKios = SewaKios::with('RelasiKios')->where([
+            // $tagihan = tagihan::with('RelasiKios')->where([
             //     'lokasi_id' => $lokasiPlts,
             //     'status_sewa' => 1
             //     ])->get();
-            // // $sewaKios = SewaKios::with('RelasiKios')->get();
+            // // $tagihan = tagihan::with('RelasiKios')->get();
+        } elseif ($login->roles == "operator") {
+            $petugas = Petugas::where('login_id', $login->id)->get();
+            // $tagihan = Tagihan::with('RelasiKios', 'User')->where(['status_sewa' => 1, 'lokasi_id' => $petugas[0]->lokasi_id])->get();
+            $tagihan = Tagihan::with('SewaKios')->where([
+                'status_id' => 1,
+                'lokasi_id' => $petugas[0]->lokasi_id
+            ])->get();
         }
+        // elseif ($roles == "admin") {
+        //     $tagihan = tagihan::with('RelasiKios')->where('status_sewa', 1)->get();
+        // }
 
-        return $sewaKios;
+        return $tagihan;
     }
 
-    public function map($sewaKios): array
+    public function map($tagihan): array
     {
         $tarif_dasar = TarifKwh::select('harga')->first();
         $tanggal = date('M Y');
 
         // ddd($tarif_dasar);
         return [
-            $sewaKios->RelasiKios->Kios->nama_kios,
-            $sewaKios->User->id,
-            $sewaKios->id,
-            $sewaKios->RelasiKios->Kios->id,
-            $sewaKios->lokasi_id,
-            $sewaKios->User->nama_lengkap,
-            $sewaKios->User->rekening,
-            $sewaKios->Lokasi->nama_lokasi,
-            $tarif_dasar->harga,
-            $sewaKios->RelasiKios->TarifKios->harga,
-            $tanggal,
+            $tagihan->sewa_kios_id,
+            // $tagihan->RelasiKios->Kios->nama_kios,
+            // $tagihan->User->id,
+            // $tagihan->id,
+            // $tagihan->RelasiKios->Kios->id,
+            // $tagihan->lokasi_id,
+            // $tagihan->User->nama_lengkap,
+            // $tagihan->User->rekening,
+            // $tagihan->Lokasi->nama_lokasi,
+            // $tarif_dasar->harga,
+            // $tagihan->RelasiKios->TarifKios->harga,
+            // $tanggal,
+            // $tagihan->Tagihan->total_kwh
         ];
     }
 
@@ -79,6 +89,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             'tarif_kios',
             'periode',
             'total_kwh',
+            'diskon'
         ];
     }
 
@@ -147,7 +158,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             // Unlock Column untuk diisi
             $workSheet = $event
                 ->sheet
-                ->getStyle('L')
+                ->getStyle('M')
                 ->getProtection()
                 ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
         } catch (Exception $exception) {

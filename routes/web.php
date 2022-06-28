@@ -12,7 +12,6 @@ use App\Http\Controllers\Admin\LokasiController;
 use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\Admin\RelasiKiosController;
 use App\Http\Controllers\Admin\SewaKiosController;
-use App\Http\Controllers\Admin\HistoriSewaKiosController;
 use App\Http\Controllers\Admin\HistoriTagihanController;
 use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\PltsController;
@@ -54,17 +53,18 @@ Route::middleware(['checkRole:admin,operator'])->group(function () {
     Route::post('dashboard/sewa-kios/{id}', [SewaKiosController::class, 'isActive'])->name('sewa-isActive');
     Route::get('dashboard/histori-tagihan', [HistoriTagihanController::class, 'index'])->name('historiTagihan');
     Route::post('dashboard/histori-tagihan/{id}', [HistoriTagihanController::class, 'isActive'])->name('tagihan-isActive');
-    // Route::get('dashboard/histori-sewa', [HistoriSewaKiosController::class, 'index'])->name('histori-sewa');
 });
 
 //Route Super Admin, Plts
-Route::middleware(['checkRole:admin,plts'])->group(function () {
+Route::middleware(['checkRole:admin,operator,plts'])->group(function () {
     Route::resource('dashboard/tagihan', TagihanController::class);
     Route::resource('dashboard/master-tarifKwh', TarifKwhController::class)->except('show');
     Route::get('dashboard/tagihan', [TagihanController::class, 'index'])->name('tagihan-index');
     Route::get('dashboard/tagihan-export', [TagihanController::class, 'create'])->name('export-tagihan');
     Route::get('dashboard/tagihan-report', [TagihanController::class, 'export'])->name('export-laporan');
     Route::post('dashboard/tagihan-import', [TagihanController::class, 'import'])->name('import-tagihan');
+    Route::get('dashboard/tagihan-diskon', [TagihanController::class, 'createDiskon'])->name('export-tagihan-diskon');
+    Route::get('dashboard/tagihan-diskonImport', [TagihanController::class, 'importDiskon'])->name('import-tagihan-diskon');
 });
 
 //Route Super Admin

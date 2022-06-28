@@ -48,7 +48,7 @@
                                             @foreach ($relasiKios as $relasiKios)
                                                 @if ($relasiKios->status_relasi_kios && $sewaKios->relasi_kios_id != $relasiKios->id)
                                                     Tidak ada data kios
-                                                @else
+                                                @elseif($sewaKios->relasi_kios_id != $relasiKios->id)
                                                     <option value="{{ $relasiKios->id }}">{{ $relasiKios->Kios->nama_kios }}</option>
                                                 @endif
                                                 {{-- @if ($relasiKios->id)

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Tagihan;
 use App\Models\Lokasi;
 use App\Exports\TagihanExport;
+use App\Exports\TagihanExportDiskon;
 use App\Exports\ReportTagihanExport;
 use App\Imports\TagihanImport;
 use App\Http\Controllers\Controller;
@@ -30,38 +31,38 @@ class TagihanController extends Controller
         $banyakLokasi = Lokasi::all();
         // $roles = Auth::user()->roles;
         // if ($roles == "plts") {
-            if ($request->bulanTagihan && $request->lokasi){
-                $bulan = $request->bulanTagihan;
-                $lokasi = $request->lokasi;
-                $bulanP = explode('-', $bulan);
-                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-                $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-                $dataTagihan = $dataBulan->where('lokasi_id', $lokasi)->get();
-            } elseif ($request->bulanTagihan) {
-                $bulan = $request->bulanTagihan;
-                $bulanP = explode('-', $bulan);
-                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-                $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
-            } elseif ($request->lokasi) {
-                // $bulan = $request->bulanTagihan;
-                $bulan = Carbon::now()->format('Y-m');
-                $lokasi = $request->lokasi;
-                $bulanP = explode('-', $bulan);
-                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-                $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-                $dataTagihan = $dataBulan->where('lokasi_id', $lokasi)->get();
-            } else {
-                $bulan = Carbon::now()->format('Y-m');
-                $bulanP = explode('-', $bulan);
-                $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-                $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
-            }
+        if ($request->bulanTagihan && $request->lokasi) {
+            $bulan = $request->bulanTagihan;
+            $lokasi = $request->lokasi;
+            $bulanP = explode('-', $bulan);
+            $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+            $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+            $dataTagihan = $dataBulan->where('lokasi_id', $lokasi)->get();
+        } elseif ($request->bulanTagihan) {
+            $bulan = $request->bulanTagihan;
+            $bulanP = explode('-', $bulan);
+            $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+            $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
+        } elseif ($request->lokasi) {
+            // $bulan = $request->bulanTagihan;
+            $bulan = Carbon::now()->format('Y-m');
+            $lokasi = $request->lokasi;
+            $bulanP = explode('-', $bulan);
+            $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+            $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+            $dataTagihan = $dataBulan->where('lokasi_id', $lokasi)->get();
+        } else {
+            $bulan = Carbon::now()->format('Y-m');
+            $bulanP = explode('-', $bulan);
+            $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
+            $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
+        }
         // }
         return view('pages.admin.tagihan.index', [
             'judul' => 'Tagihan Penyewa Kios',
             'dataTagihan' => $dataTagihan,
             'periode' => $bulan,
-            'banyakLokasi' =>$banyakLokasi
+            'banyakLokasi' => $banyakLokasi
         ]);
     }
 
@@ -74,7 +75,7 @@ class TagihanController extends Controller
     {
         $this->authorize('plts');
         // $sheet->setCell('B')->setHidden();
-        return Excel::download(new TagihanExport, 'template-tagihan'.time().'.xlsx');
+        return Excel::download(new TagihanExport, 'template-tagihan' . time() . '.xlsx');
     }
 
     /**
@@ -107,7 +108,7 @@ class TagihanController extends Controller
      */
     public function edit($id)
     {
-        $tagihan = Tagihan::with('SewaKios', 'HistoriKios', 'Lokasi')->findOrFail($id);
+        $tagihan = Tagihan::with('SewaKios', 'Lokasi')->findOrFail($id);
         return view('pages.admin.tagihan.edit', [
             'judul' => 'Edit Tagihan Penyewa Kios',
             'tagihan' => $tagihan,
@@ -123,12 +124,12 @@ class TagihanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tagihan = Tagihan::with('SewaKios', 'HistoriKios', 'Lokasi')->findOrFail($id);
+        $tagihan = Tagihan::with('SewaKios', 'Lokasi')->findOrFail($id);
         $validatedData = $request->validate([
             'total_kwh' => 'required|numeric'
         ]);
         $tagihan->update($validatedData);
-        Alert::toast('Data Berhasil Di Update!','success');
+        Alert::toast('Data Berhasil Di Update!', 'success');
         return redirect(route('tagihan-index'));
     }
 
@@ -153,23 +154,39 @@ class TagihanController extends Controller
         $file->move('uploads-tagihan', $namaFile);
 
         // import data
-        $import = Excel::import(new TagihanImport, public_path('/uploads-tagihan/'.$namaFile));
+        $import = Excel::import(new TagihanImport, public_path('/uploads-tagihan/' . $namaFile));
 
-        if($import) {
+        if ($import) {
+            // $tagihanPeriode = Tagihan::all()->last();
+
+            // ddd($tagihanPeriode->periode);
+            // $pembayaran = new Pembayaran;
+            // $data = count($tagihanPeriode);
+            // for ($i = 0; $i < $data; $i++) {
+            //     $dataa[] = $tagihanPeriode[$i]->kode_tagihan;
+            // }
+
             //redirect
-            Alert::toast('Data berhasil diimport!','success');
+            Alert::toast('Data berhasil diimport!', 'success');
             return redirect(route('tagihan-index'));
         } else {
             //redirect
-            Alert::toast('Data gagal diimport!','warning');
+            Alert::toast('Data gagal diimport!', 'warning');
             return redirect(route('tagihan-index'));
         }
     }
 
-//     public function export()
-//     {
-//         // // ddd($request->submit);
-//         ddd($periode);
-//         return Excel::download(new ReportTagihanExport, 'report-tagihan'.time().'.xlsx');
-//     }
+    public function createDiskon()
+    {
+        // $this->authorize('admin');
+        // $this->authorize('operator');
+        return Excel::download(new TagihanExportDiskon, 'template-tagihan' . time() . '.xlsx');
+    }
+
+    //     public function export()
+    //     {
+    //         // // ddd($request->submit);
+    //         ddd($periode);
+    //         return Excel::download(new ReportTagihanExport, 'report-tagihan'.time().'.xlsx');
+    //     }
 }

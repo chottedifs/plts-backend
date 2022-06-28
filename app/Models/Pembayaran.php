@@ -13,7 +13,7 @@ class Pembayaran extends Model
 
     protected $fillable = [
         'kode_batch',
-        'id_tagihan',
+        'tagihan_id',
         'tgl_kirim',
         'tgl_terima',
         'status_id',
