@@ -58,6 +58,8 @@ Route::middleware(['checkRole:admin,operator'])->group(function () {
 //Route Super Admin, Plts, Operator
 Route::middleware(['checkRole:admin,operator,plts'])->group(function () {
     Route::resource('dashboard/tagihan', TagihanController::class);
+    Route::get('dashboard/tagihan-edit-diskon/{id}', [TagihanController::class, 'editDiskon'])->name('edit-diskon');
+    Route::put('dashboard/tagihan-update-diskon/{id}', [TagihanController::class, 'updateDiskon'])->name('update-diskon');
     Route::resource('dashboard/master-tarifKwh', TarifKwhController::class)->except('show');
     Route::get('dashboard/tagihan', [TagihanController::class, 'index'])->name('tagihan-index');
     Route::get('dashboard/tagihan-export', [TagihanController::class, 'create'])->name('export-tagihan');

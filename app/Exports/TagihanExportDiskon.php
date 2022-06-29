@@ -73,6 +73,8 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
             $dataTagihan->kode_tagihan,
             $dataTagihan->SewaKios->User->nama_lengkap,
             date('M Y', strtotime($dataTagihan->periode)),
+            $dataTagihan->diskon,
+            $dataTagihan->remarks,
         ];
     }
 

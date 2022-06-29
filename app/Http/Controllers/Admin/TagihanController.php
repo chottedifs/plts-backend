@@ -231,4 +231,25 @@ class TagihanController extends Controller
             return redirect(route('tagihan-index'));
         }
     }
+
+    public function editDiskon($id)
+    {
+        $tagihan = Tagihan::with('SewaKios', 'Lokasi')->findOrFail($id);
+        return view('pages.admin.tagihan.editDiskon', [
+            'judul' => 'Edit Tagihan Diskon Penyewa Kios',
+            'tagihan' => $tagihan,
+        ]);
+    }
+
+    public function updateDiskon(Request $request, $id)
+    {
+        $tagihan = Tagihan::with('SewaKios', 'Lokasi')->findOrFail($id);
+        $validatedData = $request->validate([
+            'diskon' => 'required|numeric',
+            'remarks' => 'required'
+        ]);
+        $tagihan->update($validatedData);
+        Alert::toast('Data Tagihan Diskon Berhasil Di Update!', 'success');
+        return redirect(route('tagihan-index'));
+    }
 }

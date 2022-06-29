@@ -92,6 +92,9 @@
                                     @can('plts')
                                         <th class="text-center">Action</th>
                                     @endcan
+                                    @can('operator')
+                                        <th class="text-center">Action</th>
+                                    @endcan
                                 </tr>
                             </thead>
                             <tbody>
@@ -114,6 +117,11 @@
                                     @can('plts')
                                     <td class="text-center">
                                         <a href="{{ route('tagihan.edit', $tagihan->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
+                                    </td>
+                                    @endcan
+                                    @can('operator')
+                                    <td class="text-center">
+                                        <a href="{{ route('edit-diskon', $tagihan->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
                                     </td>
                                     @endcan
                                 </tr>
