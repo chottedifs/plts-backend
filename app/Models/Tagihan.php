@@ -23,7 +23,7 @@ class Tagihan extends Model
         'tagihan_kwh',
         'tagihan_kios',
         'periode',
-        'status_id'
+        'master_status_id'
     ];
 
     public function SewaKios(): BelongsTo

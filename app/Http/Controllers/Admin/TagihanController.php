@@ -208,7 +208,7 @@ class TagihanController extends Controller
         $data = Tagihan::all()->last();
         $dataPeriode = $data->periode;
         $bulanP = explode('-', $dataPeriode);
-        $dataTagihan = Tagihan::with('SewaKios')->where('status_id', 1)->whereMonth('periode', $bulanP[1])->orWhere('status_id', 4)->get();
+        $dataTagihan = Tagihan::with('SewaKios')->where('master_status_id', 1)->whereMonth('periode', $bulanP[1])->orWhere('master_status_id', 4)->get();
 
         if ($dataTagihan) {
             // $dataTagihan->update();

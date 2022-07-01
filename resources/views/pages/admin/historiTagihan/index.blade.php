@@ -40,6 +40,11 @@
                                 {{-- <a href="{{ route('export-laporan') }}" class="btn btn-success text-right" onclick="kirimData()" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-down mr-2"></i> Download Report </a> --}}
                             </div>
                         @endcan
+                        @can('admin')
+                            <div class="float-right">
+                                <a href="{{ route('export-tagihan-diskon') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Proses Pembayaran</a>
+                            </div>
+                        @endcan
                         <form class="form-inline" action="{{ route('historiTagihan') }}" method="get">
                             @csrf
                             <div class="form-group mx-sm-3 mb-2">
@@ -62,12 +67,14 @@
                             <thead>
                                 <tr>
                                     <th class="serial">#</th>
+                                    <th>Kode Tagihan</th>
                                     <th>Nama Penyewa</th>
                                     <th>Kios</th>
                                     <th>Lokasi</th>
                                     <th>Total Kwh</th>
                                     <th>Tagihan Kwh</th>
                                     <th>Tagihan Kios</th>
+                                    <th>Diskon</th>
                                     <th>Total Tagihan</th>
                                     <th>Periode</th>
                                     <th>Status Bayar</th>
@@ -80,26 +87,23 @@
                                 @foreach ($dataTagihan as $tagihan)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
+                                    <td>{{ $tagihan->kode_tagihan }}</td>
                                     <td>{{ $tagihan->SewaKios->User->nama_lengkap }}</td>
                                     <td>{{ $tagihan->SewaKios->RelasiKios->Kios->nama_kios }}</td>
                                     <td>{{ $tagihan->Lokasi->nama_lokasi }}</td>
                                     <td>{{ $tagihan->total_kwh }}</td>
                                     <td>{{ 'Rp '.number_format($tagihan->tagihan_kwh,0,',','.') }}</td>
                                     <td>{{ 'Rp '.number_format($tagihan->tagihan_kios,0,',','.') }}</td>
-                                    <td>{{ 'Rp '.number_format($tagihan->total_tagihan,0,',','.') }}</td>
+                                    <td>{{ $tagihan->diskon}}%</td>
+                                    <td>{{ 'Rp '.number_format($tagihan->tagihan_kios - ($tagihan->diskon/100*$tagihan->tagihan_kios)+ $tagihan->tagihan_kwh,0,',','.') }}</td>
                                     <td>{{  date('M Y', strtotime($tagihan->periode)) }}</td>
                                     <input type="hidden" id="periode" name="periode" value="{{ $tagihan->periode }}">
                                     <td class='text-center'>
+                                        {{-- {{ $ }}   --}}
                                         @if ($tagihan->status_bayar == 1)
-                                        <form action="{{ route('tagihan-isActive', $tagihan->id)}}" method="post">
-                                            @csrf
-                                            <button class="btn btn-success mb-2" style="border-radius: 10px;">Terbayar</button>
-                                        </form>
+                                            <p class="badge-success py-2 mb-2" style="border-radius: 10px;">Terbayar</p>
                                         @else
-                                        <form action="{{ route('tagihan-isActive', $tagihan->id)}}" method="post">
-                                            @csrf
-                                            <button class="btn btn-danger mb-2" style="border-radius: 10px;">Belum Terbayar</button>
-                                        </form>
+                                            <p class="badge-danger py-2 mb-2" style="border-radius: 10px;">Belum Terbayar</p>
                                         @endif
                                     </td>
                                     @can('plts')

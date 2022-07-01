@@ -46,6 +46,7 @@
                                     <th>Luas Kios</th>
                                     <th>Lokasi Kios</th>
                                     <th>Tipe Kios</th>
+                                    <th>Tipe Listrik</th>
                                     <th>Harga Kios</th>
                                     @can('admin')
                                     <th class="text-center">Action</th>
@@ -60,6 +61,11 @@
                                     <td>{{ $dataKios->Kios->luas_kios }}</td>
                                     <td>{{ $dataKios->Lokasi->nama_lokasi }}</td>
                                     <td>{{ $dataKios->TarifKios->tipe }}</td>
+                                    @if($dataKios->plts_pln == 1)
+                                        <td>PLTS</td>
+                                    @else
+                                        <td>PLN</td>
+                                    @endif
                                     <td>{{ 'Rp '.number_format($dataKios->TarifKios->harga,0,',','.') }}</td>
                                     @can('admin')
                                     <td class="text-center">

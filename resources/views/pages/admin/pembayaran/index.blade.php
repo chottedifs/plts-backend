@@ -67,8 +67,10 @@
                             <thead>
                                 <tr>
                                     <th class="serial">#</th>
+                                    <th>Nama Penyewa</th>
+                                    <th>Rekening</th>
                                     <th>Kode Batch</th>
-                                    <th>Id Tagihan</th>
+                                    <th>Kode Tagihan</th>
                                     <th>Tanggal Kirim</th>
                                     <th>Tanggal Terima</th>
                                     <th>Status Bayar</th>
@@ -84,14 +86,24 @@
                                 @foreach ($pembayarans as $pembayaran)
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
-                                    <td>{{ $pembayaran->SewaKios->User->nama_lengkap }}</td>
-                                    <td>{{ $pembayaran->SewaKios->RelasiKios->Kios->nama_kios }}</td>
+                                    <td>{{ $pembayaran->Tagihan->SewaKios->User->nama_lengkap }}</td>
+                                    <td>{{ $pembayaran->Tagihan->SewaKios->User->rekening }}</td>
+                                    <td>{{ $pembayaran->kode_batch }}</td>
+                                    <td>{{ $pembayaran->kode_tagihan }}</td>
+                                    @if($pembayaran->tgl_kirim)
+                                    <td class="text-center">{{ $pembayaran->tgl_kirim }}</td>
+                                    @else
+                                    <td class="text-center">-</td>
+                                    @endif
+                                    @if($pembayaran->tgl_terima)
+                                    <td class="text-center">{{ $pembayaran->tgl_terima }}</td>
+                                    @else
+                                    <td class="text-center">-</td>
+                                    @endif
+                                    <td>{{ $pembayaran->MasterStatus->nama_status }}</td>
                                     <td>{{ $pembayaran->Lokasi->nama_lokasi }}</td>
-                                    <td>{{ $pembayaran->total_kwh }}</td>
-                                    <td>{{ 'Rp '.number_format($pembayaran->tagihan_kwh,0,',','.') }}</td>
-                                    <td>{{ 'Rp '.number_format($pembayaran->tagihan_kios,0,',','.') }}</td>
-                                    <td>{{ 'Rp '.number_format($pembayaran->total_tagihan,0,',','.') }}</td>
                                     <td>{{  date('M Y', strtotime($pembayaran->periode)) }}</td>
+                                    <td>{{ $pembayaran->remarks }}</td>
                                     @can('plts')
                                     <td class="text-center">
                                         <a href="{{ route('tagihan.edit', $pembayaran->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>

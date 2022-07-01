@@ -32,7 +32,7 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
         if ($login->roles == "admin") {
             // ddd($dataPeriode);
             // ddd($bulanP[1]);
-            $dataTagihan = Tagihan::with('SewaKios')->where('status_id', 1)->whereMonth('periode', $bulanP[1])->orWhere('status_id', 4)->get();
+            $dataTagihan = Tagihan::with('SewaKios')->where('master_status_id', 1)->whereMonth('periode', $bulanP[1])->orWhere('master_status_id', 4)->get();
             // $lokasiPlts = Auth::user()->Plts->lokasi_id;
             // // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPlts)->get();
             // $tagihan = tagihan::with('RelasiKios')->where([
@@ -44,9 +44,9 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
             $petugas = Petugas::where('login_id', $login->id)->get();
             // $tagihan = Tagihan::with('RelasiKios', 'User')->where(['status_sewa' => 1, 'lokasi_id' => $petugas[0]->lokasi_id])->get();
             $dataTagihan = Tagihan::with('SewaKios')->where([
-                'status_id' => 1,
+                'master_status_id' => 1,
                 'lokasi_id' => $petugas[0]->lokasi_id
-            ])->whereMonth('periode', $bulanP[1])->orWhere('status_id', 4)->get();
+            ])->whereMonth('periode', $bulanP[1])->orWhere('master_status_id', 4)->get();
         }
         // elseif ($roles == "admin") {
         //     $tagihan = tagihan::with('RelasiKios')->where('status_sewa', 1)->get();
@@ -69,7 +69,7 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
             $dataTagihan->total_kwh,
             $dataTagihan->tagihan_kwh,
             $dataTagihan->tagihan_kios,
-            $dataTagihan->status_id,
+            $dataTagihan->master_status_id,
             $dataTagihan->kode_tagihan,
             $dataTagihan->SewaKios->User->nama_lengkap,
             date('M Y', strtotime($dataTagihan->periode)),
@@ -88,7 +88,7 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
             'total_kwh',
             'tagihan_kwh',
             'tagihan_kios',
-            'status_id',
+            'master_status_id',
             'kode_tagihan',
             'nama_penyewa',
             'periode',

@@ -10,7 +10,7 @@ use App\Models\Petugas;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use
-Illuminate\Support\Facades\Auth;
+    Illuminate\Support\Facades\Auth;
 
 class PembayaranController extends Controller
 {

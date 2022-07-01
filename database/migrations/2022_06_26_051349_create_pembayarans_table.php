@@ -16,13 +16,13 @@ class CreatePembayaransTable extends Migration
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tagihan_id')->constrained('tagihans');
-            $table->string('kode_batch');
+            $table->string('kode_batch')->nullable();
             $table->string('kode_tagihan');
-            $table->date('tgl_kirim');
-            $table->date('tgl_terima');
+            $table->date('tgl_kirim')->nullable();
+            $table->date('tgl_terima')->nullable();
             $table->foreignId('lokasi_id')->constrained();
-            $table->foreignId('status_id')->constrained('master_statuses')->default(false);
-            $table->text('remarks');
+            $table->foreignId('master_status_id')->constrained();
+            $table->text('remarks')->nullable();
             $table->date('periode');
             $table->timestamps();
             $table->softDeletes();

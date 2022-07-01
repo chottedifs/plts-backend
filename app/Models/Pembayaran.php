@@ -13,17 +13,19 @@ class Pembayaran extends Model
 
     protected $fillable = [
         'kode_batch',
+        'kode_tagihan',
         'tagihan_id',
         'tgl_kirim',
         'tgl_terima',
-        'status_id',
+        'lokasi_id',
+        'master_status_id',
         'remarks',
         'periode',
     ];
 
-    public function Status(): BelongsTo
+    public function MasterStatus(): BelongsTo
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(MasterStatus::class);
     }
 
     public function Tagihan(): BelongsTo

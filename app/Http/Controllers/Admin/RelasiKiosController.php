@@ -18,9 +18,9 @@ class RelasiKiosController extends Controller
         $roles = Auth::user()->roles;
         if ($roles == "operator") {
             $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
-            $relasiDataKios = RelasiKios::with('Kios','Lokasi','TarifKios')->where('lokasi_id', $lokasiPetugas)->get();
+            $relasiDataKios = RelasiKios::with('Kios', 'Lokasi', 'TarifKios')->where('lokasi_id', $lokasiPetugas)->get();
         } elseif ($roles == "admin") {
-            $relasiDataKios = RelasiKios::with('Kios','Lokasi','TarifKios')->get();
+            $relasiDataKios = RelasiKios::with('Kios', 'Lokasi', 'TarifKios')->get();
         }
         // $relasiDataKios = RelasiKios::with('Kios','Lokasi','TarifKios')->get();
         return view('pages.admin.relasiKios.index', [
@@ -50,6 +50,7 @@ class RelasiKiosController extends Controller
             'kios_id' => 'required',
             'tarif_kios_id' => 'required',
             'lokasi_id' => 'required',
+            'plts_pln' => 'required'
         ]);
         // ddd($validatedData['kios_id']);
         $validatedData['status_relasi_kios'] = false;
@@ -59,7 +60,7 @@ class RelasiKiosController extends Controller
         $status['status_kios'] = true;
         $status->update();
 
-        Alert::toast('Kios berhasil ditentukan!','success');
+        Alert::toast('Kios berhasil ditentukan!', 'success');
         return redirect(route('master-relasiKios.index'));
     }
 
@@ -90,7 +91,7 @@ class RelasiKiosController extends Controller
         ]);
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $this->authorize('admin');
         $dataRelasiKios = RelasiKios::findOrFail($id);
@@ -101,7 +102,7 @@ class RelasiKiosController extends Controller
         ]);
         // membuat kios sebelumnya tidak aktif
         $status = Kios::findOrFail($dataRelasiKios->kios_id);
-        if($validatedData['kios_id'] != $status->id){
+        if ($validatedData['kios_id'] != $status->id) {
             $status['status_kios'] = false;
             $status->update();
             // kios yang baru di pilih
@@ -114,7 +115,7 @@ class RelasiKiosController extends Controller
         // $validatedData['status_relasi_kios']->update();
         $dataRelasiKios->update($validatedData);
 
-        Alert::toast('Kios berhasil diupdate!','success');
+        Alert::toast('Kios berhasil diupdate!', 'success');
         return redirect(route('master-relasiKios.index'));
     }
 

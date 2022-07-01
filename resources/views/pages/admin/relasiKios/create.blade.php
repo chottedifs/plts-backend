@@ -79,6 +79,21 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="plts_pln" class="form-label">Menggunakan Listrik</label>
+                                        <select name="plts_pln" id="plts_pln" class="form-control @error('plts_pln') is-invalid @enderror">
+                                            <option value="" disabled selected hidden>-- Pilih Tipe Listrik --</option>
+                                            <option value="1">PLTS(Pembangkit Listrik Tenaga Surya)</option>
+                                            <option value="0">PLN(Perusahaan Listrik Negara)</option>
+                                        </select>
+                                        @error('plts_pln')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>

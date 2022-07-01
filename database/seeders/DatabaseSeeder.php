@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Login;
 use App\Models\MasterStatus;
 use App\Models\Petugas;
+use App\Models\Plts;
 use App\Models\Status;
 use Illuminate\Database\Seeder;
 
@@ -101,7 +102,7 @@ class DatabaseSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        Petugas::create([
+        Plts::create([
             'nama_lengkap' => 'plts',
             'login_id' => 4,
             'lokasi_id' => 1,

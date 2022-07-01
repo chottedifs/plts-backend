@@ -25,7 +25,7 @@ class CreateTagihansTable extends Migration
             $table->integer('tagihan_kwh');
             $table->integer('tagihan_kios');
             $table->date('periode');
-            $table->foreignId('status_id')->constrained('master_statuses');
+            $table->foreignId('master_status_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
         });
