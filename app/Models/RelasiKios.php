@@ -17,7 +17,7 @@ class RelasiKios extends Model
         'lokasi_id',
         'tarif_kios_id',
         'status_relasi_kios',
-        'plts_pln'
+        'use_plts'
     ];
 
     public function SewaKios(): HasOne

@@ -43,7 +43,6 @@
                                 <tr>
                                     <th class="serial">#</th>
                                     <th>Nama Kios</th>
-                                    <th>Luas Kios</th>
                                     <th>Lokasi Kios</th>
                                     <th>Tipe Kios</th>
                                     <th>Tipe Listrik</th>
@@ -58,10 +57,9 @@
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
                                     <td>{{ $dataKios->Kios->nama_kios }}</td>
-                                    <td>{{ $dataKios->Kios->luas_kios }}</td>
                                     <td>{{ $dataKios->Lokasi->nama_lokasi }}</td>
                                     <td>{{ $dataKios->TarifKios->tipe }}</td>
-                                    @if($dataKios->plts_pln == 1)
+                                    @if($dataKios->use_plts == '1')
                                         <td>PLTS</td>
                                     @else
                                         <td>PLN</td>

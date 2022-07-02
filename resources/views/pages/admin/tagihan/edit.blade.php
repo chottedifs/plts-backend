@@ -35,6 +35,17 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
+                                        <label for="user_id" class="form-label">Listrik Yang Digunakan :
+                                            @if($tagihan->SewaKios->RelasiKios->use_plts == 1)
+                                                PLTS(Pembangkit Listrik Tenaga Surya)
+                                            @else
+                                                PLN(Perusahaan Listrik Negara)
+                                            @endif
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
                                         <label for="total_kwh" class="form-label">Total KWH</label>
                                         <input type="number" name="total_kwh" autofocus class="form-control @error('total_kwh') is-invalid @enderror" id="total_kwh" value="{{ old('total_kwh', $tagihan->total_kwh) }}">
                                         @error('total_kwh')

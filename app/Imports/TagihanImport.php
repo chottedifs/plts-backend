@@ -24,20 +24,19 @@ class TagihanImport implements ToCollection, WithHeadingRow
             $bulanAkhir = substr($periode, 5, 2);
             $sewaKios = SewaKios::with('RelasiKios')->findOrFail($row['sewa_id']);
             $idKios = $sewaKios->RelasiKios->Kios->id;
+            $usePlts = $sewaKios->RelasiKios->use_plts;
             if (strlen($idKios) < 2) {
-                $noIdKantin = '00000' . $idKios;
-            } elseif (strlen($idKios) < 3) {
                 $noIdKantin = '0000' . $idKios;
-            } elseif (strlen($idKios) < 4) {
+            } elseif (strlen($idKios) < 3) {
                 $noIdKantin = '000' . $idKios;
-            } elseif (strlen($idKios) < 5) {
+            } elseif (strlen($idKios) < 4) {
                 $noIdKantin = '00' . $idKios;
-            } elseif (strlen($idKios) < 6) {
+            } elseif (strlen($idKios) < 5) {
                 $noIdKantin = '0' . $idKios;
-            } elseif (strlen($idKios) < 7) {
+            } elseif (strlen($idKios) < 6) {
                 $noIdKantin = $idKios;
             }
-            $kodeTagihan = $tahunAkhir . $bulanAkhir . '10' . $noIdKantin;
+            $kodeTagihan = $tahunAkhir . $bulanAkhir . '10' . $usePlts . $noIdKantin;
             $tagihan = Tagihan::create([
                 'kode_tagihan' => $kodeTagihan,
                 'user_id' => $row['user_id'],

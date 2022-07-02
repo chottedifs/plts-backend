@@ -41,7 +41,7 @@
                                 <tr>
                                     <th class="serial">#</th>
                                     <th>Nama Kios</th>
-                                    <th>Luas Kios</th>
+                                    <th>Tempat</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -50,7 +50,7 @@
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
                                     <td>{{ $kios->nama_kios }}</td>
-                                    <td>{{ $kios->luas_kios }}</td>
+                                    <td>{{ $kios->tempat }}</td>
                                     <td class="text-center">
                                         <a href="{{ route('master-kios.edit', $kios->id) }}" class="btn-sm badge-warning" style="font-size: 14px; border-radius:10px;"><i class="fa fa-edit"></i></a>
                                     </td>

@@ -81,13 +81,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="plts_pln" class="form-label">Menggunakan Listrik</label>
-                                        <select name="plts_pln" id="plts_pln" class="form-control @error('plts_pln') is-invalid @enderror">
+                                        <label for="use_plts" class="form-label">Menggunakan Listrik</label>
+                                        <select name="use_plts" id="use_plts" class="form-control @error('use_plts') is-invalid @enderror">
                                             <option value="" disabled selected hidden>-- Pilih Tipe Listrik --</option>
                                             <option value="1">PLTS(Pembangkit Listrik Tenaga Surya)</option>
                                             <option value="0">PLN(Perusahaan Listrik Negara)</option>
                                         </select>
-                                        @error('plts_pln')
+                                        @error('use_plts')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

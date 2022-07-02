@@ -49,6 +49,11 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
         $tanggal = date('M Y');
 
         // ddd($tarif_dasar);
+        if ($sewaKios->RelasiKios->use_plts == 1) {
+            $usePlts = 'PLTS';
+        } else {
+            $usePlts = 'PLN';
+        }
         return [
             $sewaKios->RelasiKios->Kios->nama_kios,
             $sewaKios->User->id,
@@ -61,6 +66,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             $tarif_dasar->harga,
             $sewaKios->RelasiKios->TarifKios->harga,
             $tanggal,
+            $usePlts
         ];
     }
 
@@ -78,6 +84,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             'tarif_dasar_kwh',
             'tarif_kios',
             'periode',
+            'use_plts',
             'total_kwh',
         ];
     }
@@ -147,7 +154,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             // Unlock Column untuk diisi
             $workSheet = $event
                 ->sheet
-                ->getStyle('L')
+                ->getStyle('M')
                 ->getProtection()
                 ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
         } catch (Exception $exception) {

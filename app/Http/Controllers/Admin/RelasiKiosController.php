@@ -50,7 +50,7 @@ class RelasiKiosController extends Controller
             'kios_id' => 'required',
             'tarif_kios_id' => 'required',
             'lokasi_id' => 'required',
-            'plts_pln' => 'required'
+            'use_plts' => 'required'
         ]);
         // ddd($validatedData['kios_id']);
         $validatedData['status_relasi_kios'] = false;
@@ -82,12 +82,17 @@ class RelasiKiosController extends Controller
         $dataLokasi = Lokasi::all();
         $dataTarifKios = TarifKios::all();
         $dataKios = Kios::all();
+        $idUsePLts[] = [
+            [0],
+            [1]
+        ];
         return view('pages.admin.relasiKios.edit', [
             'judul' => 'Edit Data Kios',
             'dataRelasiKios' => $dataRelasiKios,
             'dataKios' => $dataKios,
             'dataTarifKios' => $dataTarifKios,
             'dataLokasi' => $dataLokasi,
+            'idUsePlts' => $idUsePLts
         ]);
     }
 
@@ -99,6 +104,7 @@ class RelasiKiosController extends Controller
             'kios_id' => 'required',
             'tarif_kios_id' => 'required',
             'lokasi_id' => 'required',
+            'use_plts' => 'required'
         ]);
         // membuat kios sebelumnya tidak aktif
         $status = Kios::findOrFail($dataRelasiKios->kios_id);
