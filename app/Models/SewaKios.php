@@ -17,6 +17,7 @@ class SewaKios extends Model
         'user_id',
         'relasi_kios_id',
         'status_sewa',
+        'use_plts',
         'tgl_sewa',
         'tgl_akhir_sewa',
         'lokasi_id'

@@ -43,6 +43,7 @@
                                     <th>Nama Penyewa</th>
                                     <th>Nama Kios</th>
                                     <th>Lokasi Kios</th>
+                                    <th>Tipe Listrik</th>
                                     <th>Tipe Kios</th>
                                     <th>Tanggal Sewa</th>
                                     <th>Tanggal Berhenti Sewa</th>
@@ -57,6 +58,11 @@
                                     <td>{{ $sewa->User->nama_lengkap }}</td>
                                     <td>{{ $sewa->RelasiKios->Kios->nama_kios }}</td>
                                     <td>{{ $sewa->RelasiKios->Lokasi->nama_lokasi }}</td>
+                                    <td>@if($sewa->use_plts == 1)
+                                        {{ "PLTS" }}
+                                        @else
+                                        {{ "PLN" }}
+                                    @endif</td>
                                     <td>{{ $sewa->RelasiKios->TarifKios->tipe }}</td>
                                     <td class="text-center">{{ date('d F Y', strtotime($sewa->tgl_sewa)) }}</td>
                                     <td class="text-center">

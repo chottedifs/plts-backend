@@ -21,6 +21,7 @@ class CreateSewaKiosTable extends Migration
             $table->date('tgl_sewa');
             $table->date('tgl_akhir_sewa')->nullable(true);
             $table->boolean('status_sewa');
+            $table->boolean('use_plts');
             $table->timestamps();
             $table->softDeletes();
         });

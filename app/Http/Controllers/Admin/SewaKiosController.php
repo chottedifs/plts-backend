@@ -60,6 +60,7 @@ class sewaKiosController extends Controller
         $statusRelasiKios = RelasiKios::findOrFail($validatedData['relasi_kios_id']);
 
         $validatedData['status_sewa'] = true;
+        $validatedData['use_plts'] = $statusRelasiKios->use_plts;
         $validatedData['lokasi_id'] = $statusRelasiKios['lokasi_id'];
         $sewa = SewaKios::create($validatedData);
 

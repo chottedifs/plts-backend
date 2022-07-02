@@ -58,5 +58,51 @@ class TagihanImport implements ToCollection, WithHeadingRow
                 'master_status_id' => $tagihan->master_status_id
             ]);
         }
+        $this->_tagihanPln();
+    }
+
+    private function _tagihanPln()
+    {
+        $periode = date('Y-m-d');
+        $tahunAkhir = substr($periode, 2, 2);
+        $bulanAkhir = substr($periode, 5, 2);
+        $sewaKiosPln = SewaKios::with('RelasiKios', 'User', 'Lokasi')->where(['status_sewa' => 1, 'use_plts' => 0])->get();
+        $banyakData = count($sewaKiosPln);
+        for ($i = 0; $i < $banyakData; $i++) {
+            $idKios = $sewaKiosPln[$i]->RelasiKios->Kios->id;
+            $usePlts = $sewaKiosPln[$i]->RelasiKios->use_plts;
+            if (strlen($idKios) < 2) {
+                $noIdKantin = '0000' . $idKios;
+            } elseif (strlen($idKios) < 3) {
+                $noIdKantin = '000' . $idKios;
+            } elseif (strlen($idKios) < 4) {
+                $noIdKantin = '00' . $idKios;
+            } elseif (strlen($idKios) < 5) {
+                $noIdKantin = '0' . $idKios;
+            } elseif (strlen($idKios) < 6) {
+                $noIdKantin = $idKios;
+            }
+            $kodeTagihan = $tahunAkhir . $bulanAkhir . '10' . $usePlts . $noIdKantin;
+            $tagihan = Tagihan::create([
+                'kode_tagihan' => $kodeTagihan,
+                'user_id' => $sewaKiosPln[$i]->User->id,
+                'sewa_kios_id' => $sewaKiosPln[$i]->id,
+                'lokasi_id' => $sewaKiosPln[$i]->lokasi->id,
+                'total_kwh' => 0,
+                'tagihan_kwh' => 0,
+                'tagihan_kios' => $sewaKiosPln[$i]->RelasiKios->TarifKios->harga,
+                'periode' => date('Y-m-d'),
+                'master_status_id' => 1,
+                'diskon' => 0
+            ]);
+
+            Pembayaran::create([
+                'tagihan_id' => $tagihan->id,
+                'kode_tagihan' => $tagihan->kode_tagihan,
+                'periode' => $tagihan->periode,
+                'lokasi_id' => $tagihan->lokasi_id,
+                'master_status_id' => $tagihan->master_status_id
+            ]);
+        }
     }
 }

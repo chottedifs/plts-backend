@@ -25,9 +25,9 @@
                                             @foreach($banyakKios as $kios)
                                             @if($kios->status_kios === 0)
                                                 @if(old('kios_id') == $kios->id)
-                                                    <option value="{{ $kios->id }}" selected>{{ $kios->nama_kios }} || {{ $kios->luas_kios }}</option>
+                                                    <option value="{{ $kios->id }}" selected>{{ $kios->nama_kios }} || {{ $kios->tempat }}</option>
                                                 @else
-                                                    <option value="{{ $kios->id }}">{{ $kios->nama_kios }} || {{ $kios->luas_kios }}</option>
+                                                    <option value="{{ $kios->id }}">{{ $kios->nama_kios }} || {{ $kios->tempat }}</option>
                                                 @endif
                                             @endif
                                             @endforeach

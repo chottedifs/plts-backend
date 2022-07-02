@@ -24,7 +24,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
     {
         $roles = Auth::user()->roles;
         if ($roles == "plts") {
-            $sewaKios = SewaKios::with('RelasiKios')->where('status_sewa', 1)->get();
+            $sewaKios = SewaKios::with('RelasiKios')->where(['status_sewa' => 1, 'use_plts' => 1])->get();
             // $sewaKios = SewaKios::with('RelasiKios')->where('status_sewa', 1)->get();
             // $lokasiPlts = Auth::user()->Plts->lokasi_id;
             // // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPlts)->get();
@@ -54,6 +54,17 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
         } else {
             $usePlts = 'PLN';
         }
+        $pecah = explode('-', $sewaKios->tgl_sewa);
+        $tahun = $pecah[0];
+        $bulan = $pecah[1];
+        if ($tahun == date('Y')) {
+            if ($bulan == date('m')) {
+                $keterangan = "Penyewa Baru pada " . date('M Y');
+            } else {
+                $keterangan = "Penyewa Lama";
+            }
+        }
+        // if ()
         return [
             $sewaKios->RelasiKios->Kios->nama_kios,
             $sewaKios->User->id,
@@ -66,6 +77,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             $tarif_dasar->harga,
             $sewaKios->RelasiKios->TarifKios->harga,
             $tanggal,
+            $keterangan,
             $usePlts
         ];
     }
@@ -84,6 +96,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             'tarif_dasar_kwh',
             'tarif_kios',
             'periode',
+            'keterangan',
             'use_plts',
             'total_kwh',
         ];
@@ -154,7 +167,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             // Unlock Column untuk diisi
             $workSheet = $event
                 ->sheet
-                ->getStyle('M')
+                ->getStyle('N')
                 ->getProtection()
                 ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
         } catch (Exception $exception) {
