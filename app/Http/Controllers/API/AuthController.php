@@ -20,10 +20,28 @@ class AuthController extends Controller
 
         $token = $user->createToken('token-name')->plainTextToken;
 
-        return response()->json([
-            'message' => 'sukses',
-            'user' => $user,
+        $response[] = [
+            'id' => $user->id,
+            'email' => $user->email,
+            'nama_lengkap' => $user->User->nama_lengkap,
+            'no_hp' => $user->User->no_hp,
+            'no_rekening' => $user->User->rekening,
+            'lokasi' => $user->User->Lokasi->nama_lokasi,
             'token' => $token
-        ], 200);
+        ];
+
+        if($response)
+            return ResponseFormatter::success($response, 'Data Sewa Kios Berhasil di Ambil');
+        else
+            return ResponseFormatter::error(null, 'Data Sewa Kios Tidak Ada', 404);
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+
+        return [
+            'message' => 'You have successfully logged out and the token was successfully deleted'
+        ];
     }
 }

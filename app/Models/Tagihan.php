@@ -31,14 +31,19 @@ class Tagihan extends Model
         return $this->belongsTo(SewaKios::class);
     }
 
+    public function User(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function Lokasi(): BelongsTo
     {
         return $this->belongsTo(Lokasi::class);
     }
 
-    public function Status(): BelongsTo
+    public function MasterStatus(): BelongsTo
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(MasterStatus::class);
     }
 
     public function Pembayaran(): HasOne
