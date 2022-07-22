@@ -73,8 +73,16 @@
                         </form>
                     </div>
                     <div class="card-body">
+                        @can('admin')
+                            <a href="" class="btn btn-success text-right mb-3" style="border-radius: 10px;" download><i class="fa-solid fa-file-export mr-2"></i> Report Tagihan </a>
+                            <a href="{{ route('cetak-tagihan') }}" target="_blank" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-print mr-2"></i> Cetak Tagihan </a>
+                        @endcan
+                        @can('operator')
+                            <a href="" class="btn btn-success text-right mb-3" style="border-radius: 10px;" download><i class="fa-solid fa-file-export mr-2"></i> Report Tagihan </a>
+                            <a href="{{ route('cetak-tagihan') }}" target="_blank" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-print mr-2"></i> Cetak Tagihan </a>
+                        @endcan
                         {{-- @include('pages.admin.tagihan.table') --}}
-                        <table id="table-datatables" class="table table-striped table-bordered">
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th class="serial">#</th>
@@ -195,15 +203,13 @@
 
 <script>
     function kirimData() {
-        const bulanTagihan= document.getElementById('periode').value;
-        $.ajax({
-        method: 'GET',
-        url: './export-laporan',
-        data: {
-            periode: bulanTagihan,
-    },
-});
-
-
+                const bulanTagihan= document.getElementById('periode').value;
+                $.ajax({
+                method: 'GET',
+                url: './export-laporan',
+                data: {
+                periode: bulanTagihan,
+            },
+        });
     }
 </script>

@@ -19,6 +19,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Style;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
+use PDF;
 
 class TagihanController extends Controller
 {
@@ -177,20 +178,6 @@ class TagihanController extends Controller
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function createDiskon()
     {
         return Excel::download(new TagihanExportDiskon, 'template-tagihan-diskon' . time() . '.xlsx');
@@ -251,5 +238,23 @@ class TagihanController extends Controller
         $tagihan->update($validatedData);
         Alert::toast('Data Tagihan Diskon Berhasil Di Update!', 'success');
         return redirect(route('tagihan-index'));
+    }
+
+    public function reportTagihan()
+    {
+        $roles = Auth::user()->roles;
+        if ($roles == "operator") {
+            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+            $dataTagihan = Tagihan::with('SewaKios')->where('lokasi_id', $lokasiPetugas)->whereMonth('periode', date('m'))->get();
+        } elseif ($roles == "admin") {
+            $lokasiPetugas = 'Yayasan Sasmita Jaya';
+            $dataTagihan = Tagihan::with('SewaKios')->whereMonth('periode', date('m'))->get();
+        }
+
+        $pdf = PDF::loadview('pages.admin.tagihan.cetakTagihan',[
+            'dataTagihan' => $dataTagihan,
+            'lokasi' => $lokasiPetugas
+        ]);
+    	return $pdf->stream();
     }
 }

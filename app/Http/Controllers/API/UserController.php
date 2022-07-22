@@ -111,11 +111,11 @@ class UserController extends Controller
             // for ($i = 0; $i < $jumlahSewa; $i++) {
             $data[] = response()->json([
                 'message' => 'sukses',
-                'nama_kios' => $users[0]->Login->email,
-                'luas_kios' => $users[0]->nama_lengkap,
-                'tagihan_kios' => $users[0]->no_hp,
-                'tipe_tarif' => $users[0]->nik,
-                'lokasi' => $users[0]->rekening,
+                'email' => $users[0]->Login->email,
+                'nama_penyewa' => $users[0]->nama_lengkap,
+                'no_telp' => $users[0]->no_hp,
+                'nik' => $users[0]->nik,
+                'rekening' => $users[0]->rekening,
             ], 200);
             // }
             return $data;

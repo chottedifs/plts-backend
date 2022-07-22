@@ -66,6 +66,7 @@ Route::middleware(['checkRole:admin,operator,plts'])->group(function () {
     Route::get('dashboard/tagihan-report', [TagihanController::class, 'export'])->name('export-laporan');
     Route::post('dashboard/tagihan-import', [TagihanController::class, 'import'])->name('import-tagihan');
     Route::get('dashboard/tagihan-diskon', [TagihanController::class, 'createDiskon'])->name('export-tagihan-diskon');
+    Route::get('dashboard/report-tagihan', [TagihanController::class, 'reportTagihan'])->name('cetak-tagihan');
     Route::post('dashboard/tagihan-diskonImport', [TagihanController::class, 'importDiskon'])->name('import-tagihan-diskon');
 });
 
