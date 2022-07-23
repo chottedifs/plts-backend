@@ -17,7 +17,7 @@ use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\PltsController;
 use App\Http\Controllers\Admin\StatusController;
 use App\Http\Controllers\Admin\TagihanController;
-use App\Http\Controllers\API\UserController as APIUserController;
+// use App\Http\Controllers\API\UserController as APIUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +66,8 @@ Route::middleware(['checkRole:admin,operator,plts'])->group(function () {
     Route::get('dashboard/tagihan-report', [TagihanController::class, 'export'])->name('export-laporan');
     Route::post('dashboard/tagihan-import', [TagihanController::class, 'import'])->name('import-tagihan');
     Route::get('dashboard/tagihan-diskon', [TagihanController::class, 'createDiskon'])->name('export-tagihan-diskon');
-    Route::get('dashboard/report-tagihan', [TagihanController::class, 'reportTagihan'])->name('cetak-tagihan');
+    Route::get('dashboard/report-tagihan', [TagihanController::class, 'reportExcelTagihan'])->name('report-tagihan');
+    Route::get('dashboard/cetak-tagihan', [TagihanController::class, 'reportTagihan'])->name('cetak-tagihan');
     Route::post('dashboard/tagihan-diskonImport', [TagihanController::class, 'importDiskon'])->name('import-tagihan-diskon');
 });
 

@@ -11,6 +11,7 @@ use App\Models\Lokasi;
 use App\Exports\TagihanExport;
 use App\Exports\TagihanExportDiskon;
 use App\Exports\ReportTagihanExport;
+use App\Exports\ReportExcelTagihan;
 use App\Imports\TagihanImport;
 use App\Imports\TagihanImportDiskon;
 use App\Http\Controllers\Controller;
@@ -256,5 +257,10 @@ class TagihanController extends Controller
             'lokasi' => $lokasiPetugas
         ]);
     	return $pdf->stream();
+    }
+
+    public function reportExcelTagihan()
+    {
+        return Excel::download(new ReportExcelTagihan, 'laporan-tagihan-' . time() . '.xlsx');
     }
 }
