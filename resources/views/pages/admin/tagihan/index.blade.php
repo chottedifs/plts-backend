@@ -74,11 +74,11 @@
                     </div>
                     <div class="card-body">
                         @can('admin')
-                            <a href="" class="btn btn-success text-right mb-3" style="border-radius: 10px;" download><i class="fa-solid fa-file-export mr-2"></i> Report Tagihan </a>
+                            <a href="{{ route('report-tagihan') }}" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Laporan Tagihan </a>
                             <a href="{{ route('cetak-tagihan') }}" target="_blank" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-print mr-2"></i> Cetak Tagihan </a>
                         @endcan
                         @can('operator')
-                            <a href="" class="btn btn-success text-right mb-3" style="border-radius: 10px;" download><i class="fa-solid fa-file-export mr-2"></i> Report Tagihan </a>
+                            <a href="{{ route('report-tagihan') }}" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Laporan Tagihan </a>
                             <a href="{{ route('cetak-tagihan') }}" target="_blank" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-print mr-2"></i> Cetak Tagihan </a>
                         @endcan
                         {{-- @include('pages.admin.tagihan.table') --}}

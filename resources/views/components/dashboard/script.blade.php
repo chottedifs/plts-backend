@@ -16,6 +16,7 @@
 <script src="{{ asset('assets/template/assets/js/lib/data-table/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/template/assets/js/lib/data-table/buttons.colVis.min.js') }}"></script>
 <script src="{{ asset('assets/template/assets/js/init/datatables-init.js') }}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 <script type="text/javascript">
