@@ -74,39 +74,6 @@ class HistoriTagihanController extends Controller
                 $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
                 $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
             }
-
-            //     if ($request->bulanTagihan && $request->status_tagihan == 3 || $request->bulanTagihan && $request->status_tagihan == 1) {
-            //         // ddd("yyyyyy");
-            //         $bulan = $request->bulanTagihan;
-            //         $status_tagihan = $request->status_tagihan;
-            //         $bulanP = explode('-', $bulan);
-            //         $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-            //         $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-            //         $dataStatus = $dataBulan->where('master_status_id', $status_tagihan);
-            //         $dataTagihan = $dataStatus->where('lokasi_id', $lokasi_id)->get();
-            //     } else {
-            //         $bulan = Carbon::now()->format('Y-m');
-            //         $bulanP = explode('-', $bulan);
-            //         $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-            //         $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-            //         $dataTagihan = $dataBulan->where('lokasi_id', $lokasi_id)->get();
-            //         // $dataTagihan = $dataStatus->where('lokasi_id', $roles);
-            //     }
-            // } elseif ($roles == "admin") {
-            //     if ($request->bulanTagihan && $request->status_tagihan == 3 || $request->bulanTagihan && $request->status_tagihan == 1) {
-            //         // ddd("yyyyyy");
-            //         $bulan = $request->bulanTagihan;
-            //         $status_tagihan = $request->status_tagihan;
-            //         $bulanP = explode('-', $bulan);
-            //         $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-            //         $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
-            //         $dataTagihan = $dataBulan->where('master_status_id', $status_tagihan)->get();
-            //     } else {
-            //         $bulan = Carbon::now()->format('Y-m');
-            //         $bulanP = explode('-', $bulan);
-            //         $dataTahun = Tagihan::whereYear('periode', $bulanP[0]);
-            //         $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
-            //     }
         }
 
 
@@ -122,15 +89,12 @@ class HistoriTagihanController extends Controller
     {
         $histori = Tagihan::findOrFail($id);
         if ($histori->master_status_id == 1) {
-            ddd('belum terbayar');
             $stsPembayaran['master_status_id'] = 3;
             $histori->update($stsPembayaran);
             Alert::toast('Status Pembayaran Menjadi Terbayar!', 'success');
             return redirect(route('historiTagihan'));
         } elseif ($histori->master_status_id == 3) {
-            ddd('terbayar');
-            $stsPembayaran['status_bayar'] = 1;
-            // ddd($dataHistori);
+            $stsPembayaran['master_status_id'] = 1;
             $histori->update($stsPembayaran);
             Alert::toast('Status Pembayaran Menjadi Belum Terbayar!', 'success');
             return redirect(route('historiTagihan'));
