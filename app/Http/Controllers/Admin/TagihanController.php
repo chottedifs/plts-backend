@@ -170,9 +170,26 @@ class TagihanController extends Controller
         }
     }
 
-    public function createDiskon()
+    public function createDiskon($bulanTagihan, $lokasiTagihan)
     {
-        return Excel::download(new TagihanExportDiskon, 'template-tagihan-diskon' . time() . '.xlsx');
+        if ($lokasiTagihan != 0) {
+            $bulan = $bulanTagihan;
+            $lokasi = $lokasiTagihan;
+            $bulanP = explode('-', $bulan);
+            $dataTahun = Tagihan::with('SewaKios')->whereYear('periode', $bulanP[0]);
+            $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+            $dataTagihan = $dataBulan->where([
+                'lokasi_id' => $lokasi,
+                'master_status_id' => 1
+            ])->get();
+        } else {
+            $bulan = $bulanTagihan;
+            $bulanP = explode('-', $bulan);
+            $dataTahun = Tagihan::with('SewaKios')->whereYear('periode', $bulanP[0]);
+            $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
+        }
+
+        return Excel::download(new TagihanExportDiskon($dataTagihan), 'template-tagihan-diskon' . time() . '.xlsx');
     }
 
     public function importDiskon(Request $request)
@@ -221,20 +238,35 @@ class TagihanController extends Controller
         return redirect(route('tagihan-index'));
     }
 
-    public function reportTagihan()
+    public function reportTagihan($bulanTagihan, $lokasiTagihan)
     {
-        $roles = Auth::user()->roles;
-        if ($roles == "operator") {
-            $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
-            $dataTagihan = Tagihan::with('SewaKios')->where('lokasi_id', $lokasiPetugas)->whereMonth('periode', date('m'))->get();
-        } elseif ($roles == "admin") {
-            $lokasiPetugas = 'Yayasan Sasmita Jaya';
-            $dataTagihan = Tagihan::with('SewaKios')->whereMonth('periode', date('m'))->get();
+        if ($lokasiTagihan != 0) {
+            $bulan = $bulanTagihan;
+            $lokasi = $lokasiTagihan;
+            $bulanP = explode('-', $bulan);
+            $dataTahun = Tagihan::with('SewaKios')->whereYear('periode', $bulanP[0]);
+            $dataBulan = $dataTahun->whereMonth('periode', $bulanP[1]);
+            $dataTagihan = $dataBulan->where('lokasi_id', $lokasi)->get();
+        } else {
+            $bulan = $bulanTagihan;
+            $lokasi = $lokasiTagihan;
+            $bulanP = explode('-', $bulan);
+            $dataTahun = Tagihan::with('SewaKios')->whereYear('periode', $bulanP[0]);
+            $dataTagihan = $dataTahun->whereMonth('periode', $bulanP[1])->get();
         }
+        // $roles = Auth::user()->roles;
+        // if ($roles == "operator") {
+        //     $lokasiPetugas = Auth::user()->Petugas->lokasi_id;
+        //     $dataTagihan = Tagihan::with('SewaKios')->where('lokasi_id', $lokasiPetugas)->whereMonth('periode', date('m'))->get();
+        // } elseif ($roles == "admin") {
+        //     $lokasiPetugas = 'Yayasan Sasmita Jaya';
+        //     $dataTagihan = Tagihan::with('SewaKios')->whereMonth('periode', date('m'))->get();
+        // }
 
         $pdf = PDF::loadview('pages.admin.tagihan.cetakTagihan', [
             'dataTagihan' => $dataTagihan,
-            'lokasi' => $lokasiPetugas
+            'lokasi' => $lokasi,
+            'bulan' => $bulan
         ]);
         return $pdf->stream();
     }

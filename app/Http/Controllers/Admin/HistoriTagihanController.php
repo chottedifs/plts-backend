@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\HistoriKios;
 use App\Models\Lokasi;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Tagihan;
@@ -88,14 +89,20 @@ class HistoriTagihanController extends Controller
     public function StatusPembayaran($id)
     {
         $histori = Tagihan::findOrFail($id);
+        $pembayaran = Pembayaran::where('tagihan_id', $histori->id)->first();
+
         if ($histori->master_status_id == 1) {
             $stsPembayaran['master_status_id'] = 3;
+            $status_pembayaran['master_status_id'] = 3;
+            $pembayaran->update($status_pembayaran);
             $histori->update($stsPembayaran);
             Alert::toast('Status Pembayaran Menjadi Terbayar!', 'success');
             return redirect(route('historiTagihan'));
         } elseif ($histori->master_status_id == 3) {
             $stsPembayaran['master_status_id'] = 1;
             $histori->update($stsPembayaran);
+            $status_pembayaran['master_status_id'] = 1;
+            $pembayaran->update($status_pembayaran);
             Alert::toast('Status Pembayaran Menjadi Belum Terbayar!', 'success');
             return redirect(route('historiTagihan'));
         }

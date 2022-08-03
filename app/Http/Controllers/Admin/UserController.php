@@ -56,7 +56,7 @@ class UserController extends Controller
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
             'lokasi_id' => 'required',
-            'nik' => 'required|numeric',
+            'nik' => 'required|numeric|max:16',
             'rekening' => 'required|numeric',
             'no_hp' => 'required|numeric',
             'jenis_kelamin' => 'required'

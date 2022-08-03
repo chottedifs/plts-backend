@@ -41,13 +41,13 @@
                         @endcan
                         @can('admin')
                             <div class="float-right">
-                                <a href="{{ route('export-tagihan-diskon') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Template Diskon</a>
+                                <a id="tagihan-diskon" onclick="kirimDataDiskon()" target="_blank" class="btn btn-success text-white text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Template Diskon</a>
                                 <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Template</button>
                             </div>
                         @endcan
                         @can('operator')
                             <div class="float-right">
-                                <a href="{{ route('export-tagihan-diskon') }}" class="btn btn-success text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Template Diskon</a>
+                                <a id="tagihan-diskon" onclick="kirimDataDiskon()" target="_blank" class="btn btn-success text-white text-right" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Template Diskon</a>
                                 <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary text-right" style="border-radius: 10px;"><i class="fa-solid fa-cloud-arrow-up mr-2"></i>Upload Template</button>
                             </div>
                         @endcan
@@ -102,11 +102,12 @@
                     <div class="card-body">
                         @can('admin')
                             <button id="laporan_tagihan" onclick="kirimDataExel()" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Laporan Tagihan </button>
-                            <a href="{{ route('cetak-tagihan') }}" target="_blank" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-print mr-2"></i> Cetak Tagihan </a>
+                            <a id="cetak-tagihan" onclick="kirimDataCetak()" target="_blank" class="btn btn-success text-right text-white mb-3" style="border-radius: 10px;"><i class="fa-solid fa-print mr-2"></i> Cetak Tagihan </a>
                         @endcan
                         @can('operator')
                             <button id="laporan_tagihan" onclick="kirimDataExel()" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-file-export mr-2"></i> Laporan Tagihan </button>
-                            <a href="{{ route('cetak-tagihan') }}" target="_blank" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-print mr-2"></i> Cetak Tagihan </a>
+                            <a id="cetak-tagihan" onclick="kirimDataCetak()" target="_blank" class="btn btn-success text-right text-white mb-3" style="border-radius: 10px;"><i class="fa-solid fa-print mr-2"></i> Cetak Tagihan </a>
+                            {{-- <a id="cetak-tagihan" href="{{ route('cetak-tagihan') }}" target="_blank" class="btn btn-success text-right mb-3" style="border-radius: 10px;"><i class="fa-solid fa-print mr-2"></i> Cetak Tagihan </a> --}}
                         @endcan
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
@@ -234,6 +235,24 @@
         const bulan = document.getElementById("bulanTagihan").value;
         const lokasi = document.getElementById("lokasi").value;
         const src="report-tagihan/" + bulan + "/" + lokasi;
+        window.location.href=src;
+    }
+
+    function kirimDataCetak()
+    {
+        // alert('data berhasil di tekan!');
+        const bulan = document.getElementById("bulanTagihan").value;
+        const lokasi = document.getElementById("lokasi").value;
+        const src="cetak-tagihan/" + bulan + "/" + lokasi;
+        window.open(src);
+    }
+
+    function kirimDataDiskon()
+    {
+        // alert('data berhasil di tekan!');
+        const bulan = document.getElementById("bulanTagihan").value;
+        const lokasi = document.getElementById("lokasi").value;
+        const src="tagihan-diskon/" + bulan + "/" + lokasi;
         window.location.href=src;
     }
 
