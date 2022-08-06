@@ -231,7 +231,6 @@
 <script>
     function kirimDataExel()
     {
-        alert('data berhasil di tekan!');
         const bulan = document.getElementById("bulanTagihan").value;
         const lokasi = document.getElementById("lokasi").value;
         const src="report-tagihan/" + bulan + "/" + lokasi;
@@ -240,7 +239,6 @@
 
     function kirimDataCetak()
     {
-        // alert('data berhasil di tekan!');
         const bulan = document.getElementById("bulanTagihan").value;
         const lokasi = document.getElementById("lokasi").value;
         const src="cetak-tagihan/" + bulan + "/" + lokasi;
@@ -249,7 +247,6 @@
 
     function kirimDataDiskon()
     {
-        // alert('data berhasil di tekan!');
         const bulan = document.getElementById("bulanTagihan").value;
         const lokasi = document.getElementById("lokasi").value;
         const src="tagihan-diskon/" + bulan + "/" + lokasi;
