@@ -41,6 +41,17 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
+                                        <label for="nik" class="form-label">NIK</label>
+                                        <input type="number" name="nik" class="form-control @error('nik') is-invalid @enderror" id="nik" value="{{ old('nik') }}">
+                                        @error('nik')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
                                         <label for="nip" class="form-label">NIP</label>
                                         <input type="number" name="nip" class="form-control @error('nip') is-invalid @enderror" id="nip" value="{{ old('nip') }}">
                                         @error('nip')

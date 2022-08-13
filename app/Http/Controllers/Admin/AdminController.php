@@ -40,6 +40,8 @@ class AdminController extends Controller
         ]);
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
+            'nik' => 'required|numeric|digits_between:15,16',
+            'alamat' => 'required|max:500',
             'lokasi_id' => 'required',
             'nip' => 'required|numeric',
             'no_hp' => 'required|numeric',
@@ -56,7 +58,7 @@ class AdminController extends Controller
         $validatedData2['login_id'] = $login->id;
         Admin::create($validatedData2);
 
-        Alert::toast('Data admin berhasil ditambahkan!','success');
+        Alert::toast('Data admin berhasil ditambahkan!', 'success');
         return redirect(route('master-admin.index'));
     }
 
@@ -85,11 +87,13 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         // Validasi Form Update
+
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
             'lokasi_id' => 'required',
             'nip' => 'required|numeric',
             'no_hp' => 'required|numeric',
+            'alamat' => 'required|max:500',
             'jenis_kelamin' => 'required'
         ]);
 
@@ -125,7 +129,7 @@ class AdminController extends Controller
         $validatedData2['login_id'] = $admin->login_id;
         $admin->update($validatedData2);
 
-        Alert::toast('Data admin berhasil diupdate!','success');
+        Alert::toast('Data admin berhasil diupdate!', 'success');
         return redirect(route('master-admin.index'));
     }
 

@@ -13,11 +13,14 @@ class Admin extends Model
 
     protected $fillable = [
         'nama_lengkap',
+        'nik',
         'lokasi_id',
         'nip',
         'no_hp',
-        'jenis_kelamin',
-        'login_id'
+        'nama_lengkap',
+        'alamat',
+        'login_id',
+        'jenis_kelamin'
     ];
 
     public function Lokasi(): BelongsTo

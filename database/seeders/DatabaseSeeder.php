@@ -55,6 +55,8 @@ class DatabaseSeeder extends Seeder
 
         Admin::create([
             'nama_lengkap' => 'Admin',
+            'nik' => '121323243',
+            'alamat' => 'serpong',
             'login_id' => 1,
             'lokasi_id' => 2,
             'nip' => '182011022201',
@@ -71,6 +73,8 @@ class DatabaseSeeder extends Seeder
 
         Petugas::create([
             'nama_lengkap' => 'Operator',
+            'nik' => '1213234532',
+            'alamat' => 'viktor',
             'login_id' => 2,
             'lokasi_id' => 1,
             'nip' => '182011022201',
@@ -87,6 +91,9 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'nama_lengkap' => 'juminten',
+            'nama_rekening' => 'JUMINTEN',
+            'nik' => '121323434',
+            'alamat' => 'bsd',
             'login_id' => 3,
             'lokasi_id' => 1,
             'nik' => '3174109020120001',
@@ -104,6 +111,8 @@ class DatabaseSeeder extends Seeder
 
         Plts::create([
             'nama_lengkap' => 'plts',
+            'nik' => '121324352',
+            'alamat' => 'ciputat',
             'login_id' => 4,
             'lokasi_id' => 1,
             'nip' => '182011022201',

@@ -43,7 +43,9 @@
                                     <th>Nama Lengkap</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Email</th>
+                                    <th>NIK</th>
                                     <th>NIP</th>
+                                    <th>Alamat</th>
                                     <th>No Handphone</th>
                                     <th>Lokasi</th>
                                     <th>Status User</th>
@@ -57,7 +59,9 @@
                                     <td>{{ $petugas->nama_lengkap }}</td>
                                     <td>{{ $petugas->jenis_kelamin }}</td>
                                     <td>{{ $petugas->Login->email }}</td>
+                                    <td>{{ $petugas->nik }}</td>
                                     <td>{{ $petugas->nip }}</td>
+                                    <td>{{ $petugas->alamat }}</td>
                                     <td>{{ $petugas->no_hp }}</td>
                                     <td>{{ $petugas->Lokasi->nama_lokasi }}</td>
                                     <td class="text-center">

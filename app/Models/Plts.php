@@ -13,13 +13,15 @@ class Plts extends Model
 
     protected $fillable = [
         'nama_lengkap',
+        'nik',
         'email',
         'password',
         'login_id',
         'lokasi_id',
         'nip',
         'no_hp',
-        'jenis_kelamin',
+        'nama_lengkap',
+        'alamat',
         'status_petugas'
     ];
 

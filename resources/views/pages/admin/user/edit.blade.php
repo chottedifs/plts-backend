@@ -101,6 +101,17 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
+                                        <label for="nama_rekening" class="form-label">Nama Rekening</label>
+                                        <input type="text" name="nama_rekening" class="form-control @error('nama_rekening') is-invalid @enderror" id="nama_rekening" autofocus value="{{ old("nama_rekening", $user->nama_rekening) }}">
+                                        @error('nama_rekening')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
                                         <label for="rekening" class="form-label">No. Rekening</label>
                                         <input type="number" name="rekening" class="form-control @error('rekening') is-invalid @enderror" id="rekening" value="{{old('rekening', $user->rekening) }}">
                                         @error('rekening')
