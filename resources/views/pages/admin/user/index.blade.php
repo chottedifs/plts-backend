@@ -41,12 +41,15 @@
                                 <tr>
                                     <th class="serial">#</th>
                                     <th>Nama Lengkap</th>
+                                    <th>NIK</th>
                                     <th>Lokasi</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Email</th>
                                     <th>NIK</th>
-                                    <th>No Handphone</th>
+                                    <th>No. Handphone</th>
+                                    <th>Nama Rekening</th>
                                     <th>Rekening</th>
+                                    <th>Alamat</th>
                                     <th>Status User</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -56,12 +59,15 @@
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
                                     <td>{{ $user->nama_lengkap }}</td>
+                                    <td>{{ $user->nik }}</td>
                                     <td>{{ $user->Lokasi->nama_lokasi }}</td>
                                     <td>{{ $user->jenis_kelamin }}</td>
                                     <td>{{ $user->Login->email }}</td>
                                     <td>{{ $user->nik }}</td>
                                     <td>{{ $user->no_hp }}</td>
+                                    <td>{{ $user->nama_rekening }}</td>
                                     <td>{{ $user->rekening }}</td>
+                                    <td>{{ $user->alamat }}</td>
                                     <td>
                                         @if ($user->Login->is_active == 1)
                                         <form action="{{ route('user-isActive', $user->id)}}" method="post">

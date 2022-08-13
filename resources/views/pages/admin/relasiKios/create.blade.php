@@ -20,8 +20,8 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="kios_id" class="form-label">Pilih Data Kios</label>
-                                        <select name="kios_id" id="kios_id" class="form-control @error('kios_id') is-invalid @enderror">
-                                            <option value="" disabled selected hidden>-- Pilih Data Kios --</option>
+                                        <select name="kios_id" id="kios_id" class="form-control standardSelect" data-placeholder="Choose a Country..." tabindex="1" @error('kios_id') is-invalid @enderror>
+                                            {{-- <option value="" disabled selected hidden>-- Pilih Data Kios --</option> --}}
                                             @foreach($banyakKios as $kios)
                                             @if($kios->status_kios == 0)
                                                 @if(old('kios_id') == $kios->id)
@@ -37,6 +37,8 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
+                                        {{-- <select name="kios_id" id="kios_id" class="form-control @error('kios_id') is-invalid @enderror">
+                                        </select> --}}
                                     </div>
                                 </div>
                                 <div class="row">

@@ -31,6 +31,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
+                                        <label for="nik" class="form-label">NIK</label>
+                                        <input type="number" name="nik" class="form-control" disabled value="{{ old('nik', $admin->nik) }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
                                         <label for="email" class="form-label">Alamat Email</label>
                                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', $admin->Login->email) }}">
                                         @error('email')
@@ -104,6 +110,17 @@
                                         <label for="no_hp" class="form-label">No. Handphone</label>
                                         <input type="number" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" value="{{ old('no_hp', $admin->no_hp) }}">
                                         @error('no_hp')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="alamat" class="form-label">Alamat</label>
+                                        <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat', $admin->alamat) }}</textarea>
+                                        @error('alamat')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
