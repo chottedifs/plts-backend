@@ -40,11 +40,11 @@ class AdminController extends Controller
         ]);
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
-            'nik' => 'required|numeric|digits_between:15,16',
+            'nik' => 'required|numeric|digits:16',
             'alamat' => 'required|max:500',
             'lokasi_id' => 'required',
             'nip' => 'required|numeric',
-            'no_hp' => 'required|numeric',
+            'no_hp' => 'required|numeric|digits_between:12,13',
             'jenis_kelamin' => 'required'
         ]);
 

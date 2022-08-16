@@ -19,20 +19,9 @@
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="email" class="form-label">Alamat Email</label>
-                                        <input type="email" name="email" autofocus class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}">
-                                        @error('email')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-lg-12">
-                                        <label for="password" class="form-label">Password</label>
-                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password">
-                                        @error('password')
+                                        <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+                                        <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" autofocus value="{{ old("nama_lengkap") }}">
+                                        @error('nama_lengkap')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -52,9 +41,31 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                                        <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap" autofocus value="{{ old("nama_lengkap") }}">
-                                        @error('nama_lengkap')
+                                        <label for="nik" class="form-label">NIK</label>
+                                        <input type="number" name="nik" class="form-control @error('nik') is-invalid @enderror" id="nik" value="{{ old('nik') }}">
+                                        @error('nik')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="email" class="form-label">Alamat Email</label>
+                                        <input type="email" name="email" autofocus class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}">
+                                        @error('email')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password">
+                                        @error('password')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -101,6 +112,17 @@
                                         <label for="no_hp" class="form-label">No. Handphone</label>
                                         <input type="number" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" value="{{ old('no_hp') }}">
                                         @error('no_hp')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="alamat" class="form-label">Alamat</label>
+                                        <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat') }}</textarea>
+                                        @error('alamat')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

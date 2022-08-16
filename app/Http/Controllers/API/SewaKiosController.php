@@ -11,10 +11,11 @@ use Auth;
 
 class SewaKiosController extends Controller
 {
-    public function all(Request $request){
+    public function all(Request $request)
+    {
         $kios = SewaKios::with('RelasiKios', 'Tagihan')->where('user_id', Auth::user()->User->id)->get();
 
-        foreach ($kios as $dataKios){
+        foreach ($kios as $dataKios) {
             $response[] = [
                 'id_sewa' => $dataKios->id,
                 'nama_kios' => $dataKios->RelasiKios->Kios->nama_kios,
@@ -23,7 +24,7 @@ class SewaKiosController extends Controller
                 'tempat_kios' => $dataKios->RelasiKios->Kios->tempat,
                 'lokasi_kios' => $dataKios->RelasiKios->Lokasi->nama_lokasi,
                 'tagihan_terakhir' => [
-                    'total_tagihan' => $dataKios->Tagihan->tagihan_kios+$dataKios->Tagihan->tagihan_kwh,
+                    'total_tagihan' => $dataKios->Tagihan->tagihan_kios + $dataKios->Tagihan->tagihan_kwh,
                     'total_kwh' => $dataKios->Tagihan->total_kwh,
                     'date' => date('m-Y', strtotime($dataKios->Tagihan->periode)),
                     'status_tagihan' => $dataKios->Tagihan->MasterStatus->nama_status
@@ -31,7 +32,7 @@ class SewaKiosController extends Controller
             ];
         };
 
-        if($response)
+        if ($response)
             return ResponseFormatter::success($response, 'Data Sewa Kios Berhasil di Ambil');
         else
             return ResponseFormatter::error(null, 'Data Sewa Kios Tidak Ada', 404);

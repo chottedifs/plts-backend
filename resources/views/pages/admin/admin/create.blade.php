@@ -121,7 +121,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="alamat" class="form-label">Alamat</label>
-                                        <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat') }}"></textarea>
+                                        <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control @error('alamat') is-invalid @enderror" >{{ old('alamat') }}</textarea>
                                         @error('alamat')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

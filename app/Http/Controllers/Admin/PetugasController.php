@@ -40,7 +40,9 @@ class PetugasController extends Controller
             'nama_lengkap' => 'required|max:255',
             'lokasi_id' => 'required',
             'nip' => 'required|numeric',
-            'no_hp' => 'required|numeric',
+            'alamat' => 'required|max:500',
+            'nik' => 'required|numeric|digits:16',
+            'no_hp' => 'required|numeric|digits_between:12,13',
             'jenis_kelamin' => 'required'
         ]);
 
@@ -54,7 +56,7 @@ class PetugasController extends Controller
         $validatedData2['login_id'] = $login->id;
         Petugas::create($validatedData2);
 
-        Alert::toast('Petugas berhasil ditambahkan!','success');
+        Alert::toast('Petugas berhasil ditambahkan!', 'success');
         return redirect(route('master-petugas.index'));
     }
 
@@ -87,6 +89,7 @@ class PetugasController extends Controller
             'lokasi_id' => 'required',
             'nip' => 'required|numeric',
             'no_hp' => 'required|numeric',
+            'alamat' => 'required|max:500',
             'jenis_kelamin' => 'required'
         ]);
 
@@ -122,7 +125,7 @@ class PetugasController extends Controller
         $validatedData2['login_id'] = $petugas->login_id;
         $petugas->update($validatedData2);
 
-        Alert::toast('Petugas berhasil diupdate!','success');
+        Alert::toast('Petugas berhasil diupdate!', 'success');
 
         return redirect(route('master-petugas.index'));
     }
@@ -149,14 +152,14 @@ class PetugasController extends Controller
             $login = Login::findOrFail($petugas->Login->id);
             $login->update($active);
             // $petugas->Login->is_active->update($active);
-            Alert::toast('Data petugas berhasil di Non-aktifkan!','success');
+            Alert::toast('Data petugas berhasil di Non-aktifkan!', 'success');
             return redirect(route('master-petugas.index'));
         } elseif ($petugas->Login->is_active == 0) {
             $active['is_active'] = 1;
             $login = Login::findOrFail($petugas->Login->id);
             $login->update($active);
-            Alert::toast('Data petugas berhasil di aktifkan!','success');
+            Alert::toast('Data petugas berhasil di aktifkan!', 'success');
             return redirect(route('master-petugas.index'));
         }
-    } 
+    }
 }

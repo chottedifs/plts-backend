@@ -20,9 +20,9 @@
                                 @csrf
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="nik" class="form-label">NIK</label>
-                                        <input type="number" name="nik" autofocus class="form-control @error('nik') is-invalid @enderror" id="nik" value="{{ old('nik', $user->nik) }}" >
-                                        @error('nik')
+                                        <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
+                                        <input type="text" name="nama_lengkap" autofocus class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap"  value="{{ old("nama_lengkap", $user->nama_lengkap) }}">
+                                        @error('nama_lengkap')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>
@@ -31,13 +31,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
-                                        <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
-                                        <input type="text" name="nama_lengkap" class="form-control @error('nama_lengkap') is-invalid @enderror" id="nama_lengkap"  value="{{ old("nama_lengkap", $user->nama_lengkap) }}">
-                                        @error('nama_lengkap')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                        <label for="nik" class="form-label">NIK</label>
+                                        <input type="number" name="nik" disabled class="form-control" id="nik" value="{{ old('nik', $user->nik) }}" >
                                     </div>
                                 </div>
                                 <div class="row">
@@ -126,6 +121,17 @@
                                         <label for="no_hp" class="form-label">No. Handphone</label>
                                         <input type="number" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" value="{{ old('no_hp', $user->no_hp) }}" >
                                         @error('no_hp')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="alamat" class="form-label">Alamat</label>
+                                        <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat', $user->alamat) }}</textarea>
+                                        @error('alamat')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

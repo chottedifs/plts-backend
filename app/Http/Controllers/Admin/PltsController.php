@@ -55,7 +55,9 @@ class PltsController extends Controller
             'nama_lengkap' => 'required|max:255',
             'lokasi_id' => 'required',
             'nip' => 'required|numeric',
-            'no_hp' => 'required|numeric',
+            'alamat' => 'required|max:500',
+            'nik' => 'required|numeric|digits:16',
+            'no_hp' => 'required|numeric|digits_between:12,13',
             'jenis_kelamin' => 'required'
         ]);
 
@@ -69,7 +71,7 @@ class PltsController extends Controller
         $validatedData2['login_id'] = $login->id;
         Plts::create($validatedData2);
 
-        Alert::toast('PLTS berhasil ditambahkan!','success');
+        Alert::toast('PLTS berhasil ditambahkan!', 'success');
         return redirect(route('master-plts.index'));
     }
 
@@ -115,6 +117,7 @@ class PltsController extends Controller
             'lokasi_id' => 'required',
             'nip' => 'required|numeric',
             'no_hp' => 'required|numeric',
+            'alamat' => 'required|max:500',
             'jenis_kelamin' => 'required'
         ]);
 
@@ -150,7 +153,7 @@ class PltsController extends Controller
         $validatedData2['login_id'] = $plts->login_id;
         $plts->update($validatedData2);
 
-        Alert::toast('PLTS berhasil diupdate!','success');
+        Alert::toast('PLTS berhasil diupdate!', 'success');
 
         return redirect(route('master-plts.index'));
     }
@@ -173,13 +176,13 @@ class PltsController extends Controller
             $active['is_active'] = 0;
             $login = Login::findOrFail($plts->Login->id);
             $login->update($active);
-            Alert::toast('Status PLTS berhasil di Non-aktifkan!','success');
+            Alert::toast('Status PLTS berhasil di Non-aktifkan!', 'success');
             return redirect(route('master-plts.index'));
         } elseif ($plts->Login->is_active == 0) {
             $active['is_active'] = 1;
             $login = Login::findOrFail($plts->Login->id);
             $login->update($active);
-            Alert::toast('Status PLTS Berhasil di Diaktifkan!','success');
+            Alert::toast('Status PLTS Berhasil di Diaktifkan!', 'success');
             return redirect(route('master-plts.index'));
         }
     }

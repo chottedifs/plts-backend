@@ -55,10 +55,10 @@ class UserController extends Controller
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
             'nama_rekening' => 'required|max:255',
-            'alamat' => 'required|max:500',
             'lokasi_id' => 'required',
-            'nik' => 'required|numeric|digits_between:15,16',
-            'rekening' => 'required|numeric',
+            'alamat' => 'required|max:500',
+            'nik' => 'required|numeric|digits:16',
+            'rekening' => 'required|numeric|digits:13',
             'no_hp' => 'required|numeric|digits_between:12,13',
             'jenis_kelamin' => 'required'
         ]);
@@ -66,8 +66,10 @@ class UserController extends Controller
         $validatedData1['roles'] = 'user';
         $validatedData1['is_active'] = true;
 
+
         $login = Login::create($validatedData1);
 
+        $validatedData2['nama_rekening'] = strtoupper($validatedData2['nama_rekening']);
         $validatedData2['login_id'] = $login->id;
         User::create($validatedData2);
 
@@ -111,10 +113,11 @@ class UserController extends Controller
     {
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
+            'nama_rekening' => 'required|max:255',
             'lokasi_id' => 'required',
-            'nik' => 'required|numeric',
-            'rekening' => 'required|numeric',
-            'no_hp' => 'required|numeric',
+            'alamat' => 'required|max:500',
+            'rekening' => 'required|numeric|digits:13',
+            'no_hp' => 'required|numeric|digits_between:12,13',
             'jenis_kelamin' => 'required'
         ]);
 
@@ -143,8 +146,7 @@ class UserController extends Controller
             $user->Login->update($validatedData1);
         }
 
-
-
+        $validatedData2['nama_rekening'] = strtoupper($validatedData2['nama_rekening']);
         $validatedData2['login_id'] = $user->login_id;
         $user->update($validatedData2);
 

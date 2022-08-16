@@ -43,9 +43,11 @@
                                     <th>Nama Lengkap</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Email</th>
+                                    <th>NIK</th>
                                     <th>NIP</th>
                                     <th>No Handphone</th>
                                     <th>Lokasi</th>
+                                    <th>Alamat</th>
                                     <th>Status User</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -57,9 +59,11 @@
                                     <td>{{ $plts->nama_lengkap }}</td>
                                     <td>{{ $plts->jenis_kelamin }}</td>
                                     <td>{{ $plts->Login->email }}</td>
+                                    <td>{{ $plts->nik }}</td>
                                     <td>{{ $plts->nip }}</td>
                                     <td>{{ $plts->no_hp }}</td>
                                     <td>{{ $plts->Lokasi->nama_lokasi }}</td>
+                                    <td>{{ $plts->alamat }}</td>
                                     <td>
                                         @if ($plts->Login->is_active)
                                         <form action="{{ route('plts-isActive', $plts->id)}}" method="post">

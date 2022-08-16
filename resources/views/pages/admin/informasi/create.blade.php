@@ -37,7 +37,8 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="gambar" class=" form-control-label">Upload Gambar</label>
-                                        <input type="file" id="gambar" name="gambar" class="form-control-file">
+                                        <img class="img-preview img-fluid">
+                                        <input type="file" id="gambar" name="gambar" class="form-control-file" onchange="previewImage()">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -52,4 +53,16 @@
     </div>
     <!-- .animated -->
 </div>
+
+<script>
+    function previewImage(){
+        const image = document.querySelector('#gambar');
+        const imgPreview = document.querySelector('.img-preview');
+
+        const blob = URL.createObjectURL(image.files[0]);
+        imgPreview.src = blob;
+    }
+</script>
+
+
 @endsection

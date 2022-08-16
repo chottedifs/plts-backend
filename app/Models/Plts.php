@@ -21,6 +21,7 @@ class Plts extends Model
         'nip',
         'no_hp',
         'nama_lengkap',
+        'jenis_kelamin',
         'alamat',
         'status_petugas'
     ];
