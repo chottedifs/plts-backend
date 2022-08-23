@@ -18,6 +18,8 @@ class CreatePetugasTable extends Migration
             $table->string('nama_lengkap');
             $table->foreignId('login_id')->constrained();
             $table->foreignId('lokasi_id')->constrained();
+            $table->string('nik', 16);
+            $table->string('alamat');
             $table->string('nip');
             $table->string('no_hp');
             $table->string('jenis_kelamin');

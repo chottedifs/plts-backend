@@ -54,18 +54,28 @@ class UserController extends Controller
         ]);
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
+            'nama_rekening' => 'required|max:255',
             'lokasi_id' => 'required',
+<<<<<<< HEAD
             'nik' => 'required|max:16|digits:16',
             'rekening' => 'required|numeric',
             'no_hp' => 'required|numeric|digits_between: 12,13',
+=======
+            'alamat' => 'required|max:500',
+            'nik' => 'required|numeric|digits:16',
+            'rekening' => 'required|numeric|digits:13',
+            'no_hp' => 'required|numeric|digits_between:12,13',
+>>>>>>> 1ca40d638458780ac939da781056ad333b2e987f
             'jenis_kelamin' => 'required'
         ]);
         $validatedData1['password'] = bcrypt($validatedData1['password']);
         $validatedData1['roles'] = 'user';
         $validatedData1['is_active'] = true;
 
+
         $login = Login::create($validatedData1);
 
+        $validatedData2['nama_rekening'] = strtoupper($validatedData2['nama_rekening']);
         $validatedData2['login_id'] = $login->id;
         User::create($validatedData2);
 
@@ -109,10 +119,17 @@ class UserController extends Controller
     {
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
+            'nama_rekening' => 'required|max:255',
             'lokasi_id' => 'required',
+<<<<<<< HEAD
             'nik' => 'required|max:16|digits:16',
             'rekening' => 'required|numeric',
             'no_hp' => 'required|numeric|digits_between: 12,13',
+=======
+            'alamat' => 'required|max:500',
+            'rekening' => 'required|numeric|digits:13',
+            'no_hp' => 'required|numeric|digits_between:12,13',
+>>>>>>> 1ca40d638458780ac939da781056ad333b2e987f
             'jenis_kelamin' => 'required'
         ]);
 
@@ -141,8 +158,7 @@ class UserController extends Controller
             $user->Login->update($validatedData1);
         }
 
-
-
+        $validatedData2['nama_rekening'] = strtoupper($validatedData2['nama_rekening']);
         $validatedData2['login_id'] = $user->login_id;
         $user->update($validatedData2);
 

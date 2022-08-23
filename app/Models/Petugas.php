@@ -15,6 +15,7 @@ class Petugas extends Model
 
     protected $fillable = [
         'nama_lengkap',
+        'nik',
         'email',
         'password',
         'login_id',
@@ -22,6 +23,7 @@ class Petugas extends Model
         'nip',
         'no_hp',
         'jenis_kelamin',
+        'alamat',
         'status_petugas'
     ];
 

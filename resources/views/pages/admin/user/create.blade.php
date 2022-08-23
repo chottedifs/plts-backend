@@ -98,6 +98,17 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
+                                        <label for="nama_rekening" class="form-label">Nama Rekening</label>
+                                        <input type="text" name="nama_rekening" class="form-control @error('nama_rekening') is-invalid @enderror" id="nama_rekening"  value="{{ old("nama_rekening") }}">
+                                        @error('nama_rekening')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
                                         <label for="rekening" class="form-label">No. Rekening</label>
                                         <input type="number" name="rekening" class="form-control @error('rekening') is-invalid @enderror" id="rekening" value="{{old('rekening') }}">
                                         @error('rekening')
@@ -112,6 +123,17 @@
                                         <label for="no_hp" class="form-label">No. Handphone</label>
                                         <input type="number" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" id="no_hp" value="{{ old('no_hp') }}" >
                                         @error('no_hp')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-3 col-lg-12">
+                                        <label for="alamat" class="form-label">Alamat</label>
+                                        <textarea name="alamat" id="alamat" cols="30" rows="10" class="form-control @error('alamat') is-invalid @enderror">{{ old('alamat') }}</textarea>
+                                        @error('alamat')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

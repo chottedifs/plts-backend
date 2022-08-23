@@ -15,11 +15,13 @@ class User extends Model
 
     protected $fillable = [
         'nama_lengkap',
+        'nama_rekening',
         'lokasi_id',
         'rekening',
         'nik',
         'no_hp',
         'jenis_kelamin',
+        'alamat',
         'login_id'
     ];
 

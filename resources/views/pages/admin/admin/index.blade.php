@@ -41,11 +41,13 @@
                                 <tr>
                                     <th class="serial">#</th>
                                     <th>Nama Lengkap</th>
+                                    <th>NIK</th>
                                     <th>Jenis Kelamin</th>
                                     <th>Email</th>
                                     <th>NIP</th>
                                     <th>No Handphone</th>
                                     <th>Lokasi</th>
+                                    <th>Alamat</th>
                                     <th>Status User</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -55,11 +57,13 @@
                                 <tr>
                                     <td class="serial">{{ $loop->iteration }}</td>
                                     <td>{{ $admin->nama_lengkap }}</td>
+                                    <td>{{ $admin->nik }}</td>
                                     <td>{{ $admin->jenis_kelamin }}</td>
                                     <td>{{ $admin->Login->email }}</td>
                                     <td>{{ $admin->nip }}</td>
                                     <td>{{ $admin->no_hp }}</td>
                                     <td>{{ $admin->Lokasi->nama_lokasi }}</td>
+                                    <td>{{ $admin->alamat }}</td>
                                     <td>
                                         @if ($admin->status_admin == 1)
                                         Aktif
