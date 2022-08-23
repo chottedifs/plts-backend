@@ -55,9 +55,9 @@ class UserController extends Controller
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
             'lokasi_id' => 'required',
-            'nik' => 'required|numeric|digits_between:15,16',
+            'nik' => 'required|max:16|digits:16',
             'rekening' => 'required|numeric',
-            'no_hp' => 'required|numeric|digits_between:12,13',
+            'no_hp' => 'required|numeric|digits_between: 12,13',
             'jenis_kelamin' => 'required'
         ]);
         $validatedData1['password'] = bcrypt($validatedData1['password']);
@@ -110,9 +110,9 @@ class UserController extends Controller
         $validatedData2 = $request->validate([
             'nama_lengkap' => 'required|max:255',
             'lokasi_id' => 'required',
-            'nik' => 'required|numeric',
+            'nik' => 'required|max:16|digits:16',
             'rekening' => 'required|numeric',
-            'no_hp' => 'required|numeric',
+            'no_hp' => 'required|numeric|digits_between: 12,13',
             'jenis_kelamin' => 'required'
         ]);
 

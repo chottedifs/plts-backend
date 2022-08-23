@@ -12,7 +12,9 @@ use Auth;
 class SewaKiosController extends Controller
 {
     public function all(Request $request){
-        $kios = SewaKios::with('RelasiKios', 'Tagihan')->where('user_id', Auth::user()->User->id)->get();
+        $kios = SewaKios::with('RelasiKios', 'Tagihan')
+                ->where('user_id', Auth::user()->User->id)
+                ->get();
 
         foreach ($kios as $dataKios){
             $response[] = [
