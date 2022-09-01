@@ -31,14 +31,26 @@
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="deskripsi" class=" form-label">Deskripsi</label>
-                                        <textarea name="deskripsi" id="deskripsi" rows="9" placeholder="Deskripsi..." class="form-control"></textarea>
+                                        <textarea name="deskripsi" id="deskripsi" rows="9" placeholder="Deskripsi..." class="form-control @error('deskripsi') is-invalid @enderror"></textarea>
+                                        @error('deskripsi')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
+                                </div>
+                                <div>
+                                    <img class="img-preview img-fluid" width="500px">
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-lg-12">
                                         <label for="gambar" class=" form-control-label">Upload Gambar</label>
-                                        <img class="img-preview img-fluid">
-                                        <input type="file" id="gambar" name="gambar" class="form-control-file" onchange="previewImage()">
+                                        <input type="file" class="form-control @error('gambar') is-invalid @enderror" placeholder="gambar"  id="gambar" name="gambar" value="{{ old("gambar") }}" onchange="previewImage()">
+                                        @error('gambar')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-3">Submit</button>

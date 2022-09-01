@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Informasi;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class InformasiController extends Controller
@@ -31,17 +32,13 @@ class InformasiController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required',
-            'deskripsi' => 'required|max:255',
-            'gambar' => 'required',
-            'gambar.*' => 'mimes:jpg,jpeg,png|max:1000',
+            'deskripsi' => 'required',
+            'gambar' => 'required|mimes:jpg,jpeg,png|max:1000',
         ]);
-
-        $validatedData['gambar'] = $request->file('gambar')->store(
-            'images', 'public'
-        );
+        $validatedData['gambar'] = $request->file('gambar')->store('public/images/informasi');
         Informasi::create($validatedData);
 
-        Alert::toast('Data informasi berhasil ditambahkan!','success');
+        Alert::toast('Data informasi berhasil ditambahkan!', 'success');
         return redirect(route('master-informasi.index'));
     }
 
@@ -67,23 +64,32 @@ class InformasiController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->all();
-        $data['gambar'] = $request->file('gambar')->store(
-            'images', 'public'
-        );
-        $informations = Informasi::findOrFail($id);
-        $informations->update($data);
+        $informasi = Informasi::findOrFail($id);
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'deskripsi' => 'required',
+        ]);
+        if ($request->file('gambar')) {
+            $validatedData = $request->validate(['gambar' => 'mimes:jpg,jpeg,png|max:1000']);
+            Storage::delete($informasi->gambar);
+            $validatedData['gambar'] = $request->file('gambar')->store('public/images/informasi');
+            // $validatedData['image'] = $request->file('image')->store('public/images/infografis');
+        }
+        // $informations = Informasi::findOrFail($id);
+        $informasi->update($validatedData);
 
-        Alert::toast('Data informasi berhasil diupdate!','success');
+        Alert::toast('Data informasi berhasil diupdate!', 'success');
         return redirect(route('master-informasi.index'));
     }
 
     public function destroy($id)
     {
         $informations = Informasi::findOrFail($id);
-        $informations->delete();
+        Storage::delete($informations->image);
+        Informasi::destroy($informations->id);
+        // $informations->delete();
 
-        Alert::toast('Data informasi berhasil dihapus!','success');
+        Alert::toast('Data informasi berhasil dihapus!', 'success');
         return redirect(route('master-informasi.index'));
     }
 }
