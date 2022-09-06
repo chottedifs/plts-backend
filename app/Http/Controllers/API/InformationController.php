@@ -8,12 +8,13 @@ use Illuminate\Http\Request;
 
 class InformationController extends Controller
 {
-    public function all(Request $request){
+    public function all()
+    {
         $informations = Informasi::all();
 
-        if($informations)
-            return ResponseFormatter::success($informations, 'Data Sewa Kios Berhasil di Ambil');
+        if ($informations)
+            return ResponseFormatter::success($informations, 'Data Informasi Berhasil di Ambil');
         else
-            return ResponseFormatter::error(null, 'Data Sewa Kios Tidak Ada', 404);
+            return ResponseFormatter::error(null, 'Data Informasi Tidak Ada', 404);
     }
 }

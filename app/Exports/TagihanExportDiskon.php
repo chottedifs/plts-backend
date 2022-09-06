@@ -83,6 +83,7 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
             $dataTagihan->master_status_id,
             $dataTagihan->kode_tagihan,
             $dataTagihan->SewaKios->User->nama_lengkap,
+            $dataTagihan->SewaKios->User->nik,
             date('M Y', strtotime($dataTagihan->periode)),
             $dataTagihan->diskon,
             $dataTagihan->remarks,
@@ -93,18 +94,19 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
     {
         return [
             ' ',
-            'user_id',
-            'sewa_kios_id',
-            'lokasi_id',
-            'total_kwh',
-            'tagihan_kwh',
-            'tagihan_kios',
-            'master_status_id',
-            'kode_tagihan',
-            'nama_penyewa',
-            'periode',
-            'diskon',
-            'keterangan'
+            'user_id', //?b
+            'sewa_kios_id', //?c
+            'lokasi_id', //?d
+            'total_kwh', //?e
+            'tagihan_kwh', //?f
+            'tagihan_kios', //?g
+            'master_status_id', //?h
+            'kode_tagihan', //?i
+            'nama_penyewa', //?j
+            'nik', //?k
+            'periode', //?l
+            'diskon', //?m
+            'keterangan' //?n
         ];
     }
 
@@ -128,7 +130,7 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
                 ->getProtection()
                 ->setSheet(true);
 
-            // // Hide Column yang tidak diperlukan
+            // Hide Column yang tidak diperlukan
             $workSheet = $event->sheet->getColumnDimension('B')->setVisible(false);
             $workSheet = $event->sheet->getColumnDimension('C')->setVisible(false);
             $workSheet = $event->sheet->getColumnDimension('D')->setVisible(false);
@@ -140,14 +142,14 @@ class TagihanExportDiskon implements FromCollection, WithMapping, WithHeadings, 
             // Unlock Column untuk diisi
             $workSheet = $event
                 ->sheet
-                ->getStyle('L')
+                ->getStyle('M')
                 ->getProtection()
                 ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
 
             // Unlock Column untuk diisi
             $workSheet = $event
                 ->sheet
-                ->getStyle('M')
+                ->getStyle('N')
                 ->getProtection()
                 ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
         } catch (Exception $exception) {

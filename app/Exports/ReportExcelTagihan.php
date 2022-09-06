@@ -39,6 +39,7 @@ class ReportExcelTagihan implements FromCollection, WithMapping, WithHeadings, S
         return [
             $dataTagihan->kode_tagihan,
             $dataTagihan->SewaKios->User->nama_lengkap,
+            $dataTagihan->SewaKios->User->nik,
             $dataTagihan->SewaKios->RelasiKios->Kios->nama_kios,
             $dataTagihan->SewaKios->RelasiKios->Lokasi->nama_lokasi,
             $dataTagihan->total_kwh,
@@ -56,6 +57,7 @@ class ReportExcelTagihan implements FromCollection, WithMapping, WithHeadings, S
         return [
             'Kode Tagihan',
             'Nama Penyewa',
+            'NIK',
             'Kios',
             'Lokasi Kios',
             'Kwh Terpakai',

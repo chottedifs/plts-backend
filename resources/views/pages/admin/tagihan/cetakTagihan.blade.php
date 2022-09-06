@@ -60,7 +60,7 @@
                     <td>Nama</td>
                     <td style="padding-left: 40px;">:</td>
                     <td>
-                        @if ( !Auth::user()->roles = "admin")
+                        @if ( Auth::user()->roles != "admin")
                             {{ Auth::user()->Petugas->nama_lengkap }}
                         @else
                             {{ Auth::user()->Admin->nama_lengkap }}
@@ -70,7 +70,11 @@
                 <tr>
                     <td>NIK</td>
                     <td style="padding-left: 40px;">:</td>
-                    <td>xxxxxxxxxxxx</td>
+                    <td>@if ( Auth::user()->roles != "admin")
+                            {{ Auth::user()->Petugas->nik }}
+                        @else
+                            {{ Auth::user()->Admin->nik }}
+                        @endif</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
@@ -81,7 +85,7 @@
                     <td>No. HP</td>
                     <td style="padding-left: 40px;">:</td>
                     <td>
-                        @if ( !Auth::user()->roles = "admin")
+                        @if ( Auth::user()->roles != "admin")
                             {{ Auth::user()->Petugas->no_hp }}
                         @else
                             {{ Auth::user()->Admin->no_hp }}

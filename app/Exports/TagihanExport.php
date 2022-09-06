@@ -24,7 +24,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
     {
         $roles = Auth::user()->roles;
         if ($roles == "plts") {
-            $sewaKios = SewaKios::with('RelasiKios')->where(['status_sewa' => 1, 'use_plts' => 1])->get();
+            $sewaKios = SewaKios::with('RelasiKios', 'User')->where(['status_sewa' => 1, 'use_plts' => 1])->get();
             // $sewaKios = SewaKios::with('RelasiKios')->where('status_sewa', 1)->get();
             // $lokasiPlts = Auth::user()->Plts->lokasi_id;
             // // $lokasiKios = RelasiKios::with('Lokasi')->where('lokasi_id', $lokasiPlts)->get();
@@ -72,6 +72,7 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             $sewaKios->RelasiKios->Kios->id,
             $sewaKios->lokasi_id,
             $sewaKios->User->nama_lengkap,
+            $sewaKios->User->nik,
             $sewaKios->User->rekening,
             $sewaKios->Lokasi->nama_lokasi,
             $tarif_dasar->harga,
@@ -86,19 +87,20 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
     {
         return [
             ' ',
-            'user_id',
-            'sewa_id',
-            'kios_id',
-            'lokasi_id',
-            'nama_penyewa',
-            'no_rekening',
-            'lokasi',
-            'tarif_dasar_kwh',
-            'tarif_kios',
-            'periode',
-            'keterangan',
-            'use_plts',
-            'total_kwh',
+            'user_id', //?b
+            'sewa_id', //?c
+            'kios_id', //?d
+            'lokasi_id', //?e
+            'nama_penyewa', //?f
+            'nik', //?g
+            'no_rekening', //?h
+            'lokasi', //?i
+            'tarif_dasar_kwh', //?j
+            'tarif_kios', //?k
+            'periode', //?l
+            'keterangan', //?m
+            'use_plts', //?n
+            'total_kwh', //?o
         ];
     }
 
@@ -149,25 +151,18 @@ class TagihanExport implements FromCollection, WithMapping, WithHeadings, Should
             // Hide Column yang tidak diperlukan
             $workSheet = $event
                 ->sheet
-                ->getColumnDimension('H')
-                ->setVisible(false);
-
-            // Hide Column yang tidak diperlukan
-            $workSheet = $event
-                ->sheet
-                ->getColumnDimension('I')
-                ->setVisible(false);
-
-            // Hide Column yang tidak diperlukan
-            $workSheet = $event
-                ->sheet
                 ->getColumnDimension('J')
                 ->setVisible(false);
 
+            // Hide Column yang tidak diperlukan
+            $workSheet = $event
+                ->sheet
+                ->getColumnDimension('K')
+                ->setVisible(false);
             // Unlock Column untuk diisi
             $workSheet = $event
                 ->sheet
-                ->getStyle('N')
+                ->getStyle('O')
                 ->getProtection()
                 ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
         } catch (Exception $exception) {

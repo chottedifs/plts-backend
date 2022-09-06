@@ -12,7 +12,7 @@ class AuthController extends Controller
     {
         $user = Login::where('email', $request->email)->first();
 
-        if(!$user || !\Hash::check($request->password, $user->password)) {
+        if (!$user || !\Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'Unauthorized'
             ], 401);
@@ -24,6 +24,7 @@ class AuthController extends Controller
             'user' => [
                 'id' => $user->id,
                 'email' => $user->email,
+                'nik' => $user->User->nik,
                 'nama_lengkap' => $user->User->nama_lengkap,
                 'no_hp' => $user->User->no_hp,
                 'no_rekening' => $user->User->rekening,
@@ -32,8 +33,8 @@ class AuthController extends Controller
             'token' => $token
         ];
 
-        if($response)
-            return ResponseFormatter::success($response,'Data User Berhasil di Ambil');
+        if ($response)
+            return ResponseFormatter::success($response, 'Data User Berhasil di Ambil');
         else
             return ResponseFormatter::error(null, 'Data User Tidak Ada', 404);
     }

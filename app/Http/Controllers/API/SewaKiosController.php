@@ -16,7 +16,7 @@ class SewaKiosController extends Controller
     //             ->where('user_id', Auth::user()->User->id)
     //             ->get();
     // }
-    public function all(Request $request)
+    public function all()
     {
         $kios = SewaKios::with('RelasiKios', 'Tagihan')->where('user_id', Auth::user()->User->id)->get();
 
